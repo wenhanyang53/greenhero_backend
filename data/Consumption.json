@@ -1,0 +1,241 @@
+[{
+  "_id": {
+    "$oid": "5fa84b32b8e195e535220eac"
+  },
+  "user_id": {
+    "$oid": "5fa177809af0e02777994f80"
+  },
+  "date": {
+    "$date": "2020-11-07T00:00:00Z"
+  },
+  "total": 50,
+  "category": "Outlets"
+},{
+  "_id": {
+    "$oid": "5fa84de43b97a4593c984ed0"
+  },
+  "user_id": {
+    "$oid": "5fa177809af0e02777994f80"
+  },
+  "date": {
+    "$date": "2020-11-07T00:00:00Z"
+  },
+  "total": 100,
+  "category": "Heating"
+},{
+  "_id": {
+    "$oid": "5fa84e543b97a4593c984ed1"
+  },
+  "user_id": {
+    "$oid": "5fa177809af0e02777994f80"
+  },
+  "date": {
+    "$date": "2020-11-07T00:00:00Z"
+  },
+  "total": 100,
+  "category": "Light"
+},{
+  "_id": {
+    "$oid": "5fa84e743b97a4593c984ed2"
+  },
+  "user_id": {
+    "$oid": "5fa177809af0e02777994f80"
+  },
+  "date": {
+    "$date": "2020-11-07T00:00:00Z"
+  },
+  "total": 300,
+  "category": "Stations"
+},{
+  "_id": {
+    "$oid": "5fa84e923b97a4593c984ed3"
+  },
+  "user_id": {
+    "$oid": "5fa80eed52c1988d17e45c8f"
+  },
+  "date": {
+    "$date": "2020-11-07T00:00:00Z"
+  },
+  "total": 50,
+  "category": "Outlets"
+},{
+  "_id": {
+    "$oid": "5fa84eae3b97a4593c984ed4"
+  },
+  "user_id": {
+    "$oid": "5fa80eed52c1988d17e45c8f"
+  },
+  "date": {
+    "$date": "2020-11-07T00:00:00Z"
+  },
+  "total": 100,
+  "category": "Heating"
+},{
+  "_id": {
+    "$oid": "5fa84ec23b97a4593c984ed5"
+  },
+  "user_id": {
+    "$oid": "5fa80eed52c1988d17e45c8f"
+  },
+  "date": {
+    "$date": "2020-11-07T00:00:00Z"
+  },
+  "total": 100,
+  "category": "Light"
+},{
+  "_id": {
+    "$oid": "5fa84ed73b97a4593c984ed6"
+  },
+  "user_id": {
+    "$oid": "5fa80eed52c1988d17e45c8f"
+  },
+  "date": {
+    "$date": "2020-11-07T00:00:00Z"
+  },
+  "total": 300,
+  "category": "Stations"
+},{
+  "_id": {
+    "$oid": "5fa84ef23b97a4593c984ed7"
+  },
+  "user_id": {
+    "$oid": "5fa80fb852c1988d17e45c90"
+  },
+  "date": {
+    "$date": "2020-11-07T00:00:00Z"
+  },
+  "total": 50,
+  "category": "Outlets"
+},{
+  "_id": {
+    "$oid": "5fa84f0c3b97a4593c984ed8"
+  },
+  "user_id": {
+    "$oid": "5fa80fb852c1988d17e45c90"
+  },
+  "date": {
+    "$date": "2020-11-07T00:00:00Z"
+  },
+  "total": 100,
+  "category": "Heating"
+},{
+  "_id": {
+    "$oid": "5fa84f283b97a4593c984ed9"
+  },
+  "user_id": {
+    "$oid": "5fa80fb852c1988d17e45c90"
+  },
+  "date": {
+    "$date": "2020-11-07T00:00:00Z"
+  },
+  "total": 100,
+  "category": "Light"
+},{
+  "_id": {
+    "$oid": "5fa84f3e3b97a4593c984eda"
+  },
+  "user_id": {
+    "$oid": "5fa80fb852c1988d17e45c90"
+  },
+  "date": {
+    "$date": "2020-11-07T00:00:00Z"
+  },
+  "total": 300,
+  "category": "Stations"
+},{
+  "_id": {
+    "$oid": "5fa84f4f3b97a4593c984edb"
+  },
+  "user_id": {
+    "$oid": "5fa810ff52c1988d17e45c91"
+  },
+  "date": {
+    "$date": "2020-11-07T00:00:00Z"
+  },
+  "total": 50,
+  "category": "Outlets"
+},{
+  "_id": {
+    "$oid": "5fa84f693b97a4593c984edc"
+  },
+  "user_id": {
+    "$oid": "5fa810ff52c1988d17e45c91"
+  },
+  "date": {
+    "$date": "2020-11-07T00:00:00Z"
+  },
+  "total": 100,
+  "category": "Heating"
+},{
+  "_id": {
+    "$oid": "5fa84f763b97a4593c984edd"
+  },
+  "user_id": {
+    "$oid": "5fa810ff52c1988d17e45c91"
+  },
+  "date": {
+    "$date": "2020-11-07T00:00:00Z"
+  },
+  "total": 100,
+  "category": "Light"
+},{
+  "_id": {
+    "$oid": "5fa84f853b97a4593c984ede"
+  },
+  "user_id": {
+    "$oid": "5fa810ff52c1988d17e45c91"
+  },
+  "date": {
+    "$date": "2020-11-07T00:00:00Z"
+  },
+  "total": 300,
+  "category": "Stations"
+},{
+  "_id": {
+    "$oid": "5fa84fef3b97a4593c984edf"
+  },
+  "user_id": {
+    "$oid": "5fa83b1eb8e195e535220ea6"
+  },
+  "date": {
+    "$date": "2020-11-07T00:00:00Z"
+  },
+  "total": 50,
+  "category": "Outlets"
+},{
+  "_id": {
+    "$oid": "5fa8500f3b97a4593c984ee0"
+  },
+  "user_id": {
+    "$oid": "5fa83b1eb8e195e535220ea6"
+  },
+  "date": {
+    "$date": "2020-11-07T00:00:00Z"
+  },
+  "total": 100,
+  "category": "Heating"
+},{
+  "_id": {
+    "$oid": "5fa8501c3b97a4593c984ee1"
+  },
+  "user_id": {
+    "$oid": "5fa83b1eb8e195e535220ea6"
+  },
+  "date": {
+    "$date": "2020-11-07T00:00:00Z"
+  },
+  "total": 100,
+  "category": "Light"
+},{
+  "_id": {
+    "$oid": "5fa8502a3b97a4593c984ee2"
+  },
+  "user_id": {
+    "$oid": "5fa83b1eb8e195e535220ea6"
+  },
+  "date": {
+    "$date": "2020-11-07T00:00:00Z"
+  },
+  "total": 300,
+  "category": "Stations"
+}]

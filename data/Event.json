@@ -1,0 +1,27 @@
+[{
+  "_id": {
+    "$oid": "5fa05e6076f63c87fb6a739c"
+  },
+  "eventName": "Water saver",
+  "eventDescription": "Gragas, the monster wasting water, is about to invade this building. Are you ready? Join a team and fight for our building! It opens at 12:00 on Friday.",
+  "openDate": {
+    "$date": "2020-11-03T14:39:54.240Z"
+  },
+  "boss": {
+    "$oid": "5fa1678b9af0e02777994f7e"
+  },
+  "src": ""
+},{
+  "_id": {
+    "$oid": "5fa05f5e76f63c87fb6a739d"
+  },
+  "eventName": "Electricity saver",
+  "eventDescription": "Kennen, the monster wasting electricity, is about to invade this building. Are you ready? Join a team and fight for our building! It opens at 12:00 on Monday.",
+  "openDate": {
+    "$date": "2020-11-02T19:43:11.393Z"
+  },
+  "boss": {
+    "$oid": "5fa1689f9af0e02777994f7f"
+  },
+  "src": ""
+}]

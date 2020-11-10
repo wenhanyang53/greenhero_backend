@@ -1,0 +1,23 @@
+[{
+  "_id": {
+    "$oid": "5fa1678b9af0e02777994f7e"
+  },
+  "bossName": "Gragas",
+  "bossDescription": "Gragas is a sea monster, he absorbs the water element to make himself stronger. When under attack, it uses water elements to form a shield, so it has a high armor value.",
+  "avatar": "",
+  "health": 1000,
+  "armor": 8,
+  "attack": 18,
+  "healing_factor": 10
+},{
+  "_id": {
+    "$oid": "5fa1689f9af0e02777994f7f"
+  },
+  "bossName": "Kennen",
+  "bossDescription": "Kenne is good at summoning lightning, it will release lightning to attack its enemies, causing high damage. It would be better to have Priest in the team.",
+  "avatar": "",
+  "health": 1000,
+  "armor": 2,
+  "attack": 25,
+  "healing_factor": 10
+}]

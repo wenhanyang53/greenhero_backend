@@ -1,0 +1,69 @@
+[{
+  "_id": {
+    "$oid": "5fa177809af0e02777994f80"
+  },
+  "userName": "fengruizhan7@gmail.com",
+  "userPassword": "12345",
+  "email": "fengruizhan7@gmail.com",
+  "abilityPoints": 200,
+  "personalInfo": {
+    "$oid": "5fa802ed1059feea9cdb8e88"
+  },
+  "typeOfUser": "user",
+  "avatarUrl": "",
+  "consumption": ""
+},{
+  "_id": {
+    "$oid": "5fa80eed52c1988d17e45c8f"
+  },
+  "userName": "wenhan.yang53@gmail.com",
+  "userPassword": "12345",
+  "email": "wenhan.yang53@gmail.com",
+  "abilityPoints": "300",
+  "personalInfo": {
+    "$oid": "5fa8129d52c1988d17e45c92"
+  },
+  "typeOfUser": "user",
+  "avatarUrl": "",
+  "consumption": ""
+},{
+  "_id": {
+    "$oid": "5fa80fb852c1988d17e45c90"
+  },
+  "userName": "fitzgibbondeclan@gmail.com",
+  "userPassword": "12345",
+  "email": "fitzgibbondeclan@gmail.com",
+  "abilityPoints": "200",
+  "personalInfo": {
+    "$oid": "5fa8138452c1988d17e45c93"
+  },
+  "typeOfUser": "user",
+  "avatarUrl": "",
+  "consumption": ""
+},{
+  "_id": {
+    "$oid": "5fa810ff52c1988d17e45c91"
+  },
+  "userName": "elijah@gmail.com",
+  "userPassword": "12345",
+  "email": "elijah@gmail.com",
+  "abilityPoints": "200",
+  "personalInfo": {
+    "$oid": "5fa813f552c1988d17e45c94"
+  },
+  "typeOfUser": "user",
+  "avatarUrl": "",
+  "consumption": ""
+},{
+  "_id": {
+    "$oid": "5fa83b1eb8e195e535220ea6"
+  },
+  "userName": "reynaldoquinterom@gmail.com",
+  "userPassword": "12345",
+  "email": "reynaldoquinterom@gmail.com",
+  "abilityPoints": null,
+  "personalInfo": null,
+  "typeOfUser": "admin",
+  "avatarUrl": "",
+  "consumption": ""
+}]

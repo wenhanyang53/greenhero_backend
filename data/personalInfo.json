@@ -1,0 +1,55 @@
+[{
+  "_id": {
+    "$oid": "5fa802ed1059feea9cdb8e88"
+  },
+  "user_id": {
+    "$oid": "5fa177809af0e02777994f80"
+  },
+  "realName": "Fengrui Zhan",
+  "occupation": "Developers",
+  "biography": "I am a developer. I am a new guy in this building. And I really like Green Hero. Sometimes I don't realize I'm wasting energy, but this app reminds me to save energy for the building.Let's make our own contribution to this green building.",
+  "email": "fengruizhan7@gmail.com",
+  "facebook": "Fengrui Zhan",
+  "linkedin": "Fengrui ZHAN",
+  "phone": "0763639832"
+},{
+  "_id": {
+    "$oid": "5fa8129d52c1988d17e45c92"
+  },
+  "user_id": {
+    "$oid": "5fa80eed52c1988d17e45c8f"
+  },
+  "realName": "Wenhan Yang",
+  "occupation": "Engineers",
+  "biography": "I am a engineer. I am a new guy in this building. And I really like Green Hero. Sometimes I don't realize I'm wasting energy, but this app reminds me to save energy for the building.Let's make our own contribution to this green building.",
+  "email": "wenhan.yang53@gmail.com",
+  "facebook": "",
+  "linkedin": "",
+  "phone": "0666666666"
+},{
+  "_id": {
+    "$oid": "5fa8138452c1988d17e45c93"
+  },
+  "user_id": {
+    "$oid": "5fa80fb852c1988d17e45c90"
+  },
+  "realName": "Declan Fitzgibbon",
+  "occupation": "Lawyers",
+  "biography": "I am a lawyer. I am a new guy in this building. And I really like Green Hero. Sometimes I don't realize I'm wasting energy, but this app reminds me to save energy for the building.Let's make our own contribution to this green building.",
+  "facebook": "",
+  "linkedin": "",
+  "phone": "0655555555"
+},{
+  "_id": {
+    "$oid": "5fa813f552c1988d17e45c94"
+  },
+  "user_id": {
+    "$oid": "5fa810ff52c1988d17e45c91"
+  },
+  "realName": "Elijah Adeogun",
+  "occupation": "Designers",
+  "biography": "I am a designer. I am a new guy in this building. And I really like Green Hero. Sometimes I don't realize I'm wasting energy, but this app reminds me to save energy for the building.Let's make our own contribution to this green building.",
+  "facebook": "",
+  "linkedin": "",
+  "phone": "0644444444"
+}]

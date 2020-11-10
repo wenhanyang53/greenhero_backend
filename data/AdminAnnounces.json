@@ -1,0 +1,22 @@
+[{
+  "_id": {
+    "$oid": "5fa942bafd4881db1bef4da0"
+  },
+  "icon": "",
+  "title": " System recommendation",
+  "content": "Lights in room 001 are too bright！"
+},{
+  "_id": {
+    "$oid": "5fa942fb8bd88b2e401bfcb7"
+  },
+  "icon": "",
+  "title": " System warning",
+  "content": "Light in room 002 is broken！"
+},{
+  "_id": {
+    "$oid": "5fa943158bd88b2e401bfcb8"
+  },
+  "icon": "",
+  "title": "Power warning",
+  "content": "Weekly allowance has used 90%."
+}]

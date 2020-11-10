@@ -1,0 +1,133 @@
+[{
+  "_id": {
+    "$oid": "5fa08fd5e7fe9c62566464b6"
+  },
+  "ability": "Attack",
+  "type": "Skill",
+  "amount": 0.3,
+  "augmentationType": "percentage",
+  "cost": 300,
+  "locked": false,
+  "owned": false
+},{
+  "_id": {
+    "$oid": "5fa090ade7fe9c62566464b7"
+  },
+  "ability": "Attack",
+  "type": "Skill",
+  "amount": 0.2,
+  "augmentationType": "percentage",
+  "cost": 300,
+  "locked": false,
+  "owned": false
+},{
+  "_id": {
+    "$oid": "5fa090e3e7fe9c62566464b8"
+  },
+  "ability": "Armor",
+  "type": "Stat",
+  "amount": 10,
+  "augmentationType": "flat",
+  "cost": 300,
+  "locked": false,
+  "owned": false
+},{
+  "_id": {
+    "$oid": "5fa09321e7fe9c62566464b9"
+  },
+  "ability": "Attack",
+  "type": "Stat",
+  "amount": 30,
+  "augmentationType": "flat",
+  "cost": 300,
+  "locked": false,
+  "owned": false
+},{
+  "_id": {
+    "$oid": "5fa09448d506ec2913bd62d9"
+  },
+  "ability": "Attack",
+  "type": "Stat",
+  "amount": 20,
+  "augmentationType": "flat",
+  "cost": 250,
+  "locked": false,
+  "owned": false
+},{
+  "_id": {
+    "$oid": "5fa09544d506ec2913bd62da"
+  },
+  "ability": "Attack",
+  "type": "Stat",
+  "amount": 10,
+  "augmentationType": "flat",
+  "cost": 200,
+  "locked": false,
+  "owned": false
+},{
+  "_id": {
+    "$oid": "5fa095c6d506ec2913bd62db"
+  },
+  "ability": "Armor",
+  "type": "Stat",
+  "amount": 10,
+  "augmentationType": "flat",
+  "cost": 300,
+  "locked": false,
+  "owned": false
+},{
+  "_id": {
+    "$oid": "5fa096abd506ec2913bd62dc"
+  },
+  "ability": "Attack",
+  "type": "Stat",
+  "amount": 10,
+  "augmentationType": "flat",
+  "cost": 200,
+  "locked": false,
+  "owned": false
+},{
+  "_id": {
+    "$oid": "5fa09700d506ec2913bd62dd"
+  },
+  "ability": "Health",
+  "type": "Stat",
+  "amount": 50,
+  "augmentationType": "flat",
+  "cost": 300,
+  "locked": false,
+  "owned": false
+},{
+  "_id": {
+    "$oid": "5fa0973dd506ec2913bd62de"
+  },
+  "ability": "Armor",
+  "type": "Stat",
+  "amount": 5,
+  "augmentationType": "flat",
+  "cost": 200,
+  "locked": false,
+  "owned": false
+},{
+  "_id": {
+    "$oid": "5fa09805d506ec2913bd62df"
+  },
+  "ability": "Health",
+  "type": "Stat",
+  "amount": 20,
+  "augmentationType": "flat",
+  "cost": 200,
+  "locked": false,
+  "owned": false
+},{
+  "_id": {
+    "$oid": "5fa09890d506ec2913bd62e0"
+  },
+  "ability": "Attack",
+  "type": "Skill",
+  "amount": 0.15,
+  "augmentationType": "percentage",
+  "cost": 200,
+  "locked": false,
+  "owned": false
+}]
