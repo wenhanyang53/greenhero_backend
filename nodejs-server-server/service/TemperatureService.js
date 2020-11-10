@@ -67,19 +67,6 @@ exports.getAllTemperature = function () {
         db.close();
       });
     });
-<<<<<<< HEAD
-    var examples = {};
-    examples['application/json'] = [{
-      "temperature": 0.80082819046101150206595775671303272247314453125,
-      "_id": "_id",
-      "time": "2000-01-23"
-    }, {
-      "temperature": 0.80082819046101150206595775671303272247314453125,
-      "_id": "_id",
-      "time": "2000-01-23"
-    }];
-=======
->>>>>>> c089d4dc90ba64da0172e1657aedc8390bd27b75
   });
 }
 
