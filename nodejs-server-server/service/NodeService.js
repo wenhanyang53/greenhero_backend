@@ -1,5 +1,7 @@
 'use strict';
-
+var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://localhost:27017/";
+var ObjectId = require('mongodb').ObjectId;
 
 /**
  * Create a new node
@@ -9,7 +11,31 @@
  **/
 exports.createNode = function(body) {
   return new Promise(function(resolve, reject) {
-    resolve();
+    MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+      var mysons=new Array();
+      if(body.sons != undefined){
+        for (var i=0;i<body.sons.length;i++)
+          { 
+            mysons.push(ObjectId(body.sons[i]))
+          }
+      }
+      if (err) throw err;
+      var dbo = db.db("greenhero");
+      var myobj = {"ability": body.ability,
+                    "type": body.type,
+                    "amount": body.amount,
+                    "augmentationType": body.augmentationType,
+                    "cost": body.cost,
+                    "sons":mysons,
+                    "locked": body.locked,
+                    "owned": body.owned};
+      dbo.collection("Node").insertOne(myobj, function(err, res) {
+          if (err) throw err;
+          console.log("successful");
+          resolve(res);
+          db.close();
+      });
+    });
   });
 }
 
@@ -23,7 +49,17 @@ exports.createNode = function(body) {
  **/
 exports.deleteNode = function(_id) {
   return new Promise(function(resolve, reject) {
-    resolve();
+    MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+      if (err) throw err;
+      var dbo = db.db("greenhero");
+      var whereStr = {"_id":ObjectId(_id)};  // condition
+      dbo.collection("Node").deleteOne(whereStr, function(err, obj) {
+          if (err) throw err;
+          console.log("successful");
+          resolve();
+          db.close();
+      });
+  });
   });
 }
 
@@ -37,6 +73,31 @@ exports.deleteNode = function(_id) {
  **/
 exports.modifyNode = function(body) {
   return new Promise(function(resolve, reject) {
+    MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+      var mysons=new Array();
+      if(body.sons != undefined){
+        for (var i=0;i<body.sons.length;i++)
+          { 
+            mysons.push(ObjectId(body.sons[i]))
+          }
+      }
+      if (err) throw err;
+      var dbo = db.db("greenhero");
+      var whereStr = {"_id":ObjectId(body._id)};  // condition
+      var updateStr = {$set: { "ability": body.ability,
+                                "type": body.type,
+                                "amount": body.amount,
+                                "augmentationType": body.augmentationType,
+                                "cost": body.cost,
+                                "sons":mysons,
+                                "locked": body.locked,
+                                "owned": body.owned}};
+      dbo.collection("Node").updateOne(whereStr, updateStr, function(err, res) {
+          if (err) throw err;
+          console.log("successful");
+          db.close();
+      });
+  });
     resolve();
   });
 }
