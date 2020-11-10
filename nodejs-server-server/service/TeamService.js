@@ -4,6 +4,7 @@ var url = "mongodb://localhost:27017/";
 var ObjectId = require('mongodb').ObjectId;
 var Character = require('../service/CharacterService');
 var Application = require('../service/ApplicationService');
+var User = require('../service/UserService');
 
 /**
  * Create a new team
@@ -132,7 +133,8 @@ exports.getNumberOfPeople = function(profession) {
         for(let team of result) {
           if(team.teamLeader) {
             var character = await Character.getCharacterById(team.teamLeader);
-            if (character.user_id.personalInfo.occupation === profession){
+            var user = await User.getUser(character.user_id)
+            if (user.personalInfo.occupation === profession){
                 num += 1;
             }
           }
@@ -140,7 +142,8 @@ exports.getNumberOfPeople = function(profession) {
             for(let i = 0;  i < team.teamMembers.length; i++) {
               const member = team.teamMembers[i];
               var character = await Character.getCharacterById(member);
-              if (character.user_id.personalInfo.occupation === profession){
+              var user = await User.getUser(character.user_id)
+              if (user.personalInfo.occupation === profession){
                 num += 1;
             }
             }
@@ -152,7 +155,7 @@ exports.getNumberOfPeople = function(profession) {
             }
           }
         }
-        resolve(num);
+        resolve({total: num});
         db.close();
       });
     });

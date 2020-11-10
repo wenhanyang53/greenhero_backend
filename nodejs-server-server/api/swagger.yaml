@@ -19,7 +19,7 @@ paths:
       - "application/json"
       parameters:
       - name: "user_id"
-        in: "path"
+        in: "query"
         description: "user id of user info to return"
         required: true
         type: "string"
@@ -863,7 +863,7 @@ paths:
         "404":
           description: "team not found"
       x-swagger-router-controller: "Team"
-  /Team/getNumberOfPeopleByProfandDate:
+  /Team/getNumberOfPeople:
     get:
       tags:
       - "Team"
@@ -883,9 +883,10 @@ paths:
         "200":
           description: "OK"
           schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/Team"
+            type: "object"
+            properties:
+              total:
+                type: "number"
         "404":
           description: "No result found"
       x-swagger-router-controller: "Team"
