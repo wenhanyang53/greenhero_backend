@@ -356,7 +356,7 @@ exports.getAverageConsumptionBetweenUserProfession = function (min_date, max_dat
               $gte: min_date,
               $lt: max_date
             },
-            "user_id": new ObjectId(us._id)
+            "user_id": new ObjectId(us.user_id)
           }).toArray(function (err, result) {
             if (err) throw err;
             let total = 0;
