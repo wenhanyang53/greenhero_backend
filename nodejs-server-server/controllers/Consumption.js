@@ -88,6 +88,45 @@ module.exports.getAllConsumptionBetween = function getAllConsumptionBetween (req
     });
 };
 
+module.exports.getAllConsumptionBetweenForCategory = function getAllConsumptionBetweenForCategory (req, res, next) {
+  var min_date = new Date(req.swagger.params['min_date'].value);
+  var max_date = new Date(req.swagger.params['max_date'].value);
+  var category = req.swagger.params['category'].value;
+  Consumption.getAllConsumptionBetweenForCategory(min_date,max_date,category)
+    .then(function (response) {
+      utils.writeJson(res, response);
+    })
+    .catch(function (response) {
+      utils.writeJson(res, response);
+    });
+};
+
+module.exports.getAllConsumptionBetweenUser = function getAllConsumptionBetweenUser (req, res, next) {
+  var min_date = new Date(req.swagger.params['min_date'].value);
+  var max_date = new Date(req.swagger.params['max_date'].value);
+  var user_id = req.swagger.params['user_id'].value;
+  Consumption.getAllConsumptionBetweenUser(min_date,max_date,user_id)
+    .then(function (response) {
+      utils.writeJson(res, response);
+    })
+    .catch(function (response) {
+      utils.writeJson(res, response);
+    });
+};
+
+module.exports.getAverageConsumptionBetweenUserProfession = function getAverageConsumptionBetweenUserProfession (req, res, next) {
+  var min_date = new Date(req.swagger.params['min_date'].value);
+  var max_date = new Date(req.swagger.params['max_date'].value);
+  var user_id = req.swagger.params['user_id'].value;
+  Consumption.getAverageConsumptionBetweenUserProfession(min_date,max_date,user_id)
+    .then(function (response) {
+      utils.writeJson(res, response);
+    })
+    .catch(function (response) {
+      utils.writeJson(res, response);
+    });
+};
+
 module.exports.modifyConsumption = function modifyConsumption (req, res, next) {
   var body = req.swagger.params['body'].value;
   Consumption.modifyConsumption(body)

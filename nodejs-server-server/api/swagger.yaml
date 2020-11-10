@@ -9,6 +9,30 @@ tags:
   description: "Operations about Users"
 paths:
   /User:
+    get:
+      tags:
+      - "User"
+      summary: "Get user by user id"
+      operationId: "getUser"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "user_id"
+        in: "path"
+        description: "user id of user info to return"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/User"
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "User not found"
+      x-swagger-router-controller: "User"
     post:
       tags:
       - "User"
@@ -226,6 +250,22 @@ paths:
           description: "personal info not found"
       x-swagger-router-controller: "PersonalInfo"
   /Event:
+    get:
+      tags:
+      - "Event"
+      summary: "Get all events"
+      description: "See all the available events"
+      operationId: "getAllEvents"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters: []
+      responses:
+        "201":
+          description: "successful operation"
+        "404":
+          description: "No event found"
+      x-swagger-router-controller: "Event"
     post:
       tags:
       - "Event"
@@ -823,6 +863,32 @@ paths:
         "404":
           description: "team not found"
       x-swagger-router-controller: "Team"
+  /Team/getNumberOfPeopleByProfandDate:
+    get:
+      tags:
+      - "Team"
+      summary: "Get number of people"
+      description: "See the number of people formed a team by professional"
+      operationId: "getNumberOfPeople"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "profession"
+        in: "query"
+        description: "user profession to return"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Team"
+        "404":
+          description: "No result found"
+      x-swagger-router-controller: "Team"
   /Team/getTeamByEventIdAndUserId:
     get:
       tags:
@@ -1156,7 +1222,7 @@ paths:
     get:
       tags:
       - "Consumption"
-      summary: "Find total consu;ption between two dates"
+      summary: "Find total consumption between two dates"
       operationId: "getAllConsumptionBetween"
       parameters:
       - name: "min_date"
@@ -1171,6 +1237,117 @@ paths:
         required: true
         type: "string"
         format: "date"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "object"
+            properties:
+              total:
+                type: "number"
+        "400":
+          description: "Invalid params supplied"
+        "404":
+          description: "Consumption not found"
+      x-swagger-router-controller: "Consumption"
+  /Consumption/getAllConsumptionBetweenForCategory:
+    get:
+      tags:
+      - "Consumption"
+      summary: "Find total consumption between two dates for a category"
+      operationId: "getAllConsumptionBetweenForCategory"
+      parameters:
+      - name: "min_date"
+        in: "query"
+        description: "minimum date of query"
+        required: true
+        type: "string"
+        format: "date"
+      - name: "max_date"
+        in: "query"
+        description: "maximum date of query"
+        required: true
+        type: "string"
+        format: "date"
+      - name: "category"
+        in: "query"
+        description: "category of consumption"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "object"
+            properties:
+              total:
+                type: "number"
+        "400":
+          description: "Invalid params supplied"
+        "404":
+          description: "Consumption not found"
+      x-swagger-router-controller: "Consumption"
+  /Consumption/getAllConsumptionBetweenUser:
+    get:
+      tags:
+      - "Consumption"
+      summary: "Find total consumption between two dates for a user"
+      operationId: "getAllConsumptionBetweenUser"
+      parameters:
+      - name: "min_date"
+        in: "query"
+        description: "minimum date of query"
+        required: true
+        type: "string"
+        format: "date"
+      - name: "max_date"
+        in: "query"
+        description: "maximum date of query"
+        required: true
+        type: "string"
+        format: "date"
+      - name: "user_id"
+        in: "query"
+        description: "id of the user"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "object"
+            properties:
+              total:
+                type: "number"
+        "400":
+          description: "Invalid params supplied"
+        "404":
+          description: "Consumption not found"
+      x-swagger-router-controller: "Consumption"
+  /Consumption/getAverageConsumptionBetweenUserProfession:
+    get:
+      tags:
+      - "Consumption"
+      summary: "Find total consumption between two dates for a the profession of a user"
+      operationId: "getAverageConsumptionBetweenUserProfession"
+      parameters:
+      - name: "min_date"
+        in: "query"
+        description: "minimum date of query"
+        required: true
+        type: "string"
+        format: "date"
+      - name: "max_date"
+        in: "query"
+        description: "maximum date of query"
+        required: true
+        type: "string"
+        format: "date"
+      - name: "user_id"
+        in: "query"
+        description: "id of the user"
+        required: true
+        type: "string"
       responses:
         "200":
           description: "successful operation"

@@ -9,21 +9,23 @@ var Boss = require('../service/BossService');
  * body Event To create a new event
  * no response value expected for this operation
  **/
-exports.createEvent = function(body) {
-  return new Promise(function(resolve, reject) {
-    MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+exports.createEvent = function (body) {
+  return new Promise(function (resolve, reject) {
+    MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
       if (err) throw err;
       var dbo = db.db("greenhero");
-      var myobj = { "eventName" : body.EventName,
-                    "eventDescription" :body.Description,
-                    "openDate" : body.openDate,
-                    "boss" : ObjectId(body.boss),
-                    "src": body.src};
-      dbo.collection("Event").insertOne(myobj, function(err, res) {
-          if (err) throw err;
-          console.log("successful");
-          resolve(res);
-          db.close();
+      var myobj = {
+        "eventName": body.EventName,
+        "eventDescription": body.Description,
+        "openDate": body.openDate,
+        "boss": ObjectId(body.boss),
+        "src": body.src
+      };
+      dbo.collection("Event").insertOne(myobj, function (err, res) {
+        if (err) throw err;
+        console.log("successful");
+        resolve(res);
+        db.close();
       });
     });
   });
@@ -37,19 +39,19 @@ exports.createEvent = function(body) {
  * eventName String The Eventname of the event that needs to be deleted
  * no response value expected for this operation
  **/
-exports.deleteEventByEventName = function(eventName) {
-  return new Promise(function(resolve, reject) {
-    MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+exports.deleteEventByEventName = function (eventName) {
+  return new Promise(function (resolve, reject) {
+    MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
       if (err) throw err;
       var dbo = db.db("greenhero");
-      var whereStr = {"eventName":eventName};  // condition
-      dbo.collection("Event").deleteOne(whereStr, function(err, obj) {
-          if (err) throw err;
-          console.log("successful");
-          resolve();
-          db.close();
+      var whereStr = { "eventName": eventName };  // condition
+      dbo.collection("Event").deleteOne(whereStr, function (err, obj) {
+        if (err) throw err;
+        console.log("successful");
+        resolve();
+        db.close();
       });
-  });
+    });
   });
 }
 
@@ -61,23 +63,47 @@ exports.deleteEventByEventName = function(eventName) {
  * eventName String The Eventname of the event that needs to be modified
  * no response value expected for this operation
  **/
-exports.getEventByEventName = function(eventName) {
-  return new Promise(function(resolve, reject) {
-    MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+exports.getEventByEventName = function (eventName) {
+  return new Promise(function (resolve, reject) {
+    MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
       if (err) throw err;
       var dbo = db.db("greenhero");
-       var whereStr = {"eventName":eventName};  // condition
-      dbo.collection("Event").find(whereStr).toArray(async function(err, result) {
-          if (err) throw err;
-          for(let event of result) {
-            if(event.boss) {
-              event.boss = await Boss.getBossById(event.boss);
-            }
+      var whereStr = { "eventName": eventName };  // condition
+      dbo.collection("Event").find(whereStr).toArray(async function (err, result) {
+        if (err) throw err;
+        for (let event of result) {
+          if (event.boss) {
+            event.boss = await Boss.getBossById(event.boss);
           }
-          resolve(result);
-          db.close();
+        }
+        resolve(result);
+        db.close();
       });
+    });
   });
+}
+
+/**
+ * Get All Events
+ * See the available events
+ *
+ **/
+exports.getAllEvents = function () {
+  return new Promise(function (resolve, reject) {
+    MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
+      if (err) throw err;
+      var dbo = db.db("greenhero");
+      dbo.collection("Event").find().toArray(async function (err, result) {
+        if (err) throw err;
+        for (let event of result) {
+          if (event.boss) {
+            event.boss = await Boss.getBossById(event.boss);
+          }
+        }
+        resolve(result);
+        db.close();
+      });
+    });
   });
 }
 
@@ -90,23 +116,27 @@ exports.getEventByEventName = function(eventName) {
  * body Event Updated Event object
  * no response value expected for this operation
  **/
-exports.modifyEvent = function(eventName,body) {
-  return new Promise(function(resolve, reject) {
-    MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+exports.modifyEvent = function (eventName, body) {
+  return new Promise(function (resolve, reject) {
+    MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
       if (err) throw err;
       var dbo = db.db("greenhero");
-      var whereStr = {"eventName":eventName};  // condition
-      var updateStr = {$set: { "eventName" : body.EventName,
-                                "eventDescription" :body.Description,
-                                "openDate" : body.openDate,
-                                "boss" : ObjectId(body.boss),
-                                "src": body.src}};
-      dbo.collection("Event").updateOne(whereStr, updateStr, function(err, res) {
-          if (err) throw err;
-          console.log("successful");
-          db.close();
+      var whereStr = { "eventName": eventName };  // condition
+      var updateStr = {
+        $set: {
+          "eventName": body.EventName,
+          "eventDescription": body.Description,
+          "openDate": body.openDate,
+          "boss": ObjectId(body.boss),
+          "src": body.src
+        }
+      };
+      dbo.collection("Event").updateOne(whereStr, updateStr, function (err, res) {
+        if (err) throw err;
+        console.log("successful");
+        db.close();
       });
-  });
+    });
     resolve();
   });
 }
