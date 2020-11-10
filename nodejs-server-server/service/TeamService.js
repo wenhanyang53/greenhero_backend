@@ -1,5 +1,7 @@
 'use strict';
-
+var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://localhost:27017/";
+var ObjectId = require('mongodb').ObjectId;
 
 /**
  * Create a new team
@@ -9,7 +11,28 @@
  **/
 exports.createTeam = function(body) {
   return new Promise(function(resolve, reject) {
-    resolve();
+    MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+      var myteamMembers=new Array();
+      if(body.teamMembers != undefined){
+        for (var i=0;i<body.teamMembers.length;i++)
+          { 
+            myteamMembers.push(ObjectId(body.teamMembers[i]))
+          }
+      }
+      if (err) throw err;
+      var dbo = db.db("greenhero");
+      var myobj = { "teamName" : body.teamName,
+                    "avatar" :body.avatar,
+                    "event_id" : ObjectId(body.event_id),
+                    "teamLeader" : ObjectId(body.teamLeader),
+                    "teamMembers": myteamMembers};
+      dbo.collection("Team").insertOne(myobj, function(err, res) {
+          if (err) throw err;
+          console.log("successful");
+          resolve(res);
+          db.close();
+      });
+    });
   });
 }
 
@@ -23,7 +46,17 @@ exports.createTeam = function(body) {
  **/
 exports.deleteTeamByTeamName = function(teamName) {
   return new Promise(function(resolve, reject) {
-    resolve();
+    MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+      if (err) throw err;
+      var dbo = db.db("greenhero");
+      var whereStr = {"teamName":teamName};  // condition
+      dbo.collection("Team").deleteOne(whereStr, function(err, obj) {
+          if (err) throw err;
+          console.log("successful");
+          resolve();
+          db.close();
+      });
+  });
   });
 }
 
@@ -36,6 +69,16 @@ exports.deleteTeamByTeamName = function(teamName) {
  **/
 exports.getAllTeams = function() {
   return new Promise(function(resolve, reject) {
+    MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
+      if (err) throw err;
+      var dbo = db.db("greenhero");
+      dbo.collection("Team").find().toArray(function (err, result) {
+        if (err) throw err;
+        console.log(result);
+        resolve(result);
+        db.close();
+      });
+    });
     var examples = {};
     examples['application/json'] = [ {
   "teamName" : "teamName",
@@ -52,11 +95,6 @@ exports.getAllTeams = function() {
   "teamLeader" : "teamLeader",
   "teamMembers" : [ "teamMembers", "teamMembers" ]
 } ];
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
   });
 }
 
@@ -70,6 +108,28 @@ exports.getAllTeams = function() {
  **/
 exports.modifyTeam = function(body) {
   return new Promise(function(resolve, reject) {
+    MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+      var myteamMembers=new Array();
+      if(body.teamMembers != undefined){
+        for (var i=0;i<body.teamMembers.length;i++)
+          { 
+            myteamMembers.push(ObjectId(body.teamMembers[i]))
+          }
+      }
+      if (err) throw err;
+      var dbo = db.db("greenhero");
+      var whereStr = {"userName":userName};  // condition
+      var updateStr = {$set: { "teamName" : body.teamName,
+                                "avatar" :body.avatar,
+                                "event_id" : ObjectId(body.event_id),
+                                "teamLeader" : ObjectId(body.teamLeader),
+                                "teamMembers": myteamMembers}};
+      dbo.collection("Team").updateOne(whereStr, updateStr, function(err, res) {
+          if (err) throw err;
+          console.log("successful");
+          db.close();
+      });
+  });
     resolve();
   });
 }
