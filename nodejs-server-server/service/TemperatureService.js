@@ -19,7 +19,6 @@ exports.createTemperature = function (body) {
         "temperature": body.temperature,
       }, function (err, result) {
         if (err) throw err;
-        console.log(result);
         resolve(result);
         db.close();
       });
@@ -43,7 +42,6 @@ exports.deleteTemperatureByTime = function (time) {
         "time": time,
       }, function (err, result) {
         if (err) throw err;
-        console.log(result);
         resolve(result);
         db.close();
       });
@@ -65,26 +63,10 @@ exports.getAllTemperature = function () {
       var dbo = db.db("greenhero");
       dbo.collection("Temperature").find().toArray(function (err, result) {
         if (err) throw err;
-        console.log(result);
         resolve(result);
         db.close();
       });
     });
-    var examples = {};
-    examples['application/json'] = [{
-      "temperature": 0.80082819046101150206595775671303272247314453125,
-      "_id": "_id",
-      "time": "2000-01-23"
-    }, {
-      "temperature": 0.80082819046101150206595775671303272247314453125,
-      "_id": "_id",
-      "time": "2000-01-23"
-    }];
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
   });
 }
 

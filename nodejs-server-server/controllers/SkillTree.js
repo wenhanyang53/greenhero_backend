@@ -25,9 +25,9 @@ module.exports.deleteSkillTreeById = function deleteSkillTreeById (req, res, nex
     });
 };
 
-module.exports.getSkillTreeByClass = function getSkillTreeByClass (req, res, next) {
+module.exports.getSkillTreeById = function getSkillTreeById (req, res, next) {
   var _id = req.swagger.params['_id'].value;
-  SkillTree.getSkillTreeByClass(_id)
+  SkillTree.getSkillTreeById(_id)
     .then(function (response) {
       utils.writeJson(res, response);
     })

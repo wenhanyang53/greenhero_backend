@@ -2,6 +2,8 @@
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/";
 var ObjectId = require('mongodb').ObjectId;
+var Character = require('../service/CharacterService');
+var Application = require('../service/ApplicationService');
 
 /**
  * Create a new team
@@ -72,9 +74,21 @@ exports.getAllTeams = function() {
     MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
       if (err) throw err;
       var dbo = db.db("greenhero");
-      dbo.collection("Team").find().toArray(function (err, result) {
+      dbo.collection("Team").find().toArray(async function (err, result) {
         if (err) throw err;
-        console.log(result);
+        for(let team of result) {
+          team.teamLeader = await Character.getCharacterById(team.teamLeader);
+          for(let i = 0;  i < team.teamMembers.length; i++) {
+            const member = team.teamMembers[i];
+            team.teamMembers[i] = await Character.getCharacterById(member);
+          }
+          if(team.applications) {
+            for(let i = 0;  i < team.applications.length; i++) {
+              const application = team.applications[i];
+              team.applications[i] = await Application.getApplicationById(application);
+            }
+          }
+        }
         resolve(result);
         db.close();
       });

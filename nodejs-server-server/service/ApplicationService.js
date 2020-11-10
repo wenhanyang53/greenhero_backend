@@ -2,6 +2,7 @@
 var MongoClient = require('mongodb').MongoClient;
 var ObjectId = require('mongodb').ObjectID;
 var url = "mongodb://localhost:27017/";
+var Character = require('../service/CharacterService');
 
 /**
  * Create a new Application
@@ -22,7 +23,6 @@ exports.createApplication = function (body) {
         "rejected": body.rejected
       }, function (err, result) {
         if (err) throw err;
-        console.log(result);
         resolve(result);
         db.close();
       });
@@ -49,7 +49,6 @@ exports.deleteApplicationByTeamIdAndUserId = function (team_id, user_id) {
         "user_id": ObjectId(user_id)
       }, function (err, result) {
         if (err) throw err;
-        console.log(result);
         resolve(result);
         db.close();
       });
@@ -72,35 +71,39 @@ exports.getAllApplicationsByTeamId = function (team_id) {
       var dbo = db.db("greenhero");
       dbo.collection("Application").find({
         "team_id": ObjectId(team_id)
-      }).toArray(function (err, result) {
+      }).toArray(async function (err, result) {
         if (err) throw err;
-        console.log(result);
+        for(let app of result) {
+          app.character = await Character.getCharacterById(app.character);
+        }
         resolve(result);
         db.close();
       });
     });
+  });
+}
 
-    var examples = {};
-    examples['application/json'] = [{
-      "character": "character",
-      "user_id": "user_id",
-      "rejected": true,
-      "accepted": true,
-      "_id": "_id",
-      "team_id": "team_id"
-    }, {
-      "character": "character",
-      "user_id": "user_id",
-      "rejected": true,
-      "accepted": true,
-      "_id": "_id",
-      "team_id": "team_id"
-    }];
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
+/**
+ * Get Application by ID
+ * See the application by ID
+ *
+ * _id String _id of application
+ * returns Application
+ **/
+exports.getApplicationById = function (_id) {
+  return new Promise(function (resolve, reject) {
+    MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
+      if (err) throw err;
+      var dbo = db.db("greenhero");
+      dbo.collection("Application").findOne({
+        "_id": ObjectId(_id)
+      }).then(async function (result) {
+        if (err) throw err;
+        result.character = await Character.getCharacterById(result.character);
+        resolve(result);
+        db.close();
+      });
+    });
   });
 }
 
@@ -128,11 +131,11 @@ exports.modifyApplication = function (body) {
           "rejected": body.rejected
         }, function (err, result) {
           if (err) throw err;
-          console.log(result);
           resolve(result);
           db.close();
         });
     });
   });
 }
+
 

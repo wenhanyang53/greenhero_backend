@@ -2,7 +2,7 @@
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/";
 var ObjectId = require('mongodb').ObjectId;
-
+var Boss = require('../service/BossService');
 /**
  * Create a new event
  *
@@ -67,8 +67,11 @@ exports.getEventByEventName = function(eventName) {
       if (err) throw err;
       var dbo = db.db("greenhero");
        var whereStr = {"eventName":eventName};  // condition
-      dbo.collection("Event").find(whereStr).toArray(function(err, result) {
+      dbo.collection("Event").find(whereStr).toArray(async function(err, result) {
           if (err) throw err;
+          for(let event of result) {
+            event.boss = await Boss.getBossById(event.boss);
+          }
           resolve(result);
           db.close();
       });

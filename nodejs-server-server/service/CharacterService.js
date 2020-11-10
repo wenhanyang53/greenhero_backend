@@ -2,6 +2,8 @@
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/";
 var ObjectId = require('mongodb').ObjectId;
+var SkillTree = require('../service/SkillTreeService');
+
 /**
  * Create a new character
  *
@@ -71,8 +73,11 @@ exports.getCharacterByUserId = function(user_id) {
       if (err) throw err;
       var dbo = db.db("greenhero");
        var whereStr = {"user_id":ObjectId(user_id)};  // condition
-      dbo.collection("Character").find(whereStr).toArray(function(err, result) {
+      dbo.collection("Character").find(whereStr).toArray(async function(err, result) {
           if (err) throw err;
+          for(let char of result) {
+            char.skillTree = await SkillTree.getSkillTreeById(char.skillTree);
+          }
           resolve(result);
           db.close();
       });
@@ -118,12 +123,54 @@ exports.getCharacterByUserIdAndCharacterName = function(user_id,characterName) {
     MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
       if (err) throw err;
       var dbo = db.db("greenhero");
-      dbo.collection("Character"). find({"user_id":ObjectId(user_id),"characterName":characterName}).toArray(function(err, result) { 
+      dbo.collection("Character"). findOne({"user_id":ObjectId(user_id),"characterName":characterName}).then(async function(result) { 
           if (err) throw err;
+          result.skillTree = await SkillTree.getSkillTreeById(result.skillTree);
           resolve(result); 
           db.close();
       });
           });
+    var examples = {};
+    examples['application/json'] = {
+  "skillTree" : "skillTree",
+  "armor" : 6.02745618307040320615897144307382404804229736328125,
+  "user_id" : "user_id",
+  "attack" : 0.80082819046101150206595775671303272247314453125,
+  "characterDescription" : "characterDescription",
+  "characterName" : "characterName",
+  "health" : 1.46581298050294517310021547018550336360931396484375,
+  "_id" : "_id",
+  "avatar" : "avatar",
+  "healing_factor" : 5.962133916683182377482808078639209270477294921875
+};
+  });
+}
+
+/**
+ * Get character by ID
+ * See the available character
+ *
+ * character_id String The _id of the character.
+ * returns Character
+ **/
+exports.getCharacterById = function(character_id) {
+  return new Promise(function(resolve, reject) {
+    MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+      if (err) {
+        console.log(err);
+        throw err;
+      };
+      var dbo = db.db("greenhero");
+      dbo.collection("Character"). findOne({"_id":ObjectId(character_id)}).then(async function(result) { 
+        if (err) {
+          console.log(err);
+          throw err;
+        };
+        result.skillTree = await SkillTree.getSkillTreeById(result.skillTree);
+        resolve(result); 
+        db.close();
+      });
+    });
     var examples = {};
     examples['application/json'] = {
   "skillTree" : "skillTree",

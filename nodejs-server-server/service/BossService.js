@@ -25,7 +25,6 @@ exports.createBoss = function (body) {
         "healing_factor": body.healing_factor
       },function (err, result) {
         if (err) throw err;
-        console.log(result);
         resolve(result);
         db.close();
       });
@@ -71,7 +70,47 @@ exports.getAllBoss = function () {
       var dbo = db.db("greenhero");
       dbo.collection("Boss").find().toArray(function (err, result) {
         if (err) throw err;
-        console.log(result);
+        resolve(result);
+        db.close();
+      });
+    });
+    var examples = {};
+    examples['application/json'] = [{
+      "armor": 6.02745618307040320615897144307382404804229736328125,
+      "bossName": "bossName",
+      "attack": 1.46581298050294517310021547018550336360931396484375,
+      "health": 0.80082819046101150206595775671303272247314453125,
+      "_id": "_id",
+      "avatar": "avatar",
+      "bossDescription": "bossDescription",
+      "healing_factor": 5.962133916683182377482808078639209270477294921875
+    }, {
+      "armor": 6.02745618307040320615897144307382404804229736328125,
+      "bossName": "bossName",
+      "attack": 1.46581298050294517310021547018550336360931396484375,
+      "health": 0.80082819046101150206595775671303272247314453125,
+      "_id": "_id",
+      "avatar": "avatar",
+      "bossDescription": "bossDescription",
+      "healing_factor": 5.962133916683182377482808078639209270477294921875
+    }];
+  });
+}
+
+/**
+ * Get a boss by ID
+ * See the boss by ID
+ * _id String The ID of the Boss
+ * returns Boss
+ **/
+exports.getBossById = function (_id) {
+  return new Promise(function (resolve, reject) {
+    MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
+      if (err) throw err;
+      var dbo = db.db("greenhero");
+      const whereStr = {'_id': new ObjectId(_id)};
+      dbo.collection("Boss").findOne(whereStr).then(function (result) {
+        if (err) throw err;
         resolve(result);
         db.close();
       });

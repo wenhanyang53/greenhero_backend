@@ -102,3 +102,24 @@ exports.modifyNode = function(body) {
   });
 }
 
+/**
+ * Get a node by ID
+ * To get a node by ID
+ * _id String The ID of the node
+ * return Node
+ **/
+exports.getNodeById = function(_id) {
+  return new Promise(function(resolve, reject) {
+    MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+      if (err) throw err;
+      var dbo = db.db("greenhero");
+      var whereStr = {"_id":ObjectId(_id)};  // condition
+      dbo.collection("Node").findOne(whereStr).then(function(result) {
+          if (err) throw err;
+          resolve(result);
+          db.close();
+      });
+  });
+  });
+}
+
