@@ -15,13 +15,11 @@ exports.createSkillTree = function (body) {
     MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
       if (err) throw err;
       var dbo = db.db("greenhero");
-      console.log(body.nodes);
       var mynodes=new Array();
       for (var i=0;i<body.nodes.length;i++)
         { 
           mynodes.push(ObjectId(body.nodes[i]))
         }
-      console.log(mynodes);
       dbo.collection("SkillTree").insertOne({
         "class": body.class,
         "nodes": mynodes
@@ -42,9 +40,19 @@ exports.createSkillTree = function (body) {
  * _id String The ID of the skill tree that needs to be deleted
  * no response value expected for this operation
  **/
-exports.deleteSkillTreeById = function(_id) {
-  return new Promise(function(resolve, reject) {
-    resolve();
+exports.deleteSkillTreeById = function (_id) {
+  return new Promise(function (resolve, reject) {
+    MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
+      if (err) throw err;
+      var dbo = db.db("greenhero");
+      dbo.collection("SkillTree").deleteOne({
+        "_id": ObjectId(_id)
+      },function (err, result) {
+        if (err) throw err;
+        resolve(result);
+        db.close();
+      });
+    });
   });
 }
 
@@ -57,18 +65,24 @@ exports.deleteSkillTreeById = function(_id) {
  * returns SkillTree
  **/
 exports.getSkillTreeByClass = function(_id) {
+
   return new Promise(function(resolve, reject) {
+    MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+      if (err) throw err;
+      var dbo = db.db("greenhero");
+      var whereStr = {"_id":ObjectId(_id)};  // condition
+      dbo.collection("SkillTree").find(whereStr).toArray(function(err, result) {
+          if (err) throw err;
+          resolve(result);
+          db.close();
+      });
+  });
     var examples = {};
     examples['application/json'] = {
   "nodes" : [ "nodes", "nodes" ],
   "_id" : "_id",
   "class" : "class"
 };
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
   });
 }
 
@@ -82,6 +96,23 @@ exports.getSkillTreeByClass = function(_id) {
  **/
 exports.modifySkillTree = function(body) {
   return new Promise(function(resolve, reject) {
+    MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+      if (err) throw err;
+      var mynodes=new Array();
+      for (var i=0;i<body.nodes.length;i++)
+        { 
+          mynodes.push(ObjectId(body.nodes[i]))
+        }
+      var dbo = db.db("greenhero");
+      var whereStr = {"_id":ObjectId(body._id)};  // condition
+      var updateStr = {$set: { "class" : body.class,
+                                "nodes" :mynodes}};
+      dbo.collection("SkillTree").updateOne(whereStr, updateStr, function(err, res) {
+          if (err) throw err;
+          console.log("successful");
+          db.close();
+      });
+  });
     resolve();
   });
 }
