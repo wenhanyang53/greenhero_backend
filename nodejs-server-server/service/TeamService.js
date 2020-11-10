@@ -77,10 +77,14 @@ exports.getAllTeams = function() {
       dbo.collection("Team").find().toArray(async function (err, result) {
         if (err) throw err;
         for(let team of result) {
-          team.teamLeader = await Character.getCharacterById(team.teamLeader);
-          for(let i = 0;  i < team.teamMembers.length; i++) {
-            const member = team.teamMembers[i];
-            team.teamMembers[i] = await Character.getCharacterById(member);
+          if(team.teamLeader) {
+            team.teamLeader = await Character.getCharacterById(team.teamLeader);
+          }
+          if(team.teamMembers) {
+            for(let i = 0;  i < team.teamMembers.length; i++) {
+              const member = team.teamMembers[i];
+              team.teamMembers[i] = await Character.getCharacterById(member);
+            }
           }
           if(team.applications) {
             for(let i = 0;  i < team.applications.length; i++) {

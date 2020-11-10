@@ -76,7 +76,9 @@ exports.getCharacterByUserId = function(user_id) {
       dbo.collection("Character").find(whereStr).toArray(async function(err, result) {
           if (err) throw err;
           for(let char of result) {
-            char.skillTree = await SkillTree.getSkillTreeById(char.skillTree);
+            if(char.skillTree) {
+              char.skillTree = await SkillTree.getSkillTreeById(char.skillTree);
+            }
           }
           resolve(result);
           db.close();
@@ -125,7 +127,9 @@ exports.getCharacterByUserIdAndCharacterName = function(user_id,characterName) {
       var dbo = db.db("greenhero");
       dbo.collection("Character"). findOne({"user_id":ObjectId(user_id),"characterName":characterName}).then(async function(result) { 
           if (err) throw err;
-          result.skillTree = await SkillTree.getSkillTreeById(result.skillTree);
+          if(result.skillTree) {
+            result.skillTree = await SkillTree.getSkillTreeById(result.skillTree);
+          }
           resolve(result); 
           db.close();
       });
@@ -166,7 +170,9 @@ exports.getCharacterById = function(character_id) {
           console.log(err);
           throw err;
         };
-        result.skillTree = await SkillTree.getSkillTreeById(result.skillTree);
+        if(result.skillTree) {
+          result.skillTree = await SkillTree.getSkillTreeById(result.skillTree);
+        }
         resolve(result); 
         db.close();
       });

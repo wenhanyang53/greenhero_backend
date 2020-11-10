@@ -73,9 +73,11 @@ exports.getSkillTreeById = function(_id) {
       var whereStr = {"_id":ObjectId(_id)};  // condition
       dbo.collection("SkillTree").findOne(whereStr).then(async function(result) {
           if (err) throw err;
-          for(let i = 0; i < result.nodes.length; i++) {
-            const node = result.nodes[i];
-            result.nodes[i] = await Node.getNodeById(node);
+          if(result.nodes) {
+            for(let i = 0; i < result.nodes.length; i++) {
+              const node = result.nodes[i];
+              result.nodes[i] = await Node.getNodeById(node);
+            }
           }
           resolve(result);
           db.close();

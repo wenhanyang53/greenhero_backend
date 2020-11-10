@@ -74,7 +74,9 @@ exports.getAllApplicationsByTeamId = function (team_id) {
       }).toArray(async function (err, result) {
         if (err) throw err;
         for(let app of result) {
-          app.character = await Character.getCharacterById(app.character);
+          if(app.character) {
+            app.character = await Character.getCharacterById(app.character);
+          }
         }
         resolve(result);
         db.close();
@@ -99,7 +101,9 @@ exports.getApplicationById = function (_id) {
         "_id": ObjectId(_id)
       }).then(async function (result) {
         if (err) throw err;
-        result.character = await Character.getCharacterById(result.character);
+        if(result.character) {
+          result.character = await Character.getCharacterById(result.character);
+        }
         resolve(result);
         db.close();
       });

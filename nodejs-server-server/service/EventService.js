@@ -70,7 +70,9 @@ exports.getEventByEventName = function(eventName) {
       dbo.collection("Event").find(whereStr).toArray(async function(err, result) {
           if (err) throw err;
           for(let event of result) {
-            event.boss = await Boss.getBossById(event.boss);
+            if(event.boss) {
+              event.boss = await Boss.getBossById(event.boss);
+            }
           }
           resolve(result);
           db.close();
