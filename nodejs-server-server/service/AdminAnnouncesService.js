@@ -1,5 +1,7 @@
 'use strict';
-
+var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://localhost:27017/";
+var ObjectId = require('mongodb').ObjectId;
 
 /**
  *
@@ -8,7 +10,19 @@
  **/
 exports.createAdminAnnounce = function(body) {
   return new Promise(function(resolve, reject) {
-    resolve();
+    MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+      if (err) throw err;
+      var dbo = db.db("greenhero");
+      var myobj = { "icon" : body.icon,
+                    "title" :body.title,
+                    "content" : body.content};
+      dbo.collection("AdminAnnounces").insertOne(myobj, function(err, res) {
+          if (err) throw err;
+          console.log("successful");
+          resolve(res);
+          db.close();
+      });
+    });
   });
 }
 
@@ -21,7 +35,17 @@ exports.createAdminAnnounce = function(body) {
  **/
 exports.deleteAdminAnnounce = function(_id) {
   return new Promise(function(resolve, reject) {
-    resolve();
+    MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+      if (err) throw err;
+      var dbo = db.db("greenhero");
+      var whereStr = {"_id":ObjectId(_id)};  // condition
+      dbo.collection("AdminAnnounces").deleteOne(whereStr, function(err, obj) {
+          if (err) throw err;
+          console.log("successful");
+          resolve();
+          db.close();
+      });
+  });
   });
 }
 
@@ -34,6 +58,15 @@ exports.deleteAdminAnnounce = function(_id) {
  **/
 exports.getAllAdminAnnounces = function() {
   return new Promise(function(resolve, reject) {
+    MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+      if (err) throw err;
+      var dbo = db.db("greenhero");
+      dbo.collection("AdminAnnounces").find().toArray(function(err, result) {
+          if (err) throw err;
+          resolve(result);
+          db.close();
+      });
+  });
     var examples = {};
     examples['application/json'] = [ {
   "icon" : "icon",
@@ -46,11 +79,6 @@ exports.getAllAdminAnnounces = function() {
   "title" : "title",
   "content" : "content"
 } ];
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
   });
 }
 
@@ -64,6 +92,19 @@ exports.getAllAdminAnnounces = function() {
  **/
 exports.modifyAdminAnnounce = function(body) {
   return new Promise(function(resolve, reject) {
+    MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+      if (err) throw err;
+      var dbo = db.db("greenhero");
+      var whereStr = {"_id":ObjectId(body._id)};  // condition
+      var updateStr = {$set: {"icon" : body.icon,
+                              "title" :body.title,
+                              "content" : body.content}};
+      dbo.collection("AdminAnnounces").updateOne(whereStr, updateStr, function(err, res) {
+          if (err) throw err;
+          console.log("successful");
+          db.close();
+      });
+  });
     resolve();
   });
 }
