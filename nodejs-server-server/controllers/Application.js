@@ -1,4 +1,7 @@
 'use strict';
+var MongoClient = require('mongodb').MongoClient;
+var ObjectId = require('mongodb').ObjectID;
+var url = "mongodb://localhost:27017/";
 
 var utils = require('../utils/writer.js');
 var Application = require('../service/ApplicationService');
