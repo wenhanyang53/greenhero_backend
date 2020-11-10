@@ -823,6 +823,37 @@ paths:
         "404":
           description: "team not found"
       x-swagger-router-controller: "Team"
+  /Team/getTeamByEventIdAndUserId:
+    get:
+      tags:
+      - "Team"
+      summary: "Get team by event Id and User Id"
+      description: "See the available team by event Id and User Id"
+      operationId: "getTeamByEventIdAndUserId"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "event_id"
+        in: "query"
+        description: "The Id of the event."
+        required: true
+        type: "string"
+      - name: "user_id"
+        in: "query"
+        description: "The Id of the user."
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Team"
+        "404":
+          description: "No team found"
+      x-swagger-router-controller: "Team"
   /SkillTree:
     post:
       tags:

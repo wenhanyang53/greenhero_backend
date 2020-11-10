@@ -85,6 +85,22 @@ exports.getAllApplicationsByTeamId = function (team_id) {
   });
 }
 
+    var examples = {};
+    examples['application/json'] = [{
+      "character": "character",
+      "user_id": "user_id",
+      "rejected": true,
+      "accepted": true,
+      "_id": "_id",
+      "team_id": "team_id"
+    }, {
+      "character": "character",
+      "user_id": "user_id",
+      "rejected": true,
+      "accepted": true,
+      "_id": "_id",
+      "team_id": "team_id"
+    }];
 /**
  * Get Application by ID
  * See the application by ID
