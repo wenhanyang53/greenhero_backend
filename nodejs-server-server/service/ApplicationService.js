@@ -1,5 +1,7 @@
 'use strict';
-
+var MongoClient = require('mongodb').MongoClient;
+var ObjectId = require('mongodb').ObjectID;
+var url = "mongodb://localhost:27017/";
 
 /**
  * Create a new Application
