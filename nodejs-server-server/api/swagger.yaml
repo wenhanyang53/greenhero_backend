@@ -154,6 +154,27 @@ paths:
         "404":
           description: "User not found"
       x-swagger-router-controller: "User"
+  /User/getCoinAmountByUserId:
+    get:
+      tags:
+      - "User"
+      summary: "get CoinAmount By User Id"
+      operationId: "getCoinAmountByUserId"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "user_id"
+        in: "query"
+        description: "The Id of USer"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+        "404":
+          description: "User not found"
+      x-swagger-router-controller: "User"
   /PersonalInfo:
     post:
       tags:
