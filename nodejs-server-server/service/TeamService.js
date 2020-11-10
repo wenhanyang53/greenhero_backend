@@ -195,3 +195,21 @@ exports.modifyTeam = function(body) {
   });
 }
 
+
+
+exports.getTeamByEventIdAndUserId = function(event_id,user_id) {
+  return new Promise(function(resolve, reject) {
+    MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+      if (err) throw err;
+      var dbo = db.db("greenhero");
+      var whereStr = {$or:[{"event_id":ObjectId(event_id),"teamLeader":ObjectId(user_id)},
+      {"event_id":ObjectId(event_id),"teamMembers":{$elemMatch:{$eq:ObjectId(user_id)}}}]};
+      dbo.collection("Team"). find().toArray(function(err, result) { 
+          if (err) throw err;
+          resolve(result); 
+          db.close();
+      });
+          });
+  });
+}
+

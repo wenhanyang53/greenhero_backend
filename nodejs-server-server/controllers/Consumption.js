@@ -76,6 +76,31 @@ module.exports.getConsumptionForUserAfterDate = function getConsumptionForUserAf
     });
 };
 
+module.exports.getAllConsumptionBetween = function getAllConsumptionBetween (req, res, next) {
+  var min_date = new Date(req.swagger.params['min_date'].value);
+  var max_date = new Date(req.swagger.params['max_date'].value);
+  Consumption.getAllConsumptionBetween(min_date,max_date)
+    .then(function (response) {
+      utils.writeJson(res, response);
+    })
+    .catch(function (response) {
+      utils.writeJson(res, response);
+    });
+};
+
+module.exports.getAllConsumptionBetweenForCategory = function getAllConsumptionBetweenForCategory (req, res, next) {
+  var min_date = new Date(req.swagger.params['min_date'].value);
+  var max_date = new Date(req.swagger.params['max_date'].value);
+  var category = req.swagger.params['category'].value;
+  Consumption.getAllConsumptionBetweenForCategory(min_date,max_date,category)
+    .then(function (response) {
+      utils.writeJson(res, response);
+    })
+    .catch(function (response) {
+      utils.writeJson(res, response);
+    });
+};
+
 module.exports.modifyConsumption = function modifyConsumption (req, res, next) {
   var body = req.swagger.params['body'].value;
   Consumption.modifyConsumption(body)
