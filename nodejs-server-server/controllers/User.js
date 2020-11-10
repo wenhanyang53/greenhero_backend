@@ -36,6 +36,17 @@ module.exports.getUserByUserName = function getUserByUserName (req, res, next) {
     });
 };
 
+module.exports.getUser = function getUser (req, res, next) {
+  var userId = req.swagger.params['user_id'].value;
+  User.getUser(userId)
+    .then(function (response) {
+      utils.writeJson(res, response);
+    })
+    .catch(function (response) {
+      utils.writeJson(res, response);
+    });
+};
+
 module.exports.loginUser = function loginUser (req, res, next) {
   var userName = req.swagger.params['userName'].value;
   var userPassword = req.swagger.params['userPassword'].value;

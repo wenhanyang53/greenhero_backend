@@ -3,6 +3,7 @@ var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/";
 var ObjectId = require('mongodb').ObjectId;
 var SkillTree = require('../service/SkillTreeService');
+var User = require('../service/UserService');
 
 /**
  * Create a new character
@@ -165,13 +166,16 @@ exports.getCharacterById = function(character_id) {
         throw err;
       };
       var dbo = db.db("greenhero");
-      dbo.collection("Character"). findOne({"_id":ObjectId(character_id)}).then(async function(result) { 
+      dbo.collection("Character").findOne({"_id":ObjectId(character_id)}).then(async function(result) { 
         if (err) {
           console.log(err);
           throw err;
         };
         if(result.skillTree) {
           result.skillTree = await SkillTree.getSkillTreeById(result.skillTree);
+        }
+        if(result.user_id) {
+          result.user_id = await User.getUser(result.user_id);
         }
         resolve(result); 
         db.close();

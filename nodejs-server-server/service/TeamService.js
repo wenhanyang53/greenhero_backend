@@ -116,6 +116,49 @@ exports.getAllTeams = function() {
   });
 }
 
+/**
+ * Get number of people by profession and date
+ *
+ * returns List
+ **/
+exports.getNumberOfPeople = function(profession) {
+  return new Promise(function(resolve, reject) {
+    MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
+      if (err) throw err;
+      var dbo = db.db("greenhero");
+      var num = 0;
+      dbo.collection("Team").find().toArray(async function (err, result) {
+        if (err) throw err;
+        for(let team of result) {
+          if(team.teamLeader) {
+            var character = await Character.getCharacterById(team.teamLeader);
+            if (character.user_id.personalInfo.occupation === profession){
+                num += 1;
+            }
+          }
+          if(team.teamMembers) {
+            for(let i = 0;  i < team.teamMembers.length; i++) {
+              const member = team.teamMembers[i];
+              var character = await Character.getCharacterById(member);
+              if (character.user_id.personalInfo.occupation === profession){
+                num += 1;
+            }
+            }
+          }
+          if(team.applications) {
+            for(let i = 0;  i < team.applications.length; i++) {
+              const application = team.applications[i];
+              team.applications[i] = await Application.getApplicationById(application);
+            }
+          }
+        }
+        resolve(num);
+        db.close();
+      });
+    });
+  });
+}
+
 
 /**
  * Modify team
