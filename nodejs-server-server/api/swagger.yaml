@@ -1288,6 +1288,80 @@ paths:
         "404":
           description: "Consumption not found"
       x-swagger-router-controller: "Consumption"
+  /Consumption/getAllConsumptionBetweenUser:
+    get:
+      tags:
+      - "Consumption"
+      summary: "Find total consumption between two dates for a user"
+      operationId: "getAllConsumptionBetweenUser"
+      parameters:
+      - name: "min_date"
+        in: "query"
+        description: "minimum date of query"
+        required: true
+        type: "string"
+        format: "date"
+      - name: "max_date"
+        in: "query"
+        description: "maximum date of query"
+        required: true
+        type: "string"
+        format: "date"
+      - name: "user_id"
+        in: "query"
+        description: "id of the user"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "object"
+            properties:
+              total:
+                type: "number"
+        "400":
+          description: "Invalid params supplied"
+        "404":
+          description: "Consumption not found"
+      x-swagger-router-controller: "Consumption"
+  /Consumption/getAverageConsumptionBetweenUserProfession:
+    get:
+      tags:
+      - "Consumption"
+      summary: "Find total consumption between two dates for a the profession of a user"
+      operationId: "getAverageConsumptionBetweenUserProfession"
+      parameters:
+      - name: "min_date"
+        in: "query"
+        description: "minimum date of query"
+        required: true
+        type: "string"
+        format: "date"
+      - name: "max_date"
+        in: "query"
+        description: "maximum date of query"
+        required: true
+        type: "string"
+        format: "date"
+      - name: "user_id"
+        in: "query"
+        description: "id of the user"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "object"
+            properties:
+              total:
+                type: "number"
+        "400":
+          description: "Invalid params supplied"
+        "404":
+          description: "Consumption not found"
+      x-swagger-router-controller: "Consumption"
   /Consumption/getConsumptionByUserIdandDate:
     get:
       tags:
