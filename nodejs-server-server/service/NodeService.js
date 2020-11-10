@@ -108,14 +108,19 @@ exports.modifyNode = function(body) {
  * _id String The ID of the node
  * return Node
  **/
-exports.getNodeById = function(_id) {
-  return new Promise(function(resolve, reject) {
-    MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+exports.getNodeById = function getNodeById(_id) {
+  return new Promise((resolve, reject) => {
+    MongoClient.connect(url, { useNewUrlParser: true }, (err, db) => {
       if (err) throw err;
       var dbo = db.db("greenhero");
       var whereStr = {"_id":ObjectId(_id)};  // condition
-      dbo.collection("Node").findOne(whereStr).then(function(result) {
+      dbo.collection("Node").findOne(whereStr).then(async (result) => {
           if (err) throw err;
+          if(result.sons) {
+            for(let i = 0; i < result.sons.length; i++) {
+              result.sons[i] = await getNodeById(result.sons[i]);
+            }
+          }
           resolve(result);
           db.close();
       });
