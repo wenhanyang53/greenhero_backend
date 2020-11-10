@@ -1,0 +1,21 @@
+{
+  "name": "greenhero-api",
+  "version": "0.1.9",
+  "description": "User related user stories API.",
+  "main": "index.js",
+  "scripts": {
+    "prestart": "npm install",
+    "start": "node index.js"
+  },
+  "keywords": [
+    "swagger"
+  ],
+  "license": "Unlicense",
+  "private": true,
+  "dependencies": {
+    "connect": "^3.2.0",
+    "js-yaml": "^3.3.0",
+    "mongodb": "^3.6.3",
+    "swagger-tools": "0.10.1"
+  }
+}

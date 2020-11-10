@@ -1,0 +1,1819 @@
+---
+swagger: "2.0"
+info:
+  description: "User related user stories API."
+  version: "0.1.9"
+  title: "GreenHero API"
+tags:
+- name: "User"
+  description: "Operations about Users"
+paths:
+  /User:
+    post:
+      tags:
+      - "User"
+      summary: "Create User"
+      operationId: "createUser"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "To create a new user"
+        required: true
+        schema:
+          $ref: "#/definitions/User"
+      responses:
+        "201":
+          description: "successful operation"
+      x-swagger-router-controller: "User"
+  /User/login:
+    get:
+      tags:
+      - "User"
+      summary: "Logs user into the system"
+      operationId: "loginUser"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "userName"
+        in: "query"
+        description: "The user name for login"
+        required: true
+        type: "string"
+      - name: "userPassword"
+        in: "query"
+        description: "The password for login in clear text"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+        "400":
+          description: "Invalid username/password supplied"
+      x-swagger-router-controller: "User"
+  /User/{userName}:
+    get:
+      tags:
+      - "User"
+      summary: "Get user by user name"
+      description: ""
+      operationId: "getUserByUserName"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "userName"
+        in: "path"
+        description: "The name that needs to be fetched. Use user1 for testing. "
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/User"
+        "400":
+          description: "Invalid username supplied"
+        "404":
+          description: "User not found"
+      x-swagger-router-controller: "User"
+    put:
+      tags:
+      - "User"
+      summary: "Modify user"
+      description: "To modify a a username/Password "
+      operationId: "modifyUser"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "userName"
+        in: "path"
+        description: "The username of the user that needs to be modified"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        description: "Updated user object"
+        required: true
+        schema:
+          $ref: "#/definitions/User"
+      responses:
+        "200":
+          description: "updated successfully"
+        "204":
+          description: "No content "
+        "404":
+          description: "UserName not found "
+      x-swagger-router-controller: "User"
+    delete:
+      tags:
+      - "User"
+      summary: "Delete user"
+      description: "To delete a user entry"
+      operationId: "deleteUserByUserName"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "userName"
+        in: "path"
+        description: "The username of the user that needs to be deleted"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "Deleted sucessfully"
+        "404":
+          description: "User not found"
+      x-swagger-router-controller: "User"
+  /PersonalInfo:
+    post:
+      tags:
+      - "PersonalInfo"
+      summary: "Create a new personal Info"
+      operationId: "createPersonalInfo"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "To create a new personal Info"
+        required: true
+        schema:
+          $ref: "#/definitions/PersonalInfo"
+      responses:
+        "201":
+          description: "successful operation"
+      x-swagger-router-controller: "PersonalInfo"
+  /PersonalInfo/{user_id}:
+    get:
+      tags:
+      - "PersonalInfo"
+      summary: "Find personal info of user's by user id"
+      operationId: "getPersonalInfoByUserId"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "user_id"
+        in: "path"
+        description: "user id of personal info to return"
+        required: true
+        type: "integer"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/PersonalInfo"
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "PersonalInfo not found"
+      x-swagger-router-controller: "PersonalInfo"
+    put:
+      tags:
+      - "PersonalInfo"
+      summary: "Modify PersonalInfo"
+      description: "To modify a user's PersonalInfo "
+      operationId: "modifyPersonalInfo"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "user_id"
+        in: "path"
+        description: "The user id of the personal information that needs to be modified"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        description: "Updated personal info object"
+        required: true
+        schema:
+          $ref: "#/definitions/PersonalInfo"
+      responses:
+        "200":
+          description: "updated successfully"
+        "204":
+          description: "No content "
+        "404":
+          description: "Personal Info not found "
+      x-swagger-router-controller: "PersonalInfo"
+    delete:
+      tags:
+      - "PersonalInfo"
+      summary: "Delete PersonalInfo"
+      description: "To delete a user's personal info"
+      operationId: "deletePersonalInfoByUserId"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "user_id"
+        in: "path"
+        description: "The user_id of the personal info that needs to be deleted"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "Deleted sucessfully"
+        "404":
+          description: "personal info not found"
+      x-swagger-router-controller: "PersonalInfo"
+  /Event:
+    post:
+      tags:
+      - "Event"
+      summary: "Create a new event"
+      operationId: "createEvent"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "To create a new event"
+        required: true
+        schema:
+          $ref: "#/definitions/Event"
+      responses:
+        "201":
+          description: "successful operation"
+      x-swagger-router-controller: "Event"
+  /Event/{EventName}:
+    get:
+      tags:
+      - "Event"
+      summary: "Get Events"
+      description: "See the available events"
+      operationId: "getEventByEventName"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "EventName"
+        in: "path"
+        description: "The Eventname of the event that needs to be modified"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "OK"
+        "404":
+          description: "No events found"
+      x-swagger-router-controller: "Event"
+    put:
+      tags:
+      - "Event"
+      summary: "Modify event"
+      description: "To modify an Event "
+      operationId: "modifyEvent"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "EventName"
+        in: "path"
+        description: "The Eventname of the event that needs to be modified"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        description: "Updated Event object"
+        required: true
+        schema:
+          $ref: "#/definitions/Event"
+      responses:
+        "200":
+          description: "updated successfully"
+        "204":
+          description: "No content "
+        "404":
+          description: "EventName not found "
+      x-swagger-router-controller: "Event"
+    delete:
+      tags:
+      - "Event"
+      summary: "Delete event"
+      description: "To delete an event"
+      operationId: "deleteEventByEventName"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "EventName"
+        in: "path"
+        description: "The Eventname of the event that needs to be deleted"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "Deleted sucessfully"
+        "404":
+          description: "Event not found"
+      x-swagger-router-controller: "Event"
+  /Character:
+    post:
+      tags:
+      - "Character"
+      summary: "Create a new character"
+      operationId: "createCharacter"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "To create a new character"
+        required: true
+        schema:
+          $ref: "#/definitions/Character"
+      responses:
+        "201":
+          description: "successful operation"
+      x-swagger-router-controller: "Character"
+    put:
+      tags:
+      - "Character"
+      summary: "Modify character"
+      description: "To modify a character "
+      operationId: "modifyCharacter"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "To create a new character"
+        required: true
+        schema:
+          $ref: "#/definitions/Character"
+      responses:
+        "200":
+          description: "updated successfully"
+        "204":
+          description: "No content "
+        "404":
+          description: "character not found "
+      x-swagger-router-controller: "Character"
+  /Character/{user_id}:
+    get:
+      tags:
+      - "Character"
+      summary: "Get characters"
+      description: "See the available character"
+      operationId: "getCharacterByUserId"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "user_id"
+        in: "path"
+        description: "The user_id of the character."
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Character"
+        "404":
+          description: "No character found"
+      x-swagger-router-controller: "Character"
+  /Character/getCharacterByUserIdAndCharacterName:
+    get:
+      tags:
+      - "Character"
+      summary: "Get character"
+      description: "See the available character"
+      operationId: "getCharacterByUserIdAndCharacterName"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "user_id"
+        in: "query"
+        description: "The user_id of the character."
+        required: true
+        type: "string"
+      - name: "characterName"
+        in: "query"
+        description: "The characterName of the character."
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Character"
+        "404":
+          description: "No character found"
+      x-swagger-router-controller: "Character"
+  /Character/deleteCharacterByUserIdAndCharacterName:
+    delete:
+      tags:
+      - "Character"
+      summary: "Delete character"
+      description: "To delete a character"
+      operationId: "deleteCharacterByUserIdAndCharacterName"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "user_id"
+        in: "query"
+        description: "The user_id of the character that needs to be deleted"
+        required: true
+        type: "string"
+      - name: "characterName"
+        in: "query"
+        description: "The characterName of the character that needs to be deleted"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "Deleted sucessfully"
+        "404":
+          description: "character not found"
+      x-swagger-router-controller: "Character"
+  /Badge:
+    get:
+      tags:
+      - "Badge"
+      summary: "Get badges"
+      description: "See the available badges"
+      operationId: "getAllBadge"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "see the badges"
+        required: true
+        schema:
+          $ref: "#/definitions/Badge"
+      responses:
+        "200":
+          description: "OK"
+        "404":
+          description: "No badge found"
+      x-swagger-router-controller: "Badge"
+    post:
+      tags:
+      - "Badge"
+      summary: "Create a new badge"
+      operationId: "createBadge"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "To create a new badge"
+        required: true
+        schema:
+          $ref: "#/definitions/Badge"
+      responses:
+        "201":
+          description: "successful operation"
+      x-swagger-router-controller: "Badge"
+  /Badge/{badgeName}:
+    put:
+      tags:
+      - "Badge"
+      summary: "Modify badge"
+      description: "To modify a badge "
+      operationId: "modifyBadge"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "badgeName"
+        in: "path"
+        description: "The badgeName of the badge that needs to be modified"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        description: "Updated badge object"
+        required: true
+        schema:
+          $ref: "#/definitions/Badge"
+      responses:
+        "200":
+          description: "updated successfully"
+        "204":
+          description: "No content "
+        "404":
+          description: "badge not found "
+      x-swagger-router-controller: "Badge"
+    delete:
+      tags:
+      - "Badge"
+      summary: "Delete badge"
+      description: "To delete a badge"
+      operationId: "deleteBadge"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "badgeName"
+        in: "path"
+        description: "The badgeName of the badge that needs to be deleted"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "Deleted sucessfully"
+        "404":
+          description: "badge not found"
+      x-swagger-router-controller: "Badge"
+  /Mission:
+    get:
+      tags:
+      - "Mission"
+      summary: "Get missions"
+      description: "See the available missions"
+      operationId: "getAllMissions"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters: []
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Mission"
+        "404":
+          description: "No mission found"
+      x-swagger-router-controller: "Mission"
+    post:
+      tags:
+      - "Mission"
+      summary: "Create a new mission"
+      operationId: "createMission"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "To create a new mission"
+        required: true
+        schema:
+          $ref: "#/definitions/Mission"
+      responses:
+        "201":
+          description: "successful operation"
+      x-swagger-router-controller: "Mission"
+    put:
+      tags:
+      - "Mission"
+      summary: "Modify mission"
+      description: "To modify a mission "
+      operationId: "modifyMission"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Updated mission object"
+        required: true
+        schema:
+          $ref: "#/definitions/Mission"
+      responses:
+        "200":
+          description: "updated successfully"
+        "204":
+          description: "No content "
+        "404":
+          description: "mission not found "
+      x-swagger-router-controller: "Mission"
+  /Mission/getMissionByTitleAndType:
+    get:
+      tags:
+      - "Mission"
+      summary: "Get mission"
+      description: "See the available missions"
+      operationId: "getMissionByTitleAndType"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "title"
+        in: "query"
+        description: "The title of the mission."
+        required: true
+        type: "string"
+      - name: "type"
+        in: "query"
+        description: "The type of the mission."
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Mission"
+        "404":
+          description: "No mission found"
+      x-swagger-router-controller: "Mission"
+  /Mission/{_id}:
+    delete:
+      tags:
+      - "Mission"
+      summary: "Delete mission"
+      description: "To delete a mission"
+      operationId: "deleteMissionById"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "_id"
+        in: "path"
+        description: "The ID of the mission that needs to be deleted"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "Deleted sucessfully"
+        "404":
+          description: "mission not found"
+      x-swagger-router-controller: "Mission"
+  /Boss:
+    get:
+      tags:
+      - "Boss"
+      summary: "Get bosses"
+      description: "See the available bosses"
+      operationId: "getAllBoss"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters: []
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Boss"
+        "404":
+          description: "No boss found"
+      x-swagger-router-controller: "Boss"
+    post:
+      tags:
+      - "Boss"
+      summary: "Create a new boss"
+      operationId: "createBoss"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "To create a new boss"
+        required: true
+        schema:
+          $ref: "#/definitions/Boss"
+      responses:
+        "201":
+          description: "successful operation"
+      x-swagger-router-controller: "Boss"
+    put:
+      tags:
+      - "Boss"
+      summary: "Modify boss"
+      description: "To modify a boss "
+      operationId: "modifyBoss"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Updated boss object"
+        required: true
+        schema:
+          $ref: "#/definitions/Boss"
+      responses:
+        "200":
+          description: "updated successfully"
+        "204":
+          description: "No content "
+        "404":
+          description: "boss not found "
+      x-swagger-router-controller: "Boss"
+  /Boss/{bossName}:
+    delete:
+      tags:
+      - "Boss"
+      summary: "Delete boss"
+      description: "To delete a boss"
+      operationId: "deleteBossByBossName"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "bossName"
+        in: "path"
+        description: "The name of the boss that needs to be deleted"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "Deleted sucessfully"
+        "404":
+          description: "boss not found"
+      x-swagger-router-controller: "Boss"
+  /Team:
+    get:
+      tags:
+      - "Team"
+      summary: "Get teams"
+      description: "See the available teams"
+      operationId: "getAllTeams"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters: []
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Team"
+        "404":
+          description: "No team found"
+      x-swagger-router-controller: "Team"
+    post:
+      tags:
+      - "Team"
+      summary: "Create a new team"
+      operationId: "createTeam"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "To create a new team"
+        required: true
+        schema:
+          $ref: "#/definitions/Team"
+      responses:
+        "201":
+          description: "successful operation"
+      x-swagger-router-controller: "Team"
+    put:
+      tags:
+      - "Team"
+      summary: "Modify team"
+      description: "To modify a team"
+      operationId: "modifyTeam"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Updated team object"
+        required: true
+        schema:
+          $ref: "#/definitions/Team"
+      responses:
+        "200":
+          description: "updated successfully"
+        "204":
+          description: "No content "
+        "404":
+          description: "team not found "
+      x-swagger-router-controller: "Team"
+  /Team/{teamName}:
+    delete:
+      tags:
+      - "Team"
+      summary: "Delete team"
+      description: "To delete a team"
+      operationId: "deleteTeamByTeamName"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "teamName"
+        in: "path"
+        description: "The name of the team that needs to be deleted"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "Deleted sucessfully"
+        "404":
+          description: "team not found"
+      x-swagger-router-controller: "Team"
+  /SkillTree:
+    post:
+      tags:
+      - "SkillTree"
+      summary: "Create a new skill tree"
+      operationId: "createSkillTree"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "To create a new skill tree"
+        required: true
+        schema:
+          $ref: "#/definitions/SkillTree"
+      responses:
+        "201":
+          description: "successful operation"
+      x-swagger-router-controller: "SkillTree"
+    put:
+      tags:
+      - "SkillTree"
+      summary: "Modify skill tree"
+      description: "To modify a skill tree"
+      operationId: "modifySkillTree"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Updated skill tree object"
+        required: true
+        schema:
+          $ref: "#/definitions/SkillTree"
+      responses:
+        "200":
+          description: "updated successfully"
+        "204":
+          description: "No content "
+        "404":
+          description: "skill tree not found "
+      x-swagger-router-controller: "SkillTree"
+  /SkillTree/{_id}:
+    get:
+      tags:
+      - "SkillTree"
+      summary: "get SkillTree"
+      description: "To get a skill tree by class"
+      operationId: "getSkillTreeByClass"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "_id"
+        in: "path"
+        description: "The class of the skill tree"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/SkillTree"
+        "400":
+          description: "Invalid class supplied"
+        "404":
+          description: "SkillTree not found"
+      x-swagger-router-controller: "SkillTree"
+    delete:
+      tags:
+      - "SkillTree"
+      summary: "Delete SkillTree by ID"
+      description: "To delete a skill tree by ID"
+      operationId: "deleteSkillTreeById"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "_id"
+        in: "path"
+        description: "The ID of the skill tree that needs to be deleted"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "Deleted sucessfully"
+        "404":
+          description: "SkillTree not found"
+      x-swagger-router-controller: "SkillTree"
+  /Application:
+    post:
+      tags:
+      - "Application"
+      summary: "Create a new Application"
+      operationId: "createApplication"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "To create a new application"
+        required: true
+        schema:
+          $ref: "#/definitions/Application"
+      responses:
+        "201":
+          description: "successful operation"
+      x-swagger-router-controller: "Application"
+    put:
+      tags:
+      - "Application"
+      summary: "Modify Application"
+      description: "To modify a Application"
+      operationId: "modifyApplication"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Updated Application object"
+        required: true
+        schema:
+          $ref: "#/definitions/Application"
+      responses:
+        "200":
+          description: "updated successfully"
+        "204":
+          description: "No content "
+        "404":
+          description: "Application not found "
+      x-swagger-router-controller: "Application"
+  /Application/{team_id}:
+    get:
+      tags:
+      - "Application"
+      summary: "Get Applications by team ID"
+      description: "See the available applications by team ID"
+      operationId: "getAllApplicationsByTeamId"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "team_id"
+        in: "path"
+        description: "team_id  of application"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Application"
+        "404":
+          description: "No application found"
+      x-swagger-router-controller: "Application"
+  /Application/deleteApplicationByTeamIdAndUserId:
+    delete:
+      tags:
+      - "Application"
+      summary: "Delete Application"
+      description: "To delete an application"
+      operationId: "deleteApplicationByTeamIdAndUserId"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "team_id"
+        in: "query"
+        description: "team_id  of application"
+        required: true
+        type: "string"
+      - name: "user_id"
+        in: "query"
+        description: "team_id  of application"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "Deleted sucessfully"
+        "404":
+          description: "No application found"
+      x-swagger-router-controller: "Application"
+  /Node:
+    post:
+      tags:
+      - "Node"
+      summary: "Create a new node"
+      operationId: "createNode"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "To create a new node"
+        required: true
+        schema:
+          $ref: "#/definitions/Node"
+      responses:
+        "201":
+          description: "successful operation"
+      x-swagger-router-controller: "Node"
+    put:
+      tags:
+      - "Node"
+      summary: "Modify node"
+      description: "To modify a node"
+      operationId: "modifyNode"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "modify the node"
+        required: true
+        schema:
+          $ref: "#/definitions/Node"
+      responses:
+        "200":
+          description: "updated successfully"
+        "204":
+          description: "No content "
+        "404":
+          description: "node not found"
+      x-swagger-router-controller: "Node"
+  /Node/{_id}:
+    delete:
+      tags:
+      - "Node"
+      summary: "Delete Node"
+      description: "To delete a node"
+      operationId: "deleteNode"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "_id"
+        in: "path"
+        description: "Id of node"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "Deleted sucessfully"
+        "404":
+          description: "No node found"
+      x-swagger-router-controller: "Node"
+  /Consumption:
+    post:
+      tags:
+      - "Consumption"
+      summary: "Create new Consumption"
+      operationId: "createConsumption"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "To create new consumption"
+        required: true
+        schema:
+          $ref: "#/definitions/Consumption"
+      responses:
+        "201":
+          description: "successful operation"
+      x-swagger-router-controller: "Consumption"
+    put:
+      tags:
+      - "Consumption"
+      summary: "Modify Consumption"
+      description: "To modify a Consumption"
+      operationId: "modifyConsumption"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "modify the Consumption"
+        required: true
+        schema:
+          $ref: "#/definitions/Consumption"
+      responses:
+        "200":
+          description: "updated successfully"
+        "204":
+          description: "No content "
+        "404":
+          description: "Consumption not found"
+      x-swagger-router-controller: "Consumption"
+  /Consumption/getConsumptionByUserIdandDate:
+    get:
+      tags:
+      - "Consumption"
+      summary: "Find consumption by user id and date"
+      operationId: "getConsumptionByUserIdandDate"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "user_id"
+        in: "query"
+        description: "user id of consumption to return"
+        required: true
+        type: "string"
+      - name: "date"
+        in: "query"
+        description: "date of consumption to return"
+        required: true
+        type: "string"
+        format: "date"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Consumption"
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Consumption not found"
+      x-swagger-router-controller: "Consumption"
+  /Consumption/deleteConsumptionByUserIdandDate:
+    delete:
+      tags:
+      - "Consumption"
+      summary: "Delete Consumption"
+      description: "To delete a user's consumption of a date"
+      operationId: "deleteConsumptionByUserIdandDate"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "user_id"
+        in: "query"
+        description: "The user id of the consumption that needs to be deleted"
+        required: true
+        type: "string"
+      - name: "date"
+        in: "query"
+        description: "date of consumption"
+        required: true
+        type: "string"
+        format: "date"
+      responses:
+        "200":
+          description: "Deleted sucessfully"
+        "404":
+          description: "User's consumption not found"
+      x-swagger-router-controller: "Consumption"
+  /Consumption/getConsumptionByUserIdDateAndCategory:
+    get:
+      tags:
+      - "Consumption"
+      summary: "Find consumption by user id,date and category"
+      operationId: "getConsumptionByUserIdDateAndCategory"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "user_id"
+        in: "query"
+        description: "user id of consumption to return"
+        required: true
+        type: "string"
+      - name: "date"
+        in: "query"
+        description: "date of consumption to return"
+        required: true
+        type: "string"
+        format: "date"
+      - name: "category"
+        in: "query"
+        description: "category  of consumption to return"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Consumption"
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Consumption not found"
+      x-swagger-router-controller: "Consumption"
+  /Consumption/deleteConsumptionByUserIdDateAndCategory:
+    delete:
+      tags:
+      - "Consumption"
+      summary: "Delete Consumption by user id,date and category"
+      description: "To delete a user's consumption by user id,date and category"
+      operationId: "deleteConsumptionByUserIdDateAndCategory"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "user_id"
+        in: "query"
+        description: "The user id of the consumption that needs to be deleted"
+        required: true
+        type: "string"
+      - name: "date"
+        in: "query"
+        description: "date of consumption"
+        required: true
+        type: "string"
+        format: "date"
+      - name: "category"
+        in: "query"
+        description: "category  of consumption"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "Deleted sucessfully"
+        "404":
+          description: "User's consumption not found"
+      x-swagger-router-controller: "Consumption"
+  /Temperature:
+    get:
+      tags:
+      - "Temperature"
+      summary: "Get temperature"
+      description: "See the Temperature"
+      operationId: "getAllTemperature"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters: []
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Temperature"
+        "404":
+          description: "No temperature found"
+      x-swagger-router-controller: "Temperature"
+    post:
+      tags:
+      - "Temperature"
+      operationId: "createTemperature"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "To create new Temperature"
+        required: true
+        schema:
+          $ref: "#/definitions/Temperature"
+      responses:
+        "201":
+          description: "successful operation"
+      x-swagger-router-controller: "Temperature"
+  /Temperature/{time}:
+    delete:
+      tags:
+      - "Temperature"
+      summary: "Delete temperature by time"
+      operationId: "deleteTemperatureByTime"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "time"
+        in: "path"
+        description: "The time of the temperature"
+        required: true
+        type: "string"
+        format: "date"
+      responses:
+        "200":
+          description: "Deleted sucessfully"
+        "404":
+          description: "Temperature not found"
+      x-swagger-router-controller: "Temperature"
+  /AdminAnnounces:
+    get:
+      tags:
+      - "AdminAnnounces"
+      summary: "Get Admin Announces"
+      description: "See the Admin Announces"
+      operationId: "getAllAdminAnnounces"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters: []
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/AdminAnnounces"
+        "404":
+          description: "No temperature found"
+      x-swagger-router-controller: "AdminAnnounces"
+    post:
+      tags:
+      - "AdminAnnounces"
+      operationId: "createAdminAnnounce"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "To create new admin announce"
+        required: true
+        schema:
+          $ref: "#/definitions/AdminAnnounces"
+      responses:
+        "201":
+          description: "successful operation"
+      x-swagger-router-controller: "AdminAnnounces"
+    put:
+      tags:
+      - "AdminAnnounces"
+      summary: "Modify AdminAnnounces"
+      description: "To modify a AdminAnnounces"
+      operationId: "modifyAdminAnnounce"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "modify the AdminAnnounce"
+        required: true
+        schema:
+          $ref: "#/definitions/AdminAnnounces"
+      responses:
+        "200":
+          description: "updated successfully"
+        "204":
+          description: "No content "
+        "404":
+          description: "AdminAnnounce not found"
+      x-swagger-router-controller: "AdminAnnounces"
+  /AdminAnnounces/{_id}:
+    delete:
+      tags:
+      - "AdminAnnounces"
+      summary: "Delete adminAnnounce"
+      operationId: "deleteAdminAnnounce"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "_id"
+        in: "path"
+        description: "The ID of the AdminAnnounces"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "Deleted sucessfully"
+        "404":
+          description: "AdminAnnounces not found"
+      x-swagger-router-controller: "AdminAnnounces"
+definitions:
+  User:
+    type: "object"
+    properties:
+      _id:
+        type: "string"
+      UserName:
+        type: "string"
+      Password:
+        type: "string"
+      email:
+        type: "string"
+        format: "email"
+      personalInfo:
+        type: "string"
+      typeOfUser:
+        type: "string"
+      avatarUrl:
+        type: "string"
+      abilityPoints:
+        type: "integer"
+      consumption:
+        type: "string"
+      allowance:
+        $ref: "#/definitions/User_allowance"
+    xml:
+      name: "User"
+    example:
+      personalInfo: "personalInfo"
+      typeOfUser: "typeOfUser"
+      abilityPoints: 0
+      UserName: "UserName"
+      avatarUrl: "avatarUrl"
+      consumption: "consumption"
+      allowance:
+        "01_2020": 6.02745618307040320615897144307382404804229736328125
+        "10_2020": 4.1456080298839363962315474054776132106781005859375
+        "07_2020": 9.301444243932575517419536481611430644989013671875
+        "09_2020": 2.027123023002321833274663731572218239307403564453125
+        "02_2020": 1.46581298050294517310021547018550336360931396484375
+        "06_2020": 7.061401241503109105224211816675961017608642578125
+        "05_2020": 2.3021358869347654518833223846741020679473876953125
+        "11_2020": 7.3862819483858839220147274318151175975799560546875
+        "03_2020": 5.962133916683182377482808078639209270477294921875
+        "04_2020": 5.63737665663332876420099637471139430999755859375
+        "08_2020": 3.61607674925191080461672754609026014804840087890625
+        "12_2020": 1.231513536777255612975068288506008684635162353515625
+      _id: "_id"
+      email: "email"
+      Password: "Password"
+  PersonalInfo:
+    type: "object"
+    properties:
+      _id:
+        type: "string"
+      user_id:
+        type: "string"
+      realName:
+        type: "string"
+      email:
+        type: "string"
+        format: "email"
+      occupation:
+        type: "string"
+      biography:
+        type: "string"
+      phone:
+        type: "string"
+      linkedin:
+        type: "string"
+      facebook:
+        type: "string"
+    xml:
+      name: "personalInfo"
+    example:
+      realName: "realName"
+      occupation: "occupation"
+      user_id: "user_id"
+      phone: "phone"
+      facebook: "facebook"
+      _id: "_id"
+      biography: "biography"
+      linkedin: "linkedin"
+      email: "email"
+  Event:
+    type: "object"
+    required:
+    - "EventName"
+    properties:
+      _id:
+        type: "string"
+      EventName:
+        type: "string"
+      Description:
+        type: "string"
+      src:
+        type: "string"
+      boss:
+        type: "string"
+      openDate:
+        type: "string"
+        format: "date"
+    xml:
+      name: "Event"
+  Character:
+    type: "object"
+    properties:
+      _id:
+        type: "string"
+      user_id:
+        type: "string"
+      characterName:
+        type: "string"
+      characterDescription:
+        type: "string"
+      attack:
+        type: "number"
+      armor:
+        type: "number"
+      health:
+        type: "number"
+      healing_factor:
+        type: "number"
+      avatar:
+        type: "string"
+      skillTree:
+        type: "string"
+    xml:
+      name: "Character"
+    example:
+      skillTree: "skillTree"
+      armor: 6.02745618307040320615897144307382404804229736328125
+      user_id: "user_id"
+      attack: 0.80082819046101150206595775671303272247314453125
+      characterDescription: "characterDescription"
+      characterName: "characterName"
+      health: 1.46581298050294517310021547018550336360931396484375
+      _id: "_id"
+      avatar: "avatar"
+      healing_factor: 5.962133916683182377482808078639209270477294921875
+  Badge:
+    type: "object"
+    required:
+    - "badgeName"
+    properties:
+      _id:
+        type: "string"
+      badgeName:
+        type: "string"
+      badgeDescription:
+        type: "string"
+      badgePictureUrl:
+        type: "string"
+    xml:
+      name: "Badge"
+  Mission:
+    type: "object"
+    required:
+    - "title"
+    properties:
+      _id:
+        type: "string"
+      title:
+        type: "string"
+      description:
+        type: "string"
+      value:
+        type: "number"
+      goal:
+        type: "number"
+      reward:
+        type: "integer"
+      image:
+        type: "string"
+      deleted:
+        type: "boolean"
+      type:
+        type: "string"
+    xml:
+      name: "Mission"
+    example:
+      reward: 1
+      image: "image"
+      goal: 6.02745618307040320615897144307382404804229736328125
+      deleted: true
+      description: "description"
+      _id: "_id"
+      title: "title"
+      type: "type"
+      value: 0.80082819046101150206595775671303272247314453125
+  Boss:
+    type: "object"
+    required:
+    - "bossName"
+    properties:
+      _id:
+        type: "string"
+      bossName:
+        type: "string"
+      bossDescription:
+        type: "string"
+      avatar:
+        type: "string"
+      health:
+        type: "number"
+      armor:
+        type: "number"
+      attack:
+        type: "number"
+      healing_factor:
+        type: "number"
+    xml:
+      name: "Boss"
+    example:
+      armor: 6.02745618307040320615897144307382404804229736328125
+      bossName: "bossName"
+      attack: 1.46581298050294517310021547018550336360931396484375
+      health: 0.80082819046101150206595775671303272247314453125
+      _id: "_id"
+      avatar: "avatar"
+      bossDescription: "bossDescription"
+      healing_factor: 5.962133916683182377482808078639209270477294921875
+  SkillTree:
+    type: "object"
+    properties:
+      _id:
+        type: "string"
+      class:
+        type: "string"
+      nodes:
+        type: "array"
+        xml:
+          name: "nodes"
+          wrapped: true
+        items:
+          type: "string"
+    xml:
+      name: "SkillTree"
+    example:
+      nodes:
+      - "nodes"
+      - "nodes"
+      _id: "_id"
+      class: "class"
+  Team:
+    type: "object"
+    properties:
+      _id:
+        type: "string"
+      teamName:
+        type: "string"
+      avatar:
+        type: "string"
+      event_id:
+        type: "string"
+      teamLeader:
+        type: "string"
+      teamMembers:
+        type: "array"
+        xml:
+          name: "teamMembers"
+          wrapped: true
+        items:
+          type: "string"
+    xml:
+      name: "Team"
+    example:
+      teamName: "teamName"
+      event_id: "event_id"
+      _id: "_id"
+      avatar: "avatar"
+      teamLeader: "teamLeader"
+      teamMembers:
+      - "teamMembers"
+      - "teamMembers"
+  Application:
+    type: "object"
+    properties:
+      _id:
+        type: "string"
+      team_id:
+        type: "string"
+      user_id:
+        type: "string"
+      character:
+        type: "string"
+      accepted:
+        type: "boolean"
+      rejected:
+        type: "boolean"
+    xml:
+      name: "Application"
+    example:
+      character: "character"
+      user_id: "user_id"
+      rejected: true
+      accepted: true
+      _id: "_id"
+      team_id: "team_id"
+  Node:
+    type: "object"
+    properties:
+      _id:
+        type: "string"
+      ability:
+        type: "string"
+      type:
+        type: "string"
+      amount:
+        type: "number"
+      augmentationType:
+        type: "string"
+      cost:
+        type: "integer"
+      sons:
+        type: "array"
+        xml:
+          name: "sons"
+          wrapped: true
+        items:
+          type: "string"
+      locked:
+        type: "boolean"
+      owned:
+        type: "boolean"
+    xml:
+      name: "Node"
+  Consumption:
+    type: "object"
+    properties:
+      _id:
+        type: "string"
+      user_id:
+        type: "string"
+      date:
+        type: "string"
+        format: "date"
+      total:
+        type: "number"
+      category:
+        type: "string"
+    xml:
+      name: "Consumption"
+    example:
+      date: "2000-01-23"
+      total: 0.80082819046101150206595775671303272247314453125
+      user_id: "user_id"
+      _id: "_id"
+      category: "category"
+  Temperature:
+    type: "object"
+    properties:
+      _id:
+        type: "string"
+      time:
+        type: "string"
+        format: "date"
+      temperature:
+        type: "number"
+    xml:
+      name: "Temperature"
+    example:
+      temperature: 0.80082819046101150206595775671303272247314453125
+      _id: "_id"
+      time: "2000-01-23"
+  AdminAnnounces:
+    type: "object"
+    properties:
+      _id:
+        type: "string"
+      icon:
+        type: "string"
+      title:
+        type: "string"
+      content:
+        type: "string"
+    example:
+      icon: "icon"
+      _id: "_id"
+      title: "title"
+      content: "content"
+  User_allowance:
+    type: "object"
+    properties:
+      "01_2020":
+        type: "number"
+      "02_2020":
+        type: "number"
+      "03_2020":
+        type: "number"
+      "04_2020":
+        type: "number"
+      "05_2020":
+        type: "number"
+      "06_2020":
+        type: "number"
+      "07_2020":
+        type: "number"
+      "08_2020":
+        type: "number"
+      "09_2020":
+        type: "number"
+      "10_2020":
+        type: "number"
+      "11_2020":
+        type: "number"
+      "12_2020":
+        type: "number"
+    example:
+      "01_2020": 6.02745618307040320615897144307382404804229736328125
+      "10_2020": 4.1456080298839363962315474054776132106781005859375
+      "07_2020": 9.301444243932575517419536481611430644989013671875
+      "09_2020": 2.027123023002321833274663731572218239307403564453125
+      "02_2020": 1.46581298050294517310021547018550336360931396484375
+      "06_2020": 7.061401241503109105224211816675961017608642578125
+      "05_2020": 2.3021358869347654518833223846741020679473876953125
+      "11_2020": 7.3862819483858839220147274318151175975799560546875
+      "03_2020": 5.962133916683182377482808078639209270477294921875
+      "04_2020": 5.63737665663332876420099637471139430999755859375
+      "08_2020": 3.61607674925191080461672754609026014804840087890625
+      "12_2020": 1.231513536777255612975068288506008684635162353515625
