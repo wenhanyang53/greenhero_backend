@@ -1,4 +1,7 @@
 'use strict';
+var MongoClient = require('mongodb').MongoClient;
+var ObjectId = require('mongodb').ObjectID;
+var url = "mongodb://localhost:27017/";
 
 
 /**
@@ -7,9 +10,27 @@
  * body SkillTree To create a new skill tree
  * no response value expected for this operation
  **/
-exports.createSkillTree = function(body) {
-  return new Promise(function(resolve, reject) {
-    resolve();
+exports.createSkillTree = function (body) {
+  return new Promise(function (resolve, reject) {
+    MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
+      if (err) throw err;
+      var dbo = db.db("greenhero");
+      console.log(body.nodes);
+      var mynodes=new Array();
+      for (var i=0;i<body.nodes.length;i++)
+        { 
+          mynodes.push(ObjectId(body.nodes[i]))
+        }
+      console.log(mynodes);
+      dbo.collection("SkillTree").insertOne({
+        "class": body.class,
+        "nodes": mynodes
+      },function (err, result) {
+        if (err) throw err;
+        resolve(result);
+        db.close();
+      });
+    });
   });
 }
 

@@ -136,7 +136,24 @@ exports.getMissionByTitleAndType = function(title,type) {
  **/
 exports.modifyMission = function(body) {
   return new Promise(function(resolve, reject) {
-    resolve();
+    MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+      if (err) throw err;
+      var dbo = db.db("greenhero");
+      var whereStr = {"_id":ObjectId(body._id)};  // condition
+      var updateStr = {$set: { "title" : body.title,
+                                "description" :body.description,
+                                "value" : body.value,
+                                "goal" : body.goal,
+                                "reward": body.reward,
+                                "image": body.image,
+                                "deleted": body.deleted,
+                                "type" :body.type}};
+      dbo.collection("Mission").updateOne(whereStr, updateStr, function(err, res) {
+          if (err) throw err;
+          console.log("successful");
+          db.close();
+      });
+  });
   });
 }
 
