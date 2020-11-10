@@ -96,11 +96,6 @@ exports.getAllApplicationsByTeamId = function (team_id) {
       "_id": "_id",
       "team_id": "team_id"
     }];
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
   });
 }
 

@@ -80,11 +80,6 @@ exports.getAllTemperature = function () {
       "_id": "_id",
       "time": "2000-01-23"
     }];
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
   });
 }
 
