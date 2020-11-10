@@ -70,7 +70,6 @@ exports.getAllMissions = function () {
       var dbo = db.db("greenhero");
       dbo.collection("Mission").find().toArray(function (err, result) {
         if (err) throw err;
-        console.log(result);
         resolve(result);
         db.close();
       });
@@ -111,14 +110,11 @@ exports.getAllMissions = function () {
  **/
 exports.getMissionByTitleAndType = function(title,type) {
   return new Promise(function(resolve, reject) {
-    console.log(title);
-    console.log(type);
     MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
       if (err) throw err;
       var dbo = db.db("greenhero");
       dbo.collection("Mission"). find({"title":title,"type":type}).toArray(function(err, result) { 
           if (err) throw err;
-          console.log(result);
           resolve(result); 
           db.close();
       });

@@ -872,15 +872,15 @@ paths:
       tags:
       - "SkillTree"
       summary: "get SkillTree"
-      description: "To get a skill tree by class"
-      operationId: "getSkillTreeByClass"
+      description: "To get a skill tree by Id"
+      operationId: "getSkillTreeById"
       produces:
       - "application/xml"
       - "application/json"
       parameters:
       - name: "_id"
         in: "path"
-        description: "The class of the skill tree"
+        description: "The Id of the skill tree"
         required: true
         type: "string"
       responses:
@@ -889,7 +889,7 @@ paths:
           schema:
             $ref: "#/definitions/SkillTree"
         "400":
-          description: "Invalid class supplied"
+          description: "Invalid id supplied"
         "404":
           description: "SkillTree not found"
       x-swagger-router-controller: "SkillTree"
@@ -1122,6 +1122,39 @@ paths:
           description: "Consumption not found"
       x-swagger-router-controller: "Consumption"
   /Consumption/getConsumptionByUserIdandDate:
+    get:
+      tags:
+      - "Consumption"
+      summary: "Find consumption by user id and date"
+      operationId: "getConsumptionByUserIdandDate"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "user_id"
+        in: "query"
+        description: "user id of consumption to return"
+        required: true
+        type: "string"
+      - name: "date"
+        in: "query"
+        description: "date of consumption to return"
+        required: true
+        type: "string"
+        format: "date"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Consumption"
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Consumption not found"
+      x-swagger-router-controller: "Consumption"
+  /Consumption/getConsumptionForUserAfterDate:
     get:
       tags:
       - "Consumption"
@@ -1494,7 +1527,7 @@ definitions:
       src:
         type: "string"
       boss:
-        type: "string"
+        $ref: "#/definitions/Boss"
       openDate:
         type: "string"
         format: "date"
@@ -1522,7 +1555,7 @@ definitions:
       avatar:
         type: "string"
       skillTree:
-        type: "string"
+        $ref: "#/definitions/SkillTree"
     xml:
       name: "Character"
     example:
@@ -1631,7 +1664,7 @@ definitions:
           name: "nodes"
           wrapped: true
         items:
-          type: "string"
+          $ref: "#/definitions/Node"
     xml:
       name: "SkillTree"
     example:
@@ -1652,14 +1685,14 @@ definitions:
       event_id:
         type: "string"
       teamLeader:
-        type: "string"
+        $ref: "#/definitions/Character"
       teamMembers:
         type: "array"
         xml:
           name: "teamMembers"
           wrapped: true
         items:
-          type: "string"
+          $ref: "#/definitions/Character"
     xml:
       name: "Team"
     example:
@@ -1681,7 +1714,7 @@ definitions:
       user_id:
         type: "string"
       character:
-        type: "string"
+        $ref: "#/definitions/Character"
       accepted:
         type: "boolean"
       rejected:
@@ -1706,6 +1739,10 @@ definitions:
         type: "string"
       amount:
         type: "number"
+      x:
+        type: "number"
+      y:
+        type: "number"
       augmentationType:
         type: "string"
       cost:
@@ -1716,7 +1753,7 @@ definitions:
           name: "sons"
           wrapped: true
         items:
-          type: "string"
+          $ref: "#/definitions/User_allowance"
       locked:
         type: "boolean"
       owned:

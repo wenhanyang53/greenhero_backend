@@ -2,7 +2,7 @@
 var MongoClient = require('mongodb').MongoClient;
 var ObjectId = require('mongodb').ObjectID;
 var url = "mongodb://localhost:27017/";
-
+var Node = require('../service/NodeService');
 
 /**
  * Create a new skill tree
@@ -59,20 +59,26 @@ exports.deleteSkillTreeById = function (_id) {
 
 /**
  * get SkillTree
- * To get a skill tree by class
+ * To get a skill tree by Id
  *
- * _id String The class of the skill tree
+ * _id String The Id of the skill tree
  * returns SkillTree
  **/
-exports.getSkillTreeByClass = function(_id) {
+exports.getSkillTreeById = function(_id) {
 
   return new Promise(function(resolve, reject) {
     MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
       if (err) throw err;
       var dbo = db.db("greenhero");
       var whereStr = {"_id":ObjectId(_id)};  // condition
-      dbo.collection("SkillTree").find(whereStr).toArray(function(err, result) {
+      dbo.collection("SkillTree").findOne(whereStr).then(async function(result) {
           if (err) throw err;
+          if(result.nodes) {
+            for(let i = 0; i < result.nodes.length; i++) {
+              const node = result.nodes[i];
+              result.nodes[i] = await Node.getNodeById(node);
+            }
+          }
           resolve(result);
           db.close();
       });

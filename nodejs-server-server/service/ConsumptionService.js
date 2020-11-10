@@ -22,7 +22,6 @@ exports.createConsumption = function (body) {
         "category": body.category
       }, function (err, result) {
         if (err) throw err;
-        console.log(result);
         resolve(result);
         db.close();
       });
@@ -51,7 +50,6 @@ exports.deleteConsumptionByUserIdDateAndCategory = function (user_id, date, cate
         "category": category
       }, function (err, result) {
         if (err) throw err;
-        console.log(result);
         resolve(result);
         db.close();
       });
@@ -78,7 +76,6 @@ exports.deleteConsumptionByUserIdandDate = function (user_id, date) {
         "date": date
       }, function (err, result) {
         if (err) throw err;
-        console.log(result);
         resolve(result);
         db.close();
       });
@@ -106,7 +103,6 @@ exports.getConsumptionByUserIdDateAndCategory = function (user_id, date, categor
         "category": category
       }).toArray(function (err, result) {
         if (err) throw err;
-        console.log(result);
         resolve(result);
         db.close();
       });
@@ -140,7 +136,44 @@ exports.getConsumptionByUserIdandDate = function (user_id, date) {
         "date": date
       }).toArray(function (err, result) {
         if (err) throw err;
-        console.log(result);
+        resolve(result);
+        db.close();
+      });
+    });
+    var examples = {};
+    examples['application/json'] = [{
+      "date": "2000-01-23",
+      "total": 0.80082819046101150206595775671303272247314453125,
+      "user_id": "user_id",
+      "_id": "_id",
+      "category": "category"
+    }, {
+      "date": "2000-01-23",
+      "total": 0.80082819046101150206595775671303272247314453125,
+      "user_id": "user_id",
+      "_id": "_id",
+      "category": "category"
+    }];
+  });
+}
+
+/**
+ * Find consumption by user id after a date
+ *
+ * user_id String user id of consumption to return
+ * date date date of consumption to return
+ * returns List
+ **/
+exports.getConsumptionForUserAfterDate = function (user_id, date) {
+  return new Promise(function (resolve, reject) {
+    MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
+      if (err) throw err;
+      var dbo = db.db("greenhero");
+      dbo.collection("Consumption").find({
+        "user_id": ObjectId(user_id),
+        "date": date
+      }).toArray(function (err, result) {
+        if (err) throw err;
         resolve(result);
         db.close();
       });
@@ -185,7 +218,6 @@ exports.modifyConsumption = function (body) {
           "category": body.category
         }, function (err, result) {
           if (err) throw err;
-          console.log(result);
           resolve(result);
           db.close();
         });
