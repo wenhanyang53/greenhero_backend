@@ -1,0 +1,44 @@
+[{
+  "_id": {
+    "$oid": "5fa83becb8e195e535220ea7"
+  },
+  "teamName": "2IS Team",
+  "avatar": "",
+  "event_id": {
+    "$oid": "5fa05e6076f63c87fb6a739c"
+  },
+  "teamLeader": {
+    "$oid": "5fa839e5b8e195e535220ea4"
+  },
+  "teamMembers": [
+    {
+      "$oid": "5fa03ef307b450fd6ae7a570"
+    },
+    {
+      "$oid": "5fa04b2f33d8324b724475d4"
+    },
+    {
+      "$oid": "5fa83a6eb8e195e535220ea5"
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "5fa83d72b8e195e535220ea8"
+  },
+  "teamName": "2IS Team2",
+  "avatar": "",
+  "event_id": {
+    "$oid": "5fa05f5e76f63c87fb6a739d"
+  },
+  "teamLeader": {
+    "$oid": "5fa839e5b8e195e535220ea4"
+  },
+  "teamMembers": [
+    {
+      "$oid": "5fa04b2f33d8324b724475d4"
+    },
+    {
+      "$oid": "5fa03ef307b450fd6ae7a570"
+    }
+  ]
+}]

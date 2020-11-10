@@ -1,0 +1,73 @@
+[{
+  "_id": {
+    "$oid": "5fa0529a5347838894ac045d"
+  },
+  "title": "Gather energy",
+  "description": "Use a power station with the brightness set to 60% maximum for 2 hours.",
+  "value": 0.8,
+  "goal": 2,
+  "reward": 20,
+  "image": "",
+  "deleted": false,
+  "type": "daily"
+},{
+  "_id": {
+    "$oid": "5fa0566c16e97aa304d120de"
+  },
+  "title": "Reduce sources",
+  "description": "Use an outlet for a max amount of 30 minutes 3 times today.",
+  "value": 3,
+  "goal": 3,
+  "reward": 10,
+  "image": "",
+  "deleted": false,
+  "type": "daily"
+},{
+  "_id": {
+    "$oid": "5fa7ff2f1059feea9cdb8e84"
+  },
+  "title": "Gather energy",
+  "description": "Use a power station with the brightness set to 60% maximum for 2 hours.",
+  "value": 0.1,
+  "goal": 2,
+  "reward": 100,
+  "image": "",
+  "deleted": false,
+  "type": "weekly"
+},{
+  "_id": {
+    "$oid": "5fa8002b1059feea9cdb8e85"
+  },
+  "title": "Reduce sources",
+  "description": "Use an outlet for a max amount of 30 minutes 3 times today.",
+  "value": 1,
+  "goal": 3,
+  "reward": 80,
+  "image": "",
+  "deleted": false,
+  "type": "weekly"
+},{
+  "_id": {
+    "$oid": "5fa800881059feea9cdb8e86"
+  },
+  "title": "Gather energy",
+  "description": "Use a power station with the brightness set to 60% maximum for 2 hours.",
+  "value": 0.2,
+  "goal": 2,
+  "reward": 400,
+  "image": "",
+  "deleted": false,
+  "type": "monthly"
+},{
+  "_id": {
+    "$oid": "5fa800a51059feea9cdb8e87"
+  },
+  "title": "Reduce sources",
+  "description": "Use an outlet for a max amount of 30 minutes 3 times today.",
+  "value": 2,
+  "goal": 3,
+  "reward": 400,
+  "image": "",
+  "deleted": false,
+  "type": "monthly"
+}]

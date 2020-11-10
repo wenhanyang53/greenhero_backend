@@ -1,0 +1,16 @@
+[{
+  "_id": {
+    "$oid": "5fa83e2ab8e195e535220ea9"
+  },
+  "team_id": {
+    "$oid": "5fa83d72b8e195e535220ea8"
+  },
+  "user_id": {
+    "$oid": "5fa177809af0e02777994f80"
+  },
+  "character": {
+    "$oid": "5fa03ef307b450fd6ae7a570"
+  },
+  "accepted": true,
+  "rejected": false
+}]
