@@ -91,6 +91,39 @@ exports.getPersonalInfoByUserId = function(user_id) {
   });
 }
 
+/**
+ * Find personal infos of profession
+ *
+ * occupation string profession
+ * returns List
+ **/
+exports.getPersonalInfoByProfession = function(occupation) {
+  return new Promise(function(resolve, reject) {
+    MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+      if (err) throw err;
+      var dbo = db.db("greenhero");
+       var whereStr = {"occupation": occupation };  // condition
+      dbo.collection("personalInfo").find(whereStr).toArray(function(err, result) {
+          if (err) throw err;
+          resolve(result);
+          db.close();
+      });
+  });
+    var examples = {};
+    examples['application/json'] = {
+  "realName" : "realName",
+  "occupation" : "occupation",
+  "user_id" : "user_id",
+  "phone" : "phone",
+  "facebook" : "facebook",
+  "_id" : "_id",
+  "biography" : "biography",
+  "linkedin" : "linkedin",
+  "email" : "email"
+};
+  });
+}
+
 
 /**
  * Modify PersonalInfo
