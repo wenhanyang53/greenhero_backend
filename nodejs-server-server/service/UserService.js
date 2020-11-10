@@ -121,13 +121,12 @@ exports.getUser = function (userId) {
     MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
       if (err) throw err;
       var dbo = db.db("greenhero");
-      dbo.collection("User").find({
+      dbo.collection("User").findOne({
         "_id": ObjectId(userId)
-      }).toArray(async function (err, result) {
-        if (err) throw err;
-        if(result.personalInfo) {
-          result.personalInfo = await PersonalInfo.getPersonalInfoByUserId(result.personalInfo);
-        }
+      }).then(async function (result) {
+          if (result.personalInfo) {
+            result.personalInfo = await PersonalInfo.getPersonalInfoByUserId(result._id);
+          }
         resolve(result);
         db.close();
       });
