@@ -45,3 +45,15 @@ module.exports.modifyTeam = function modifyTeam (req, res, next) {
       utils.writeJson(res, response);
     });
 };
+
+module.exports.getTeamByEventIdAndUserId = function getTeamByEventIdAndUserId(req,res,next){
+  var event_id = req.swagger.params['event_id'].value;
+  var user_id = req.swagger.params['user_id'].value;
+  Team.getTeamByEventIdAndUserId(event_id,user_id)
+  .then(function (response) {
+    utils.writeJson(res, response);
+  })
+  .catch(function (response) {
+    utils.writeJson(res, response);
+  });
+};
