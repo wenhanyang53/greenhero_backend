@@ -2,7 +2,8 @@
 var MongoClient = require('mongodb').MongoClient;
 var ObjectId = require('mongodb').ObjectID;
 var url = "mongodb://localhost:27017/";
-var User = require('./UserService')
+var User = require('./UserService');
+var PersonalInfo = require('./PersonalInfoService');
 
 
 /**
@@ -345,21 +346,32 @@ exports.getAverageConsumptionBetweenUserProfession = function (min_date, max_dat
     MongoClient.connect(url, { useNewUrlParser: true }, async function (err, db) {
       if (err) throw err;
       var dbo = db.db("greenhero");
-      dbo.collection("Consumption").find({
-        "date": {
-          $gte: min_date,
-          $lt: max_date
-        },
-        "user_id": new ObjectId(user_id)
-      }).toArray(function (err, result) {
-        if (err) throw err;
-        let total = 0;
-        for(let cons of result) {
-          total += cons.total;
-        }
-        resolve({total: total});
-        db.close();
-      });
+      const user = await User.getUser(user_id);
+      const users = await PersonalInfo.getPersonalInfoByProfession(user.personalInfo.occupation);
+      let finalTotal = 0;
+      for(let us of users) {
+        finalTotal += await new Promise(function (mini_resolve, mini_reject) {
+          dbo.collection("Consumption").find({
+            "date": {
+              $gte: min_date,
+              $lt: max_date
+            },
+            "user_id": new ObjectId(us.user_id)
+          }).toArray(function (err, result) {
+            if (err) throw err;
+            let total = 0;
+            for(let cons of result) {
+              total += cons.total;
+            }
+            mini_resolve(total);
+            db.close();
+          });
+        });
+      }
+      if(users.length) {
+        finalTotal = finalTotal / users.length;
+      }
+      resolve({total: finalTotal});
     });
     var examples = {};
     examples['application/json'] = [{
