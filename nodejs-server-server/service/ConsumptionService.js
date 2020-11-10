@@ -198,8 +198,8 @@ exports.getConsumptionForUserAfterDate = function (user_id, date) {
 /**
  * Find total consumption between dates
  *
- * min_date String user id of consumption to return
- * max_date date date of consumption to return
+ * min_date date min date of consumption to return
+ * max_date date max date of consumption to return
  * returns number
  **/
 exports.getAllConsumptionBetween = function (min_date, max_date) {
@@ -212,6 +212,52 @@ exports.getAllConsumptionBetween = function (min_date, max_date) {
           $gte: min_date,
           $lt: max_date
         }
+      }).toArray(function (err, result) {
+        if (err) throw err;
+        let total = 0;
+        for(let cons of result) {
+          total += cons.total;
+        }
+        resolve({total: total});
+        db.close();
+      });
+    });
+    var examples = {};
+    examples['application/json'] = [{
+      "date": "2000-01-23",
+      "total": 0.80082819046101150206595775671303272247314453125,
+      "user_id": "user_id",
+      "_id": "_id",
+      "category": "category"
+    }, {
+      "date": "2000-01-23",
+      "total": 0.80082819046101150206595775671303272247314453125,
+      "user_id": "user_id",
+      "_id": "_id",
+      "category": "category"
+    }];
+  });
+}
+
+/**
+ * Find total consumption between dates for a category
+ *
+ * min_date date min date of consumption to return
+ * max_date date max date of consumption to return
+ * category string category of the consumption
+ * returns number
+ **/
+exports.getAllConsumptionBetweenForCategory = function (min_date, max_date, category) {
+  return new Promise(function (resolve, reject) {
+    MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
+      if (err) throw err;
+      var dbo = db.db("greenhero");
+      dbo.collection("Consumption").find({
+        "date": {
+          $gte: min_date,
+          $lt: max_date
+        },
+        "category": category
       }).toArray(function (err, result) {
         if (err) throw err;
         let total = 0;

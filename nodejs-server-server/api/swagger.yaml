@@ -1156,7 +1156,7 @@ paths:
     get:
       tags:
       - "Consumption"
-      summary: "Find total consu;ption between two dates"
+      summary: "Find total consumption between two dates"
       operationId: "getAllConsumptionBetween"
       parameters:
       - name: "min_date"
@@ -1171,6 +1171,43 @@ paths:
         required: true
         type: "string"
         format: "date"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "object"
+            properties:
+              total:
+                type: "number"
+        "400":
+          description: "Invalid params supplied"
+        "404":
+          description: "Consumption not found"
+      x-swagger-router-controller: "Consumption"
+  /Consumption/getAllConsumptionBetweenForCategory:
+    get:
+      tags:
+      - "Consumption"
+      summary: "Find total consumption between two dates for a category"
+      operationId: "getAllConsumptionBetweenForCategory"
+      parameters:
+      - name: "min_date"
+        in: "query"
+        description: "minimum date of query"
+        required: true
+        type: "string"
+        format: "date"
+      - name: "max_date"
+        in: "query"
+        description: "maximum date of query"
+        required: true
+        type: "string"
+        format: "date"
+      - name: "category"
+        in: "query"
+        description: "category of consumption"
+        required: true
+        type: "string"
       responses:
         "200":
           description: "successful operation"
