@@ -6,15 +6,15 @@ var url = "mongodb://localhost:27017/";
 
 /**
  *
- * body Temperature To create new Temperature
+ * body TemperatureDesired To create new TemperatureDesired
  * no response value expected for this operation
  **/
-exports.createTemperature = function (body) {
+exports.createTemperatureDesired = function (body) {
   return new Promise(function (resolve, reject) {
     MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
       if (err) throw err;
       var dbo = db.db("greenhero");
-      dbo.collection("Temperature").insertOne({
+      dbo.collection("TemperatureDesired").insertOne({
         "time": body.time,
         "temperature": body.temperature,
       }, function (err, result) {
@@ -28,17 +28,17 @@ exports.createTemperature = function (body) {
 
 
 /**
- * Delete temperature by time
+ * Delete TemperatureDesired by time
  *
- * time date The time of the temperature
+ * time date The time of the TemperatureDesired
  * no response value expected for this operation
  **/
-exports.deleteTemperatureByTime = function (time) {
+exports.deleteTemperatureDesiredByTime = function (time) {
   return new Promise(function (resolve, reject) {
     MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
       if (err) throw err;
       var dbo = db.db("greenhero");
-      dbo.collection("Temperature").deleteOne({
+      dbo.collection("TemperatureDesired").deleteOne({
         "time": time,
       }, function (err, result) {
         if (err) throw err;
@@ -51,17 +51,17 @@ exports.deleteTemperatureByTime = function (time) {
 
 
 /**
- * Get temperature
- * See the Temperature
+ * Get TemperatureDesired
+ * See the TemperatureDesired
  *
  * returns List
  **/
-exports.getAllTemperature = function () {
+exports.getAllTemperatureDesired = function () {
   return new Promise(function (resolve, reject) {
     MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
       if (err) throw err;
       var dbo = db.db("greenhero");
-      dbo.collection("Temperature").find().toArray(function (err, result) {
+      dbo.collection("TemperatureDesired").find().toArray(function (err, result) {
         if (err) throw err;
         resolve(result);
         db.close();
@@ -70,13 +70,13 @@ exports.getAllTemperature = function () {
   });
 }
 
-exports.getTemperatureByTime = function (time) {
+exports.getTemperatureDesiredByTime = function (time) {
   return new Promise(function (resolve, reject) {
     MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
       if (err) throw err;
       var dbo = db.db("greenhero");
       var whereStr = { "time": time };  // condition
-      dbo.collection("Temperature").find(whereStr).toArray(function (err, result) {
+      dbo.collection("TemperatureDesired").find(whereStr).toArray(function (err, result) {
         if (err) throw err;
         resolve(result);
         db.close();
@@ -85,14 +85,14 @@ exports.getTemperatureByTime = function (time) {
   });
 }
 
-exports.creatTemperatureByTimeAndTemperature = function(time, temperature){
+exports.creatTemperatureDesiredByTimeAndTemperature = function(time, temperature){
   return new Promise(function (resolve, reject) {
     MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
       if (err) throw err;
       var dbo = db.db("greenhero");
-      dbo.collection("Temperature").insertOne({
+      dbo.collection("TemperatureDesired").insertOne({
         "time": time,
-        "temperature": temperature,
+        "temperatureDesired": temperature,
       }, function (err, result) {
         if (err) throw err;
         resolve(result);

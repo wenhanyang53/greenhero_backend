@@ -5,40 +5,17 @@ var url = "mongodb://localhost:27017/";
 
 
 /**
+ * Delete AcState by time
  *
- * body Temperature To create new Temperature
+ * time date The time of the AcState
  * no response value expected for this operation
  **/
-exports.createTemperature = function (body) {
+exports.deleteAcStateByTime = function (time) {
   return new Promise(function (resolve, reject) {
     MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
       if (err) throw err;
       var dbo = db.db("greenhero");
-      dbo.collection("Temperature").insertOne({
-        "time": body.time,
-        "temperature": body.temperature,
-      }, function (err, result) {
-        if (err) throw err;
-        resolve(result);
-        db.close();
-      });
-    });
-  });
-}
-
-
-/**
- * Delete temperature by time
- *
- * time date The time of the temperature
- * no response value expected for this operation
- **/
-exports.deleteTemperatureByTime = function (time) {
-  return new Promise(function (resolve, reject) {
-    MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
-      if (err) throw err;
-      var dbo = db.db("greenhero");
-      dbo.collection("Temperature").deleteOne({
+      dbo.collection("AcState").deleteOne({
         "time": time,
       }, function (err, result) {
         if (err) throw err;
@@ -51,17 +28,17 @@ exports.deleteTemperatureByTime = function (time) {
 
 
 /**
- * Get temperature
- * See the Temperature
+ * Get AcState
+ * See the AcState
  *
  * returns List
  **/
-exports.getAllTemperature = function () {
+exports.getAllAcState = function () {
   return new Promise(function (resolve, reject) {
     MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
       if (err) throw err;
       var dbo = db.db("greenhero");
-      dbo.collection("Temperature").find().toArray(function (err, result) {
+      dbo.collection("AcState").find().toArray(function (err, result) {
         if (err) throw err;
         resolve(result);
         db.close();
@@ -70,13 +47,13 @@ exports.getAllTemperature = function () {
   });
 }
 
-exports.getTemperatureByTime = function (time) {
+exports.getAcStateByTime = function (time) {
   return new Promise(function (resolve, reject) {
     MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
       if (err) throw err;
       var dbo = db.db("greenhero");
       var whereStr = { "time": time };  // condition
-      dbo.collection("Temperature").find(whereStr).toArray(function (err, result) {
+      dbo.collection("AcState").find(whereStr).toArray(function (err, result) {
         if (err) throw err;
         resolve(result);
         db.close();
@@ -85,14 +62,14 @@ exports.getTemperatureByTime = function (time) {
   });
 }
 
-exports.creatTemperatureByTimeAndTemperature = function(time, temperature){
+exports.creatAcStateByTimeAndState = function(time, state){
   return new Promise(function (resolve, reject) {
     MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
       if (err) throw err;
       var dbo = db.db("greenhero");
-      dbo.collection("Temperature").insertOne({
+      dbo.collection("AcState").insertOne({
         "time": time,
-        "temperature": temperature,
+        "state": state,
       }, function (err, result) {
         if (err) throw err;
         resolve(result);

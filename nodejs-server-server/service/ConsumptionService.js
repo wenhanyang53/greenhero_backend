@@ -2,7 +2,8 @@
 var MongoClient = require('mongodb').MongoClient;
 var ObjectId = require('mongodb').ObjectID;
 var url = "mongodb://localhost:27017/";
-var User = require('./UserService')
+var User = require('./UserService');
+var PersonalInfo = require('./PersonalInfoService');
 
 
 /**
@@ -241,6 +242,102 @@ exports.getAllConsumptionBetween = function (min_date, max_date) {
 }
 
 /**
+ * Find total consumption between dates
+ *
+ * date date date of allowance
+ * user_id string id of the user to search allowane
+ * returns number
+ **/
+exports.getUserMonthAllowance = function (date, user_id) {
+  return new Promise(async function (resolve, reject) {
+    const user = await User.getUser(user_id);
+    let allowance = 0;
+    if(user && user.allowance && user.allowance[date.getFullYear()+'_'+date.getMonth()]) {
+      allowance = user.allowance[date.getFullYear()+'_'+date.getMonth()];
+    }
+    resolve({total: allowance});
+    var examples = {};
+    examples['application/json'] = [{
+      "date": "2000-01-23",
+      "total": 0.80082819046101150206595775671303272247314453125,
+      "user_id": "user_id",
+      "_id": "_id",
+      "category": "category"
+    }, {
+      "date": "2000-01-23",
+      "total": 0.80082819046101150206595775671303272247314453125,
+      "user_id": "user_id",
+      "_id": "_id",
+      "category": "category"
+    }];
+  });
+}
+
+/**
+ * Find total consumption allowance between dates
+ *
+ * returns number
+ **/
+exports.getTotalMonthAllowance = function (date) {
+  return new Promise(async function (resolve, reject) {
+    const users = await User.getAllUsers();
+    let allowance = 0;
+    for(let user of users) {
+      if(user && user.allowance && user.allowance[date.getFullYear()+'_'+date.getMonth()]) {
+        allowance = user.allowance[date.getFullYear()+'_'+date.getMonth()];
+      }
+    }
+    resolve({total: allowance});
+    var examples = {};
+    examples['application/json'] = [{
+      "date": "2000-01-23",
+      "total": 0.80082819046101150206595775671303272247314453125,
+      "user_id": "user_id",
+      "_id": "_id",
+      "category": "category"
+    }, {
+      "date": "2000-01-23",
+      "total": 0.80082819046101150206595775671303272247314453125,
+      "user_id": "user_id",
+      "_id": "_id",
+      "category": "category"
+    }];
+  });
+}
+
+/**
+ * Find total consumption allowance between dates
+ *
+ * returns number
+ **/
+exports.getTotalWeekAllowance = function (date) {
+  return new Promise(async function (resolve, reject) {
+    const users = await User.getAllUsers();
+    let allowance = 0;
+    for(let user of users) {
+      if(user && user.allowance && user.allowance[date.getFullYear()+'_'+date.getMonth()]) {
+        allowance = user.allowance[date.getFullYear()+'_'+date.getMonth()];
+      }
+    }
+    resolve({total: (allowance / 4)});
+    var examples = {};
+    examples['application/json'] = [{
+      "date": "2000-01-23",
+      "total": 0.80082819046101150206595775671303272247314453125,
+      "user_id": "user_id",
+      "_id": "_id",
+      "category": "category"
+    }, {
+      "date": "2000-01-23",
+      "total": 0.80082819046101150206595775671303272247314453125,
+      "user_id": "user_id",
+      "_id": "_id",
+      "category": "category"
+    }];
+  });
+}
+
+/**
  * Find total consumption between dates for a category
  *
  * min_date date min date of consumption to return
@@ -259,6 +356,100 @@ exports.getAllConsumptionBetweenForCategory = function (min_date, max_date, cate
           $lt: max_date
         },
         "category": category
+      }).toArray(function (err, result) {
+        if (err) throw err;
+        let total = 0;
+        for(let cons of result) {
+          total += cons.total;
+        }
+        resolve({total: total});
+        db.close();
+      });
+    });
+    var examples = {};
+    examples['application/json'] = [{
+      "date": "2000-01-23",
+      "total": 0.80082819046101150206595775671303272247314453125,
+      "user_id": "user_id",
+      "_id": "_id",
+      "category": "category"
+    }, {
+      "date": "2000-01-23",
+      "total": 0.80082819046101150206595775671303272247314453125,
+      "user_id": "user_id",
+      "_id": "_id",
+      "category": "category"
+    }];
+  });
+}
+
+/**
+ * Find total consumption between dates for a category and a user
+ *
+ * min_date date min date of consumption to return
+ * max_date date max date of consumption to return
+ * category string category of the consumption
+ * user_id string user id of the consumption
+ * returns number
+ **/
+exports.getAllConsumptionBetweenForCategoryAndUser = function (min_date, max_date, category, user_id) {
+  return new Promise(function (resolve, reject) {
+    MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
+      if (err) throw err;
+      var dbo = db.db("greenhero");
+      dbo.collection("Consumption").find({
+        "date": {
+          $gte: min_date,
+          $lt: max_date
+        },
+        "category": category,
+        "user_id": new ObjectId(user_id)
+      }).toArray(function (err, result) {
+        if (err) throw err;
+        let total = 0;
+        for(let cons of result) {
+          total += cons.total;
+        }
+        resolve({total: total});
+        db.close();
+      });
+    });
+    var examples = {};
+    examples['application/json'] = [{
+      "date": "2000-01-23",
+      "total": 0.80082819046101150206595775671303272247314453125,
+      "user_id": "user_id",
+      "_id": "_id",
+      "category": "category"
+    }, {
+      "date": "2000-01-23",
+      "total": 0.80082819046101150206595775671303272247314453125,
+      "user_id": "user_id",
+      "_id": "_id",
+      "category": "category"
+    }];
+  });
+}
+
+/**
+ * Find total consumption between dates for a user
+ *
+ * min_date date min date of consumption to return
+ * max_date date max date of consumption to return
+ * user_id string user id of the consumption
+ * returns number
+ **/
+exports.getAllConsumptionBetweenForUser = function (min_date, max_date, user_id) {
+  return new Promise(function (resolve, reject) {
+    MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
+      if (err) throw err;
+      var dbo = db.db("greenhero");
+      dbo.collection("Consumption").find({
+        "date": {
+          $gte: min_date,
+          $lt: max_date
+        },
+        "user_id": new ObjectId(user_id)
       }).toArray(function (err, result) {
         if (err) throw err;
         let total = 0;
@@ -333,6 +524,123 @@ exports.getAllConsumptionBetweenUser = function (min_date, max_date, user_id) {
 }
 
 /**
+ * Find highest consumption category between dates for a user
+ *
+ * min_date date min date of consumption to return
+ * max_date date max date of consumption to return
+ * user_id string user id of the consumption
+ * returns string
+ **/
+exports.getConsumptionHighestCategoryForUser = function (min_date, max_date, user_id) {
+  return new Promise(function (resolve, reject) {
+    MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
+      if (err) throw err;
+      var dbo = db.db("greenhero");
+      dbo.collection("Consumption").find({
+        "date": {
+          $gte: min_date,
+          $lt: max_date
+        },
+        "user_id": new ObjectId(user_id)
+      }).toArray(function (err, result) {
+        if (err) throw err;
+        let total = {};
+        for(let cons of result) {
+          if(Object.keys(total).some((key) => key === cons.category)) {
+            total[cons.category] += cons.total;
+          } else {
+            total[cons.category] = cons.total;
+          }
+        }
+        var highestTotal = 0;
+        var highestCategory;
+        for(let key of Object.keys(total)) {
+          if(total[key] > highestTotal) {
+            highestTotal = total[key];
+            highestCategory = key;
+          }
+        }
+        resolve({category: highestCategory});
+        db.close();
+      });
+    });
+    var examples = {};
+    examples['application/json'] = [{
+      "date": "2000-01-23",
+      "total": 0.80082819046101150206595775671303272247314453125,
+      "user_id": "user_id",
+      "_id": "_id",
+      "category": "category"
+    }, {
+      "date": "2000-01-23",
+      "total": 0.80082819046101150206595775671303272247314453125,
+      "user_id": "user_id",
+      "_id": "_id",
+      "category": "category"
+    }];
+  });
+}
+
+/**
+ * Find highest consumption day between dates for a user
+ *
+ * min_date date min date of consumption to return
+ * max_date date max date of consumption to return
+ * user_id string user id of the consumption
+ * returns string
+ **/
+exports.getConsumptionHighestDayForUser = function (min_date, max_date, user_id) {
+  return new Promise(function (resolve, reject) {
+    MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
+      if (err) throw err;
+      var dbo = db.db("greenhero");
+      dbo.collection("Consumption").find({
+        "date": {
+          $gte: min_date,
+          $lt: max_date
+        },
+        "user_id": new ObjectId(user_id)
+      }).toArray(function (err, result) {
+        if (err) throw err;
+        let total = {};
+        for(let cons of result) {
+          if(Object.keys(total).some((key) => key === cons.date.getDay())) {
+            total[cons.date.getDay()] += cons.total;
+          } else {
+            total[cons.date.getDay()] = cons.total;
+          }
+        }
+        var highestTotal = 0;
+        var highestDay;
+        for(let key of Object.keys(total)) {
+          if(total[key] > highestTotal) {
+            highestTotal = total[key];
+            highestDay = key;
+          }
+        }
+        const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        resolve({day: days[highestDay]});
+        db.close();
+      });
+    });
+    var examples = {};
+    examples['application/json'] = [{
+      "date": "2000-01-23",
+      "total": 0.80082819046101150206595775671303272247314453125,
+      "user_id": "user_id",
+      "_id": "_id",
+      "category": "category"
+    }, {
+      "date": "2000-01-23",
+      "total": 0.80082819046101150206595775671303272247314453125,
+      "user_id": "user_id",
+      "_id": "_id",
+      "category": "category"
+    }];
+  });
+}
+
+/**
  * Find average consumption between dates for a user's profession
  *
  * min_date date min date of consumption to return
@@ -345,21 +653,85 @@ exports.getAverageConsumptionBetweenUserProfession = function (min_date, max_dat
     MongoClient.connect(url, { useNewUrlParser: true }, async function (err, db) {
       if (err) throw err;
       var dbo = db.db("greenhero");
-      dbo.collection("Consumption").find({
-        "date": {
-          $gte: min_date,
-          $lt: max_date
-        },
-        "user_id": new ObjectId(user_id)
-      }).toArray(function (err, result) {
-        if (err) throw err;
-        let total = 0;
-        for(let cons of result) {
-          total += cons.total;
-        }
-        resolve({total: total});
-        db.close();
-      });
+      const user = await User.getUser(user_id);
+      const users = await PersonalInfo.getPersonalInfoByProfession(user.personalInfo.occupation);
+      let finalTotal = 0;
+      for(let us of users) {
+        finalTotal += await new Promise(function (mini_resolve, mini_reject) {
+          dbo.collection("Consumption").find({
+            "date": {
+              $gte: min_date,
+              $lt: max_date
+            },
+            "user_id": new ObjectId(us.user_id)
+          }).toArray(function (err, result) {
+            if (err) throw err;
+            let total = 0;
+            for(let cons of result) {
+              total += cons.total;
+            }
+            mini_resolve(total);
+            db.close();
+          });
+        });
+      }
+      if(users.length) {
+        finalTotal = finalTotal / users.length;
+      }
+      resolve({total: finalTotal});
+    });
+    var examples = {};
+    examples['application/json'] = [{
+      "date": "2000-01-23",
+      "total": 0.80082819046101150206595775671303272247314453125,
+      "user_id": "user_id",
+      "_id": "_id",
+      "category": "category"
+    }, {
+      "date": "2000-01-23",
+      "total": 0.80082819046101150206595775671303272247314453125,
+      "user_id": "user_id",
+      "_id": "_id",
+      "category": "category"
+    }];
+  });
+}
+
+/**
+ * Find average consumption between dates for a profession
+ *
+ * min_date date min date of consumption to return
+ * max_date date max date of consumption to return
+ * occupation string the occupation to filter by
+ * returns number
+ **/
+exports.getConsumptionBetweenProfession = function (min_date, max_date, occupation) {
+  return new Promise(function (resolve, reject) {
+    MongoClient.connect(url, { useNewUrlParser: true }, async function (err, db) {
+      if (err) throw err;
+      var dbo = db.db("greenhero");
+      const users = await PersonalInfo.getPersonalInfoByProfession(occupation);
+      let finalTotal = 0;
+      for(let us of users) {
+        finalTotal += await new Promise(function (mini_resolve, mini_reject) {
+          dbo.collection("Consumption").find({
+            "date": {
+              $gte: min_date,
+              $lt: max_date
+            },
+            "user_id": new ObjectId(us.user_id)
+          }).toArray(function (err, result) {
+            if (err) throw err;
+            let total = 0;
+            for(let cons of result) {
+              total += cons.total;
+            }
+            mini_resolve(total);
+            db.close();
+          });
+        });
+      }
+      resolve({total: finalTotal});
     });
     var examples = {};
     examples['application/json'] = [{

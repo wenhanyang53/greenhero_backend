@@ -1,11 +1,11 @@
 'use strict';
 
 var utils = require('../utils/writer.js');
-var Temperature = require('../service/TemperatureService');
+var TemperatureDesired = require('../service/TemperatureDesiredService');
 
-module.exports.createTemperature = function createTemperature (req, res, next) {
+module.exports.createTemperatureDesired = function createTemperatureDesired (req, res, next) {
   var body = req.swagger.params['body'].value;
-  Temperature.createTemperature(body)
+  TemperatureDesired.createTemperatureDesired(body)
     .then(function (response) {
       utils.writeJson(res, response);
     })
@@ -14,9 +14,9 @@ module.exports.createTemperature = function createTemperature (req, res, next) {
     });
 };
 
-module.exports.deleteTemperatureByTime = function deleteTemperatureByTime (req, res, next) {
+module.exports.deleteTemperatureDesiredByTime = function deleteTemperatureDesiredByTime (req, res, next) {
   var time = req.swagger.params['time'].value;
-  Temperature.deleteTemperatureByTime(time)
+  TemperatureDesired.deleteTemperatureDesiredByTime(time)
     .then(function (response) {
       utils.writeJson(res, response);
     })
@@ -25,8 +25,8 @@ module.exports.deleteTemperatureByTime = function deleteTemperatureByTime (req, 
     });
 };
 
-module.exports.getAllTemperature = function getAllTemperature (req, res, next) {
-  Temperature.getAllTemperature()
+module.exports.getAllTemperatureDesired = function getAllTemperatureDesired (req, res, next) {
+  TemperatureDesired.getAllTemperatureDesired()
     .then(function (response) {
       utils.writeJson(res, response);
     })
@@ -35,9 +35,9 @@ module.exports.getAllTemperature = function getAllTemperature (req, res, next) {
     });
 };
 
-module.exports.getTemperatureByTime = function getTemperatureByTime (req, res, next) {
+module.exports.getTemperatureDesiredByTime = function getTemperatureDesiredByTime (req, res, next) {
   var time = req.swagger.params['time'].value;
-  Temperature.getTemperatureByTime(time)
+  TemperatureDesired.getTemperatureDesiredByTime(time)
   .then(function (response) {
     utils.writeJson(res, response);
   })
@@ -46,10 +46,10 @@ module.exports.getTemperatureByTime = function getTemperatureByTime (req, res, n
   });
 };
 
-module.exports.creatTemperatureByTimeAndTemperature = function creatTemperatureByTimeAndTemperature (req, res, next) {
+module.exports.creatTemperatureDesiredByTimeAndTemperature = function creatTemperatureDesiredByTimeAndTemperature (req, res, next) {
   var time = req.swagger.params['time'].value;
   var temperature = req.swagger.params['temperature'].value;
-  Temperature.creatTemperatureByTimeAndTemperature(time,temperature)
+  TemperatureDesired.creatTemperatureDesiredByTimeAndTemperature(time,temperature)
   .then(function (response) {
     utils.writeJson(res, response);
   })

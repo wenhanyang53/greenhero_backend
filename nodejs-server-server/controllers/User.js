@@ -70,3 +70,14 @@ module.exports.modifyUser = function modifyUser (req, res, next) {
       utils.writeJson(res, response);
     });
 };
+
+module.exports.getCoinAmountByUserId = function getCoinAmountByUserId(req,res,next){
+  var user_id = req.swagger.params['user_id'].value;
+  User.getCoinAmountByUserId(user_id)
+  .then(function (response) {
+    utils.writeJson(res, response);
+  })
+  .catch(function (response) {
+    utils.writeJson(res, response);
+  });
+};

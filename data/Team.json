@@ -20,7 +20,8 @@
     {
       "$oid": "5fa83a6eb8e195e535220ea5"
     }
-  ]
+  ],
+  "completed": false
 },{
   "_id": {
     "$oid": "5fa83d72b8e195e535220ea8"
@@ -40,5 +41,6 @@
     {
       "$oid": "5fa03ef307b450fd6ae7a570"
     }
-  ]
+  ],
+  "completed": true
 }]
