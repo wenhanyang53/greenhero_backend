@@ -1128,7 +1128,7 @@ paths:
         "404":
           description: "team not found"
       x-swagger-router-controller: "Team"
-  /Team/{_id}:
+  /Team/modifyTeamById:
     put:
       tags:
       - "Team"
@@ -1140,7 +1140,7 @@ paths:
       - "application/json"
       parameters:
       - name: "_id"
-        in: "path"
+        in: "query"
         description: "The Id of the team."
         required: true
         type: "string"
