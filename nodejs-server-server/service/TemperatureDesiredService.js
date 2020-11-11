@@ -92,7 +92,7 @@ exports.creatTemperatureDesiredByTimeAndTemperature = function(time, temperature
       var dbo = db.db("greenhero");
       dbo.collection("TemperatureDesired").insertOne({
         "time": time,
-        "temperature": temperature,
+        "temperatureDesired": temperature,
       }, function (err, result) {
         if (err) throw err;
         resolve(result);

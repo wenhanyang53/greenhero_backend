@@ -1652,7 +1652,7 @@ paths:
       responses:
         "201":
           description: "successful operation"
-      x-swagger-router-controller: "Temperature
+      x-swagger-router-controller: "Temperature"
   /TemperatureDesired:
     get:
       tags:
@@ -2221,7 +2221,7 @@ definitions:
       time:
         type: "string"
         format: "date"
-      temperatureDesired:
+      temperature:
         type: "number"
     xml:
       name: "TemperatureDesired"
