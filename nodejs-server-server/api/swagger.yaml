@@ -468,7 +468,7 @@ paths:
         "404":
           description: "character not found "
       x-swagger-router-controller: "Character"
-  /Character/{user_id}:
+  /Character/getByUserId/{user_id}:
     get:
       tags:
       - "Character"
@@ -480,6 +480,32 @@ paths:
       - "application/json"
       parameters:
       - name: "user_id"
+        in: "path"
+        description: "The user_id of the character."
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Character"
+        "404":
+          description: "No character found"
+      x-swagger-router-controller: "Character"
+  /Character/getByCharId/{char_id}:
+    get:
+      tags:
+      - "Character"
+      summary: "Get characters"
+      description: "See the available character"
+      operationId: "getCharacterById"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "char_id"
         in: "path"
         description: "The user_id of the character."
         required: true
