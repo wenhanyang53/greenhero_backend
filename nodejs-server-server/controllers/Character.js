@@ -27,8 +27,8 @@ module.exports.deleteCharacterByUserIdAndCharacterName = function deleteCharacte
 };
 
 module.exports.getCharacterByUserId = function getCharacterByUserId (req, res, next) {
-  var char_id = req.swagger.params['char_id'].value;
-  Character.getCharacterByUserId(char_id)
+  var user_id = req.swagger.params['user_id'].value;
+  Character.getCharacterByUserId(user_id)
     .then(function (response) {
       utils.writeJson(res, response);
     })

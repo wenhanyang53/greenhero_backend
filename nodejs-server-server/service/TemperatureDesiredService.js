@@ -15,8 +15,8 @@ exports.createTemperatureDesired = function (body) {
       if (err) throw err;
       var dbo = db.db("greenhero");
       dbo.collection("TemperatureDesired").insertOne({
-        "time": body.time,
-        "temperature": body.temperature,
+        "time": new Date(body.time),
+        "temperatureDesired": body.temperatureDesired,
       }, function (err, result) {
         if (err) throw err;
         resolve(result);
@@ -64,6 +64,26 @@ exports.getAllTemperatureDesired = function () {
       dbo.collection("TemperatureDesired").find().toArray(function (err, result) {
         if (err) throw err;
         resolve(result);
+        db.close();
+      });
+    });
+  });
+}
+
+/**
+ * Get latest TemperatureDesired
+ * See the latest TemperatureDesired
+ *
+ * returns TemperatureDesired
+ **/
+exports.getLatestTemperatureDesired = function () {
+  return new Promise(function (resolve, reject) {
+    MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
+      if (err) throw err;
+      var dbo = db.db("greenhero");
+      dbo.collection("TemperatureDesired").find().sort({"time": -1}).limit(1).toArray(function (err, result) {
+        if (err) throw err;
+        resolve(result[0]);
         db.close();
       });
     });

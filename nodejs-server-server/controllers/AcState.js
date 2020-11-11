@@ -25,6 +25,16 @@ module.exports.getAllAcState = function getAllAcState (req, res, next) {
     });
 };
 
+module.exports.getLatestAcState = function getLatestAcState (req, res, next) {
+  AcState.getLatestAcState()
+    .then(function (response) {
+      utils.writeJson(res, response);
+    })
+    .catch(function (response) {
+      utils.writeJson(res, response);
+    });
+};
+
 module.exports.getAcStateByTime = function getAcStateByTime (req, res, next) {
   var time = req.swagger.params['time'].value;
   AcState.getAcStateByTime(time)
