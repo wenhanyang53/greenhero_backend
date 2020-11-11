@@ -2700,6 +2700,11 @@ definitions:
         type: "string"
       user_id:
         type: "string"
+      completed:
+        type: "boolean"
+      openDate:
+        type: "string"
+        format: "date-time"
     xml:
       name: "Mission"
     example:
