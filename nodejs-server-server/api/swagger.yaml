@@ -1556,7 +1556,6 @@ paths:
       produces:
       - "application/xml"
       - "application/json"
-      parameters: []
       responses:
         "200":
           description: "OK"
@@ -1607,6 +1606,53 @@ paths:
         "404":
           description: "Temperature not found"
       x-swagger-router-controller: "Temperature"
+    get:
+      tags:
+      - "Temperature"
+      summary: "get temperature by time"
+      operationId: "getTemperatureByTime"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "time"
+        in: "path"
+        description: "The time of the temperature"
+        required: true
+        type: "string"
+        format: "date"
+      responses:
+        "200":
+            description: "OK"
+            schema:
+              $ref: "#/definitions/Temperature"
+        "404":
+            description: "No temperature found"
+      x-swagger-router-controller: "Temperature"
+  /Temperature/creatTemperatureByTimeAndTemperature:
+    post:
+      tags:
+      - "Temperature"
+      operationId: "creatTemperatureByTimeAndTemperature"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "time"
+        in: "query"
+        description: "The time of the temperature"
+        required: true
+        type: "string"
+        format: "date"
+      - name: "temperature"
+        in: "query"
+        description: "The temperature of the temperature"
+        required: true
+        type: "number"
+      responses:
+        "201":
+          description: "successful operation"
+      x-swagger-router-controller: "Temperature"
   /AdminAnnounces:
     get:
       tags:
@@ -1626,7 +1672,7 @@ paths:
             items:
               $ref: "#/definitions/AdminAnnounces"
         "404":
-          description: "No temperature found"
+          description: "No AdminAnnounce found"
       x-swagger-router-controller: "AdminAnnounces"
     post:
       tags:
@@ -2060,6 +2106,22 @@ definitions:
       temperature: 0.80082819046101150206595775671303272247314453125
       _id: "_id"
       time: "2000-01-23"
+  TemperatureDesired:
+    type: "object"
+    properties:
+      _id:
+        type: "string"
+      time:
+        type: "string"
+        format: "date"
+      temperatureDesired:
+        type: "number"
+    xml:
+      name: "TemperatureDesired"
+    example:
+      temperatureDesired: 20
+      _id: "_id"
+      time: "2020-11-11"
   AdminAnnounces:
     type: "object"
     properties:

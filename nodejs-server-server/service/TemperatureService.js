@@ -70,3 +70,34 @@ exports.getAllTemperature = function () {
   });
 }
 
+exports.getTemperatureByTime = function (time) {
+  return new Promise(function (resolve, reject) {
+    MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
+      if (err) throw err;
+      var dbo = db.db("greenhero");
+      var whereStr = { "time": time };  // condition
+      dbo.collection("Temperature").find(whereStr).toArray(function (err, result) {
+        if (err) throw err;
+        resolve(result);
+        db.close();
+      });
+    });
+  });
+}
+
+exports.creatTemperatureByTimeAndTemperature = function(time, temperature){
+  return new Promise(function (resolve, reject) {
+    MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
+      if (err) throw err;
+      var dbo = db.db("greenhero");
+      dbo.collection("Temperature").insertOne({
+        "time": time,
+        "temperature": temperature,
+      }, function (err, result) {
+        if (err) throw err;
+        resolve(result);
+        db.close();
+      });
+    });
+  });
+}

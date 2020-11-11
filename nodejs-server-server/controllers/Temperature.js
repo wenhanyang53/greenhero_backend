@@ -34,3 +34,26 @@ module.exports.getAllTemperature = function getAllTemperature (req, res, next) {
       utils.writeJson(res, response);
     });
 };
+
+module.exports.getTemperatureByTime = function getTemperatureByTime (req, res, next) {
+  var time = req.swagger.params['time'].value;
+  Temperature.getTemperatureByTime(time)
+  .then(function (response) {
+    utils.writeJson(res, response);
+  })
+  .catch(function (response) {
+    utils.writeJson(res, response);
+  });
+};
+
+module.exports.creatTemperatureByTimeAndTemperature = function creatTemperatureByTimeAndTemperature (req, res, next) {
+  var time = req.swagger.params['time'].value;
+  var temperature = req.swagger.params['temperature'].value;
+  Temperature.creatTemperatureByTimeAndTemperature(time,temperature)
+  .then(function (response) {
+    utils.writeJson(res, response);
+  })
+  .catch(function (response) {
+    utils.writeJson(res, response);
+  });
+};
