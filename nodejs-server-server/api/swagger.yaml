@@ -1760,6 +1760,95 @@ paths:
         "201":
           description: "successful operation"
       x-swagger-router-controller: "TemperatureDesired"
+  /AcState:
+    get:
+      tags:
+      - "AcState"
+      summary: "Get AcState"
+      description: "See the AcState"
+      operationId: "getAllAcState"
+      produces:
+      - "application/xml"
+      - "application/json"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/AcState"
+        "404":
+          description: "No AcState found"
+      x-swagger-router-controller: "AcState"
+  /AcState/creatAcStateByTimeAndState:
+    post:
+      tags:
+      - "AcState"
+      operationId: "creatAcStateByTimeAndState"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "time"
+        in: "query"
+        description: "The time of the AcState"
+        required: true
+        type: "string"
+        format: "date"
+      - name: "state"
+        in: "query"
+        description: "The state of the AcState"
+        required: true
+        type: "boolean"
+      responses:
+        "201":
+          description: "successful operation"
+      x-swagger-router-controller: "AcState"
+  /AcState/{time}:
+    delete:
+      tags:
+      - "AcState"
+      summary: "Delete AcState by time"
+      operationId: "deleteAcStateByTime"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "time"
+        in: "path"
+        description: "The time of the AcState"
+        required: true
+        type: "string"
+        format: "date"
+      responses:
+        "200":
+          description: "Deleted sucessfully"
+        "404":
+          description: "AcState not found"
+      x-swagger-router-controller: "AcState"
+    get:
+      tags:
+      - "AcState"
+      summary: "get AcState by time"
+      operationId: "getAcStateByTime"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "time"
+        in: "path"
+        description: "The time of the AcState"
+        required: true
+        type: "string"
+        format: "date"
+      responses:
+        "200":
+            description: "OK"
+            schema:
+              $ref: "#/definitions/AcState"
+        "404":
+            description: "No AcState found"
+      x-swagger-router-controller: "AcState"
   /AdminAnnounces:
     get:
       tags:
@@ -2108,6 +2197,8 @@ definitions:
           wrapped: true
         items:
           $ref: "#/definitions/Character"
+      completed:
+        type: "boolean"
     xml:
       name: "Team"
     example:
@@ -2227,6 +2318,22 @@ definitions:
       name: "TemperatureDesired"
     example:
       temperatureDesired: 20
+      _id: "_id"
+      time: "2020-11-11"
+  AcState:
+    type: "object"
+    properties:
+      _id:
+        type: "string"
+      time:
+        type: "string"
+        format: "date"
+      state:
+        type: "boolean"
+    xml:
+      name: "AcState"
+    example:
+      state: false
       _id: "_id"
       time: "2020-11-11"
   AdminAnnounces:

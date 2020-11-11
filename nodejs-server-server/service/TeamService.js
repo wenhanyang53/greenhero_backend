@@ -28,7 +28,8 @@ exports.createTeam = function(body) {
                     "avatar" :body.avatar,
                     "event_id" : ObjectId(body.event_id),
                     "teamLeader" : ObjectId(body.teamLeader),
-                    "teamMembers": myteamMembers};
+                    "teamMembers": myteamMembers,
+                    "completed":body.completed};
       dbo.collection("Team").insertOne(myobj, function(err, res) {
           if (err) throw err;
           console.log("successful");
@@ -187,7 +188,8 @@ exports.modifyTeam = function(body) {
                                 "avatar" :body.avatar,
                                 "event_id" : ObjectId(body.event_id),
                                 "teamLeader" : ObjectId(body.teamLeader),
-                                "teamMembers": myteamMembers}};
+                                "teamMembers": myteamMembers,
+                                "completed": body.completed}};
       dbo.collection("Team").updateOne(whereStr, updateStr, function(err, res) {
           if (err) throw err;
           console.log("successful");
