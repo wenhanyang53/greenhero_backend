@@ -47,6 +47,26 @@ exports.getAllAcState = function () {
   });
 }
 
+/**
+ * Get latest AcState
+ * See the latest AcState
+ *
+ * returns AcState
+ **/
+exports.getLatestAcState = function () {
+  return new Promise(function (resolve, reject) {
+    MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
+      if (err) throw err;
+      var dbo = db.db("greenhero");
+      dbo.collection("AcState").find().sort({"time": -1}).limit(1).toArray(function (err, result) {
+        if (err) throw err;
+        resolve(result[0]);
+        db.close();
+      });
+    });
+  });
+}
+
 exports.getAcStateByTime = function (time) {
   return new Promise(function (resolve, reject) {
     MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {

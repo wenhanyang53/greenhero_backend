@@ -84,6 +84,34 @@ exports.getEventByEventName = function (eventName) {
 }
 
 /**
+ * Get Events by id
+ * See the available events
+ *
+ * eventName String The Eventname of the event that needs to be modified
+ * no response value expected for this operation
+ **/
+exports.getEventById = function (id) {
+  return new Promise(function (resolve, reject) {
+    MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
+      if (err) throw err;
+      var dbo = db.db("greenhero");
+      dbo.collection("Event").find({
+        '_id': ObjectId(id)
+      }).toArray(async function (err, result) {
+        if (err) throw err;
+        for (let event of result) {
+          if (event.boss) {
+            event.boss = await Boss.getBossById(event.boss);
+          }
+        }
+        resolve(result);
+        db.close();
+      });
+    });
+  });
+}
+
+/**
  * Get All Events
  * See the available events
  *
@@ -148,29 +176,6 @@ exports.getTopEvents = function (date) {
   });
 }
 
-/**
- * Get number of Events
- * See the available events
- *
- **/
-exports.getNumberofEvent = function (date) {
-  return new Promise(function (resolve, reject) {
-    MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
-      if (err) throw err;
-      var dbo = db.db("greenhero");
-      dbo.collection("Event").find({
-        "openDate": {
-          $gte: date
-        }
-      }).toArray(function (err, result) {
-        if (err) throw err;
-        let num = result.length;
-        resolve({res: num});
-        db.close();
-      });
-    });
-  });
-}
 
 /**
  * Modify event

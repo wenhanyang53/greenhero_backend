@@ -464,30 +464,29 @@ paths:
         description: "The duration of the event that needs to be counted"
         required: true
         type: "string"
-        format: "date"
+        format: "date-time"
       responses:
         "201":
           description: "successful operation"
         "404":
           description: "No event found"
       x-swagger-router-controller: "Event"
-  /Event/getNumberofEvent:
+  /Event/getEventById:
     get:
       tags:
       - "Event"
-      summary: "Get number of events"
-      description: "See all the number of events"
-      operationId: "getNumberofEvent"
+      summary: "Get events"
+      description: "See all the events"
+      operationId: "getEventById"
       produces:
       - "application/xml"
       - "application/json"
       parameters:
-      - name: "date"
+      - name: "id"
         in: "query"
         description: "The duration of the event that needs to be counted"
         required: true
         type: "string"
-        format: "date"
       responses:
         "201":
           description: "successful operation"
@@ -854,6 +853,110 @@ paths:
         "404":
           description: "mission not found"
       x-swagger-router-controller: "Mission"
+  /Mission/getMissionByUserIdAndType:
+    get:
+      tags:
+      - "Mission"
+      summary: "Get mission"
+      description: "See the available missions"
+      operationId: "getMissionByUserIdAndType"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "user_id"
+        in: "query"
+        description: "The user id of the mission."
+        required: true
+        type: "string"
+      - name: "type"
+        in: "query"
+        description: "The type of the mission."
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Mission"
+        "404":
+          description: "No mission found"
+      x-swagger-router-controller: "Mission"
+  /Mission/getTopMission:
+    get:
+      tags:
+      - "Mission"
+      summary: "Get mission"
+      description: "See the available missions"
+      operationId: "getTopMission"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "date"
+        in: "query"
+        description: "The date of the mission."
+        required: true
+        type: "string"
+        format: "date"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Mission"
+        "404":
+          description: "No mission found"
+      x-swagger-router-controller: "Mission"
+  /Mission/getCompletedMissionByType:
+    get:
+      tags:
+      - "Mission"
+      summary: "Get mission"
+      description: "See the available missions"
+      operationId: "getCompletedMissionByType"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "date"
+        in: "query"
+        description: "The date of the mission."
+        required: true
+        type: "string"
+        format: "date"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Mission"
+        "404":
+          description: "No mission found"
+      x-swagger-router-controller: "Mission"
+  /Mission/getNumberofCompletedMission:
+    get:
+      tags:
+      - "Mission"
+      summary: "Get mission"
+      description: "See the available missions"
+      operationId: "getNumberofCompletedMission"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "date"
+        in: "query"
+        description: "The date of the mission."
+        required: true
+        type: "string"
+        format: "date"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Mission"
+        "404":
+          description: "No mission found"
+      x-swagger-router-controller: "Mission"
   /Boss:
     get:
       tags:
@@ -1198,6 +1301,34 @@ paths:
         "404":
           description: "No result found"
       x-swagger-router-controller: "Team"
+  /Team/getNumberofCompletedEvent:
+    get:
+      tags:
+      - "Team"
+      summary: "Get number of people"
+      description: "See the number of people formed a team by professional"
+      operationId: "getNumberofCompletedEvent"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters: 
+      - name: "date"
+        in: "query"
+        description: "The duration of the event that needs to be counted"
+        required: true
+        type: "string"
+        format: "date-time"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "object"
+            properties:
+              total:
+                type: "number"
+        "404":
+          description: "No result found"
+      x-swagger-router-controller: "Team"
   /SkillTree:
     post:
       tags:
@@ -1508,13 +1639,13 @@ paths:
         description: "minimum date of query"
         required: true
         type: "string"
-        format: "date"
+        format: "date-time"
       - name: "max_date"
         in: "query"
         description: "maximum date of query"
         required: true
         type: "string"
-        format: "date"
+        format: "date-time"
       responses:
         "200":
           description: "successful operation"
@@ -1540,7 +1671,7 @@ paths:
         description: "date to find the allowance"
         required: true
         type: "string"
-        format: "date"
+        format: "date-time"
       - name: "user_id"
         in: "query"
         description: "id of user"
@@ -1571,7 +1702,7 @@ paths:
         description: "date to find the allowance"
         required: true
         type: "string"
-        format: "date"
+        format: "date-time"
       responses:
         "200":
           description: "successful operation"
@@ -1597,7 +1728,7 @@ paths:
         description: "date to find the allowance"
         required: true
         type: "string"
-        format: "date"
+        format: "date-time"
       responses:
         "200":
           description: "successful operation"
@@ -1623,13 +1754,13 @@ paths:
         description: "minimum date of query"
         required: true
         type: "string"
-        format: "date"
+        format: "date-time"
       - name: "max_date"
         in: "query"
         description: "maximum date of query"
         required: true
         type: "string"
-        format: "date"
+        format: "date-time"
       - name: "category"
         in: "query"
         description: "category of consumption"
@@ -1660,13 +1791,13 @@ paths:
         description: "minimum date of query"
         required: true
         type: "string"
-        format: "date"
+        format: "date-time"
       - name: "max_date"
         in: "query"
         description: "maximum date of query"
         required: true
         type: "string"
-        format: "date"
+        format: "date-time"
       - name: "category"
         in: "query"
         description: "category of consumption"
@@ -1702,13 +1833,13 @@ paths:
         description: "minimum date of query"
         required: true
         type: "string"
-        format: "date"
+        format: "date-time"
       - name: "max_date"
         in: "query"
         description: "maximum date of query"
         required: true
         type: "string"
-        format: "date"
+        format: "date-time"
       - name: "user_id"
         in: "query"
         description: "id of the user"
@@ -1739,13 +1870,13 @@ paths:
         description: "minimum date of query"
         required: true
         type: "string"
-        format: "date"
+        format: "date-time"
       - name: "max_date"
         in: "query"
         description: "maximum date of query"
         required: true
         type: "string"
-        format: "date"
+        format: "date-time"
       - name: "occupation"
         in: "query"
         description: "occupation of consumption"
@@ -1776,13 +1907,13 @@ paths:
         description: "minimum date of query"
         required: true
         type: "string"
-        format: "date"
+        format: "date-time"
       - name: "max_date"
         in: "query"
         description: "maximum date of query"
         required: true
         type: "string"
-        format: "date"
+        format: "date-time"
       - name: "user_id"
         in: "query"
         description: "id of the user"
@@ -1813,13 +1944,13 @@ paths:
         description: "minimum date of query"
         required: true
         type: "string"
-        format: "date"
+        format: "date-time"
       - name: "max_date"
         in: "query"
         description: "maximum date of query"
         required: true
         type: "string"
-        format: "date"
+        format: "date-time"
       - name: "user_id"
         in: "query"
         description: "id of the user"
@@ -1850,13 +1981,13 @@ paths:
         description: "minimum date of query"
         required: true
         type: "string"
-        format: "date"
+        format: "date-time"
       - name: "max_date"
         in: "query"
         description: "maximum date of query"
         required: true
         type: "string"
-        format: "date"
+        format: "date-time"
       - name: "user_id"
         in: "query"
         description: "id of the user"
@@ -1887,13 +2018,13 @@ paths:
         description: "minimum date of query"
         required: true
         type: "string"
-        format: "date"
+        format: "date-time"
       - name: "max_date"
         in: "query"
         description: "maximum date of query"
         required: true
         type: "string"
-        format: "date"
+        format: "date-time"
       - name: "user_id"
         in: "query"
         description: "id of the user"
@@ -1932,7 +2063,7 @@ paths:
         description: "date of consumption to return"
         required: true
         type: "string"
-        format: "date"
+        format: "date-time"
       responses:
         "200":
           description: "successful operation"
@@ -1965,7 +2096,7 @@ paths:
         description: "date of consumption to return"
         required: true
         type: "string"
-        format: "date"
+        format: "date-time"
       responses:
         "200":
           description: "successful operation"
@@ -1999,7 +2130,7 @@ paths:
         description: "date of consumption"
         required: true
         type: "string"
-        format: "date"
+        format: "date-time"
       responses:
         "200":
           description: "Deleted sucessfully"
@@ -2026,7 +2157,7 @@ paths:
         description: "date of consumption to return"
         required: true
         type: "string"
-        format: "date"
+        format: "date-time"
       - name: "category"
         in: "query"
         description: "category  of consumption to return"
@@ -2063,7 +2194,7 @@ paths:
         description: "date of consumption"
         required: true
         type: "string"
-        format: "date"
+        format: "date-time"
       - name: "category"
         in: "query"
         description: "category  of consumption"
@@ -2113,7 +2244,25 @@ paths:
         "201":
           description: "successful operation"
       x-swagger-router-controller: "Temperature"
-  /Temperature/{time}:
+  /Temperature/getLatestTemperature:
+    get:
+      tags:
+      - "Temperature"
+      summary: "Get latest temperature"
+      description: "See the latest Temperature"
+      operationId: "getLatestTemperature"
+      produces:
+      - "application/xml"
+      - "application/json"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Temperature"
+        "404":
+          description: "No temperature found"
+      x-swagger-router-controller: "Temperature"
+  /Temperature/specificTemperature/{time}:
     delete:
       tags:
       - "Temperature"
@@ -2128,7 +2277,7 @@ paths:
         description: "The time of the temperature"
         required: true
         type: "string"
-        format: "date"
+        format: "date-time"
       responses:
         "200":
           description: "Deleted sucessfully"
@@ -2149,7 +2298,7 @@ paths:
         description: "The time of the temperature"
         required: true
         type: "string"
-        format: "date"
+        format: "date-time"
       responses:
         "200":
             description: "OK"
@@ -2172,7 +2321,7 @@ paths:
         description: "The time of the temperature"
         required: true
         type: "string"
-        format: "date"
+        format: "date-time"
       - name: "temperature"
         in: "query"
         description: "The temperature of the temperature"
@@ -2220,7 +2369,27 @@ paths:
         "201":
           description: "successful operation"
       x-swagger-router-controller: "TemperatureDesired"
-  /TemperatureDesired/{time}:
+  /TemperatureDesired/getLatestTemperatureDesired:
+    get:
+      tags:
+      - "TemperatureDesired"
+      summary: "Get latest TemperatureDesired"
+      description: "See the latest TemperatureDesired"
+      operationId: "getLatestTemperatureDesired"
+      produces:
+      - "application/xml"
+      - "application/json"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/TemperatureDesired"
+        "404":
+          description: "No TemperatureDesired found"
+      x-swagger-router-controller: "TemperatureDesired"
+  /TemperatureDesired/specificTemperatureDesired/{time}:
     delete:
       tags:
       - "TemperatureDesired"
@@ -2235,7 +2404,7 @@ paths:
         description: "The time of the TemperatureDesired"
         required: true
         type: "string"
-        format: "date"
+        format: "date-time"
       responses:
         "200":
           description: "Deleted sucessfully"
@@ -2256,7 +2425,7 @@ paths:
         description: "The time of the TemperatureDesired"
         required: true
         type: "string"
-        format: "date"
+        format: "date-time"
       responses:
         "200":
             description: "OK"
@@ -2279,7 +2448,7 @@ paths:
         description: "The time of the TemperatureDesired"
         required: true
         type: "string"
-        format: "date"
+        format: "date-time"
       - name: "temperature"
         in: "query"
         description: "The temperature of the TemperatureDesired"
@@ -2309,6 +2478,24 @@ paths:
         "404":
           description: "No AcState found"
       x-swagger-router-controller: "AcState"
+  /AcState/getLatestAcState:
+    get:
+      tags:
+      - "AcState"
+      summary: "Get latest AcState"
+      description: "See the latest AcState"
+      operationId: "getLatestAcState"
+      produces:
+      - "application/xml"
+      - "application/json"
+      responses:
+        "200":
+            description: "OK"
+            schema:
+              $ref: "#/definitions/AcState"
+        "404":
+          description: "No AcState found"
+      x-swagger-router-controller: "AcState"
   /AcState/creatAcStateByTimeAndState:
     post:
       tags:
@@ -2323,7 +2510,7 @@ paths:
         description: "The time of the AcState"
         required: true
         type: "string"
-        format: "date"
+        format: "date-time"
       - name: "state"
         in: "query"
         description: "The state of the AcState"
@@ -2333,7 +2520,7 @@ paths:
         "201":
           description: "successful operation"
       x-swagger-router-controller: "AcState"
-  /AcState/{time}:
+  /AcState/specificAcState/{time}:
     delete:
       tags:
       - "AcState"
@@ -2348,7 +2535,7 @@ paths:
         description: "The time of the AcState"
         required: true
         type: "string"
-        format: "date"
+        format: "date-time"
       responses:
         "200":
           description: "Deleted sucessfully"
@@ -2369,7 +2556,7 @@ paths:
         description: "The time of the AcState"
         required: true
         type: "string"
-        format: "date"
+        format: "date-time"
       responses:
         "200":
             description: "OK"
@@ -2563,7 +2750,7 @@ definitions:
         $ref: "#/definitions/Boss"
       openDate:
         type: "string"
-        format: "date"
+        format: "date-time"
     xml:
       name: "Event"
   Character:
@@ -2640,6 +2827,13 @@ definitions:
         type: "boolean"
       type:
         type: "string"
+      user_id:
+        type: "string"
+      completed:
+        type: "boolean"
+      openDate:
+        type: "string"
+        format: "date-time"
     xml:
       name: "Mission"
     example:
@@ -2805,7 +2999,7 @@ definitions:
         type: "string"
       date:
         type: "string"
-        format: "date"
+        format: "date-time"
       total:
         type: "number"
       category:
@@ -2825,7 +3019,7 @@ definitions:
         type: "string"
       time:
         type: "string"
-        format: "date"
+        format: "date-time"
       temperature:
         type: "number"
     xml:
@@ -2841,8 +3035,8 @@ definitions:
         type: "string"
       time:
         type: "string"
-        format: "date"
-      temperature:
+        format: "date-time"
+      temperatureDesired:
         type: "number"
     xml:
       name: "TemperatureDesired"
@@ -2857,7 +3051,7 @@ definitions:
         type: "string"
       time:
         type: "string"
-        format: "date"
+        format: "date-time"
       state:
         type: "boolean"
     xml:
