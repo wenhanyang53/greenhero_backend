@@ -35,6 +35,16 @@ module.exports.getAllTemperature = function getAllTemperature (req, res, next) {
     });
 };
 
+module.exports.getLatestTemperature = function getLatestTemperature (req, res, next) {
+  Temperature.getLatestTemperature()
+    .then(function (response) {
+      utils.writeJson(res, response);
+    })
+    .catch(function (response) {
+      utils.writeJson(res, response);
+    });
+};
+
 module.exports.getTemperatureByTime = function getTemperatureByTime (req, res, next) {
   var time = req.swagger.params['time'].value;
   Temperature.getTemperatureByTime(time)
