@@ -12,6 +12,10 @@
   "type": "daily",
   "user_id": {
     "$oid": "5fa177809af0e02777994f80"
+  },
+  "completed": true,
+  "openDate": {
+    "$date": "2020-10-02T19:43:11.393Z"
   }
 },{
   "_id": {
@@ -27,6 +31,10 @@
   "type": "weekly",
   "user_id": {
     "$oid": "5fa80eed52c1988d17e45c8f"
+  },
+  "completed": true,
+  "openDate": {
+    "$date": "2020-09-02T19:43:11.393Z"
   }
 },{
   "_id": {
@@ -42,6 +50,10 @@
   "type": "weekly",
   "user_id": {
     "$oid": "5fa177809af0e02777994f80"
+  },
+  "completed": false,
+  "openDate": {
+    "$date": "2020-11-02T19:43:11.393Z"
   }
 },{
   "_id": {
@@ -57,6 +69,10 @@
   "type": "monthly",
   "user_id": {
     "$oid": "5fa177809af0e02777994f80"
+  },
+  "completed": true,
+  "openDate": {
+    "$date": "2020-10-01T19:43:11.393Z"
   }
 },{
   "_id": {
@@ -72,6 +88,10 @@
   "type": "daily",
   "user_id": {
     "$oid": "5fa80eed52c1988d17e45c8f"
+  },
+  "completed": true,
+  "openDate": {
+    "$date": "2020-09-02T19:43:11.393Z"
   }
 },{
   "_id": {
@@ -87,5 +107,9 @@
   "type": "montly",
   "user_id": {
     "$oid": "5fa80eed52c1988d17e45c8f"
+  },
+  "completed": true,
+  "openDate": {
+    "$date": "2020-08-02T19:43:11.393Z"
   }
 }]

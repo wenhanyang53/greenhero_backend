@@ -783,6 +783,110 @@ paths:
         "404":
           description: "mission not found"
       x-swagger-router-controller: "Mission"
+  /Mission/getMissionByUserIdAndType:
+    get:
+      tags:
+      - "Mission"
+      summary: "Get mission"
+      description: "See the available missions"
+      operationId: "getMissionByUserIdAndType"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "user_id"
+        in: "query"
+        description: "The user id of the mission."
+        required: true
+        type: "string"
+      - name: "type"
+        in: "query"
+        description: "The type of the mission."
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Mission"
+        "404":
+          description: "No mission found"
+      x-swagger-router-controller: "Mission"
+  /Mission/getTopMission:
+    get:
+      tags:
+      - "Mission"
+      summary: "Get mission"
+      description: "See the available missions"
+      operationId: "getTopMission"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "date"
+        in: "query"
+        description: "The date of the mission."
+        required: true
+        type: "string"
+        format: "date"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Mission"
+        "404":
+          description: "No mission found"
+      x-swagger-router-controller: "Mission"
+  /Mission/getCompletedMissionByType:
+    get:
+      tags:
+      - "Mission"
+      summary: "Get mission"
+      description: "See the available missions"
+      operationId: "getCompletedMissionByType"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "date"
+        in: "query"
+        description: "The date of the mission."
+        required: true
+        type: "string"
+        format: "date"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Mission"
+        "404":
+          description: "No mission found"
+      x-swagger-router-controller: "Mission"
+  /Mission/getNumberofCompletedMission:
+    get:
+      tags:
+      - "Mission"
+      summary: "Get mission"
+      description: "See the available missions"
+      operationId: "getNumberofCompletedMission"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "date"
+        in: "query"
+        description: "The date of the mission."
+        required: true
+        type: "string"
+        format: "date"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Mission"
+        "404":
+          description: "No mission found"
+      x-swagger-router-controller: "Mission"
   /Boss:
     get:
       tags:
