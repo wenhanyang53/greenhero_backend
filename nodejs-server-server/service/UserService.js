@@ -134,6 +134,29 @@ exports.getUser = function (userId) {
   });
 }
 
+/**
+ * Get all users
+ * 
+ * returns List
+ **/
+exports.getAllUsers = function () {
+  return new Promise(function (resolve, reject) {
+    MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
+      if (err) throw err;
+      var dbo = db.db("greenhero");
+      dbo.collection("User").find().toArray(async function (err, result) {
+        for(let us of result) {
+          if (us.personalInfo) {
+            us.personalInfo = await PersonalInfo.getPersonalInfoByUserId(us._id);
+          }
+        }
+        resolve(result);
+        db.close();
+      });
+    });
+  });
+}
+
 
 /**
  * Logs user into the system

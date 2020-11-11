@@ -76,6 +76,40 @@ module.exports.getConsumptionForUserAfterDate = function getConsumptionForUserAf
     });
 };
 
+module.exports.getUserMonthAllowance = function getUserMonthAllowance (req, res, next) {
+  var date = new Date(req.swagger.params['date'].value);
+  var user_id = req.swagger.params['user_id'].value;
+  Consumption.getUserMonthAllowance(date,user_id)
+    .then(function (response) {
+      utils.writeJson(res, response);
+    })
+    .catch(function (response) {
+      utils.writeJson(res, response);
+    });
+};
+
+module.exports.getTotalMonthAllowance = function getTotalMonthAllowance (req, res, next) {
+  var date = new Date(req.swagger.params['date'].value);
+  Consumption.getTotalMonthAllowance(date)
+    .then(function (response) {
+      utils.writeJson(res, response);
+    })
+    .catch(function (response) {
+      utils.writeJson(res, response);
+    });
+};
+
+module.exports.getTotalWeekAllowance = function getTotalWeekAllowance (req, res, next) {
+  var date = new Date(req.swagger.params['date'].value);
+  Consumption.getTotalWeekAllowance(date)
+    .then(function (response) {
+      utils.writeJson(res, response);
+    })
+    .catch(function (response) {
+      utils.writeJson(res, response);
+    });
+};
+
 module.exports.getAllConsumptionBetween = function getAllConsumptionBetween (req, res, next) {
   var min_date = new Date(req.swagger.params['min_date'].value);
   var max_date = new Date(req.swagger.params['max_date'].value);
@@ -101,11 +135,77 @@ module.exports.getAllConsumptionBetweenForCategory = function getAllConsumptionB
     });
 };
 
+module.exports.getAllConsumptionBetweenForCategoryAndUser = function getAllConsumptionBetweenForCategoryAndUser (req, res, next) {
+  var min_date = new Date(req.swagger.params['min_date'].value);
+  var max_date = new Date(req.swagger.params['max_date'].value);
+  var category = req.swagger.params['category'].value;
+  var user_id = req.swagger.params['user_id'].value;
+  Consumption.getAllConsumptionBetweenForCategoryAndUser(min_date,max_date,category, user_id)
+    .then(function (response) {
+      utils.writeJson(res, response);
+    })
+    .catch(function (response) {
+      utils.writeJson(res, response);
+    });
+};
+
+module.exports.getAllConsumptionBetweenForUser = function getAllConsumptionBetweenForUser (req, res, next) {
+  var min_date = new Date(req.swagger.params['min_date'].value);
+  var max_date = new Date(req.swagger.params['max_date'].value);
+  var user_id = req.swagger.params['user_id'].value;
+  Consumption.getAllConsumptionBetweenForUser(min_date,max_date,user_id)
+    .then(function (response) {
+      utils.writeJson(res, response);
+    })
+    .catch(function (response) {
+      utils.writeJson(res, response);
+    });
+};
+
+module.exports.getConsumptionBetweenProfession = function getConsumptionBetweenProfession (req, res, next) {
+  var min_date = new Date(req.swagger.params['min_date'].value);
+  var max_date = new Date(req.swagger.params['max_date'].value);
+  var occupation = req.swagger.params['occupation'].value;
+  Consumption.getConsumptionBetweenProfession(min_date,max_date,occupation)
+    .then(function (response) {
+      utils.writeJson(res, response);
+    })
+    .catch(function (response) {
+      utils.writeJson(res, response);
+    });
+};
+
 module.exports.getAllConsumptionBetweenUser = function getAllConsumptionBetweenUser (req, res, next) {
   var min_date = new Date(req.swagger.params['min_date'].value);
   var max_date = new Date(req.swagger.params['max_date'].value);
   var user_id = req.swagger.params['user_id'].value;
   Consumption.getAllConsumptionBetweenUser(min_date,max_date,user_id)
+    .then(function (response) {
+      utils.writeJson(res, response);
+    })
+    .catch(function (response) {
+      utils.writeJson(res, response);
+    });
+};
+
+module.exports.getConsumptionHighestCategoryForUser = function getConsumptionHighestCategoryForUser (req, res, next) {
+  var min_date = new Date(req.swagger.params['min_date'].value);
+  var max_date = new Date(req.swagger.params['max_date'].value);
+  var user_id = req.swagger.params['user_id'].value;
+  Consumption.getConsumptionHighestCategoryForUser(min_date,max_date,user_id)
+    .then(function (response) {
+      utils.writeJson(res, response);
+    })
+    .catch(function (response) {
+      utils.writeJson(res, response);
+    });
+};
+
+module.exports.getConsumptionHighestDayForUser = function getConsumptionHighestDayForUser (req, res, next) {
+  var min_date = new Date(req.swagger.params['min_date'].value);
+  var max_date = new Date(req.swagger.params['max_date'].value);
+  var user_id = req.swagger.params['user_id'].value;
+  Consumption.getConsumptionHighestDayForUser(min_date,max_date,user_id)
     .then(function (response) {
       utils.writeJson(res, response);
     })
