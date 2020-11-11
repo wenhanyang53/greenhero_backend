@@ -46,6 +46,17 @@ module.exports.getNumberOfPeople = function getNumberOfPeople (req, res, next) {
     });
 };
 
+module.exports.getNumberofCompletedEvent = function getNumberofCompletedEvent (req, res, next) {
+  var date = req.swagger.params['date'].value;
+  Team.getNumberofCompletedEvent(date)
+    .then(function (response) {
+      utils.writeJson(res, response);
+    })
+    .catch(function (response) {
+      utils.writeJson(res, response);
+    });
+};
+
 module.exports.getAllNumberOfPeople = function getAllNumberOfPeople (req, res, next) {
   Team.getAllNumberOfPeople()
     .then(function (response) {

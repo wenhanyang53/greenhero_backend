@@ -5,6 +5,7 @@ var ObjectId = require('mongodb').ObjectId;
 var Character = require('../service/CharacterService');
 var Application = require('../service/ApplicationService');
 var User = require('../service/UserService');
+var Event = require('../service/EventService');
 
 /**
  * Create a new team
@@ -183,6 +184,35 @@ exports.getAllNumberOfPeople = function () {
     });
   });
 }
+
+/**
+ * Get number of event completed 
+ *
+ * returns List
+ **/
+exports.getNumberofCompletedEvent = function (date) {
+  return new Promise(function (resolve, reject) {
+    MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
+      if (err) throw err;
+      var dbo = db.db("greenhero");
+      var num = 0;
+      dbo.collection("Team").find({
+        "completed": true
+      }).toArray(async function (result) {
+        console.log(result)
+        let events = await Event.getEventById(result.event_id);
+        for (let event of events) {
+          if (event.openDate.getTime() > date.getTime()) {
+            num += 1;
+          }
+        }
+        resolve({ total: num });
+        db.close();
+      });
+    });
+  });
+}
+
 
 /**
  * Modify team

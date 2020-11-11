@@ -14,9 +14,9 @@ module.exports.getTopEvents = function getTopEvents (req, res, next) {
     });
 };
 
-module.exports.getNumberofEvent = function getNumberofEvent (req, res, next) {
-  var date = req.swagger.params['date'].value;
-  Event.getNumberofEvent(date)
+
+module.exports.getAllEvents = function getAllEvents (req, res, next) {
+  Event.getAllEvents()
     .then(function (response) {
       utils.writeJson(res, response);
     })
@@ -25,8 +25,9 @@ module.exports.getNumberofEvent = function getNumberofEvent (req, res, next) {
     });
 };
 
-module.exports.getAllEvents = function getAllEvents (req, res, next) {
-  Event.getAllEvents()
+module.exports.getEventById = function getEventById (req, res, next) {
+  var id = req.swagger.params['id'].value;
+  Event.getEventById(id)
     .then(function (response) {
       utils.writeJson(res, response);
     })

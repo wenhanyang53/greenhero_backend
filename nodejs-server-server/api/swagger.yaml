@@ -401,23 +401,22 @@ paths:
         "404":
           description: "No event found"
       x-swagger-router-controller: "Event"
-  /Event/getNumberofEvent:
+  /Event/getEventById:
     get:
       tags:
       - "Event"
-      summary: "Get number of events"
-      description: "See all the number of events"
-      operationId: "getNumberofEvent"
+      summary: "Get events"
+      description: "See all the events"
+      operationId: "getEventById"
       produces:
       - "application/xml"
       - "application/json"
       parameters:
-      - name: "date"
+      - name: "id"
         in: "query"
         description: "The duration of the event that needs to be counted"
         required: true
         type: "string"
-        format: "date"
       responses:
         "201":
           description: "successful operation"
@@ -998,6 +997,34 @@ paths:
       - "application/xml"
       - "application/json"
       parameters: []
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "object"
+            properties:
+              total:
+                type: "number"
+        "404":
+          description: "No result found"
+      x-swagger-router-controller: "Team"
+  /Team/getNumberofCompletedEvent:
+    get:
+      tags:
+      - "Team"
+      summary: "Get number of people"
+      description: "See the number of people formed a team by professional"
+      operationId: "getNumberofCompletedEvent"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters: 
+      - name: "date"
+        in: "query"
+        description: "The duration of the event that needs to be counted"
+        required: true
+        type: "string"
+        format: "date"
       responses:
         "200":
           description: "OK"
