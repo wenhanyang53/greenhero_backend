@@ -1272,6 +1272,89 @@ paths:
         "404":
           description: "Consumption not found"
       x-swagger-router-controller: "Consumption"
+  /Consumption/getUserMonthAllowance:
+    get:
+      tags:
+      - "Consumption"
+      summary: "Find user month allowance"
+      operationId: "getUserMonthAllowance"
+      parameters:
+      - name: "date"
+        in: "query"
+        description: "date to find the allowance"
+        required: true
+        type: "string"
+        format: "date"
+      - name: "user_id"
+        in: "query"
+        description: "id of user"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "object"
+            properties:
+              total:
+                type: "number"
+        "400":
+          description: "Invalid params supplied"
+        "404":
+          description: "Consumption not found"
+      x-swagger-router-controller: "Consumption"
+  /Consumption/getTotalMonthAllowance:
+    get:
+      tags:
+      - "Consumption"
+      summary: "Find total month allowance"
+      operationId: "getTotalMonthAllowance"
+      parameters:
+      - name: "date"
+        in: "query"
+        description: "date to find the allowance"
+        required: true
+        type: "string"
+        format: "date"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "object"
+            properties:
+              total:
+                type: "number"
+        "400":
+          description: "Invalid params supplied"
+        "404":
+          description: "Consumption not found"
+      x-swagger-router-controller: "Consumption"
+  /Consumption/getTotalWeekAllowance:
+    get:
+      tags:
+      - "Consumption"
+      summary: "Find total month allowance"
+      operationId: "getTotalMonthAllowance"
+      parameters:
+      - name: "date"
+        in: "query"
+        description: "date to find the allowance"
+        required: true
+        type: "string"
+        format: "date"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "object"
+            properties:
+              total:
+                type: "number"
+        "400":
+          description: "Invalid params supplied"
+        "404":
+          description: "Consumption not found"
+      x-swagger-router-controller: "Consumption"
   /Consumption/getAllConsumptionBetweenForCategory:
     get:
       tags:
@@ -1294,6 +1377,122 @@ paths:
       - name: "category"
         in: "query"
         description: "category of consumption"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "object"
+            properties:
+              total:
+                type: "number"
+        "400":
+          description: "Invalid params supplied"
+        "404":
+          description: "Consumption not found"
+      x-swagger-router-controller: "Consumption"
+  /Consumption/getAllConsumptionBetweenForCategoryAndUser:
+    get:
+      tags:
+      - "Consumption"
+      summary: "Find total consumption between two dates for a category and a user"
+      operationId: "getAllConsumptionBetweenForCategoryAndUser"
+      parameters:
+      - name: "min_date"
+        in: "query"
+        description: "minimum date of query"
+        required: true
+        type: "string"
+        format: "date"
+      - name: "max_date"
+        in: "query"
+        description: "maximum date of query"
+        required: true
+        type: "string"
+        format: "date"
+      - name: "category"
+        in: "query"
+        description: "category of consumption"
+        required: true
+        type: "string"
+      - name: "user_id"
+        in: "query"
+        description: "id of the user"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "object"
+            properties:
+              total:
+                type: "number"
+        "400":
+          description: "Invalid params supplied"
+        "404":
+          description: "Consumption not found"
+      x-swagger-router-controller: "Consumption"
+  /Consumption/getAllConsumptionBetweenForUser:
+    get:
+      tags:
+      - "Consumption"
+      summary: "Find total consumption between two dates for a user"
+      operationId: "getAllConsumptionBetweenForUser"
+      parameters:
+      - name: "min_date"
+        in: "query"
+        description: "minimum date of query"
+        required: true
+        type: "string"
+        format: "date"
+      - name: "max_date"
+        in: "query"
+        description: "maximum date of query"
+        required: true
+        type: "string"
+        format: "date"
+      - name: "user_id"
+        in: "query"
+        description: "id of the user"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "object"
+            properties:
+              total:
+                type: "number"
+        "400":
+          description: "Invalid params supplied"
+        "404":
+          description: "Consumption not found"
+      x-swagger-router-controller: "Consumption"
+  /Consumption/getConsumptionBetweenProfession:
+    get:
+      tags:
+      - "Consumption"
+      summary: "Find total consumption between two dates for a profession"
+      operationId: "getConsumptionBetweenProfession"
+      parameters:
+      - name: "min_date"
+        in: "query"
+        description: "minimum date of query"
+        required: true
+        type: "string"
+        format: "date"
+      - name: "max_date"
+        in: "query"
+        description: "maximum date of query"
+        required: true
+        type: "string"
+        format: "date"
+      - name: "occupation"
+        in: "query"
+        description: "occupation of consumption"
         required: true
         type: "string"
       responses:
@@ -1341,6 +1540,80 @@ paths:
             properties:
               total:
                 type: "number"
+        "400":
+          description: "Invalid params supplied"
+        "404":
+          description: "Consumption not found"
+      x-swagger-router-controller: "Consumption"
+  /Consumption/getConsumptionHighestCategoryForUser:
+    get:
+      tags:
+      - "Consumption"
+      summary: "Find highest consumption category between two dates for a user"
+      operationId: "getConsumptionHighestCategoryForUser"
+      parameters:
+      - name: "min_date"
+        in: "query"
+        description: "minimum date of query"
+        required: true
+        type: "string"
+        format: "date"
+      - name: "max_date"
+        in: "query"
+        description: "maximum date of query"
+        required: true
+        type: "string"
+        format: "date"
+      - name: "user_id"
+        in: "query"
+        description: "id of the user"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "object"
+            properties:
+              category:
+                type: "string"
+        "400":
+          description: "Invalid params supplied"
+        "404":
+          description: "Consumption not found"
+      x-swagger-router-controller: "Consumption"
+  /Consumption/getConsumptionHighestDayForUser:
+    get:
+      tags:
+      - "Consumption"
+      summary: "Find highest consumption day between two dates for a user"
+      operationId: "getConsumptionHighestDayForUser"
+      parameters:
+      - name: "min_date"
+        in: "query"
+        description: "minimum date of query"
+        required: true
+        type: "string"
+        format: "date"
+      - name: "max_date"
+        in: "query"
+        description: "maximum date of query"
+        required: true
+        type: "string"
+        format: "date"
+      - name: "user_id"
+        in: "query"
+        description: "id of the user"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "object"
+            properties:
+              day:
+                type: "string"
         "400":
           description: "Invalid params supplied"
         "404":
