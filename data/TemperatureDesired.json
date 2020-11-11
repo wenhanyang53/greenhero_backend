@@ -1,0 +1,25 @@
+[{
+    "_id": {
+      "$oid": "5fabd373701629e23053874c"
+    },
+    "time": {
+      "$date": "2020-11-07T23:00:00Z"
+    },
+    "temperatureDesired": 20
+  },{
+    "_id": {
+      "$oid": "5fabd3b89cd6f46858ac51db"
+    },
+    "time": {
+      "$date": "2020-11-07T15:00:00Z"
+    },
+    "temperatureDesired": 25
+  },{
+    "_id": {
+      "$oid": "5fabf3484d9ed46670b28eae"
+    },
+    "time": {
+      "$date": "2020-11-07T14:00:00Z"
+    },
+    "temperatureDesired": 50
+  }]
