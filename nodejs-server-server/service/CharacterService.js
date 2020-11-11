@@ -83,7 +83,7 @@ exports.getCharacterByUserId = function (user_id) {
           if (char.skillTree) {
             char.skillTree = await SkillTree.getSkillTreeById(char.skillTree);
           }
-          if(char.skillTree.nodes) {
+          if(char.skillTree && char.skillTree.nodes) {
             let healthFlatBonus = 0, healthPercentageBonus = 0;
             let armorFlatBonus = 0, armorPercentageBonus = 0;
             let attackFlatBonus = 0, attackPercentageBonus = 0;
@@ -165,7 +165,7 @@ exports.getCharacterById = function (_id) {
           if (result.skillTree) {
             result.skillTree = await SkillTree.getSkillTreeById(result.skillTree);
           }
-          if(result.skillTree.nodes) {
+          if(result.skillTree && result.skillTree.nodes) {
             let healthFlatBonus = 0, healthPercentageBonus = 0;
             let armorFlatBonus = 0, armorPercentageBonus = 0;
             let attackFlatBonus = 0, attackPercentageBonus = 0;
@@ -248,7 +248,7 @@ exports.getCharacterByUserIdAndCharacterName = function (user_id, characterName)
         if (result.skillTree) {
           result.skillTree = await SkillTree.getSkillTreeById(result.skillTree);
         }
-        if(result.skillTree.nodes) {
+        if(result.skillTree && result.skillTree.nodes) {
           let healthFlatBonus = 0, healthPercentageBonus = 0;
           let armorFlatBonus = 0, armorPercentageBonus = 0;
           let attackFlatBonus = 0, attackPercentageBonus = 0;
