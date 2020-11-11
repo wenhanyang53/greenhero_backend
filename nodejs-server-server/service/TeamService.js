@@ -24,17 +24,19 @@ exports.createTeam = function (body) {
       }
       if (err) throw err;
       var dbo = db.db("greenhero");
-      var myobj = { "teamName" : body.teamName,
-                    "avatar" :body.avatar,
-                    "event_id" : ObjectId(body.event_id),
-                    "teamLeader" : ObjectId(body.teamLeader),
-                    "teamMembers": myteamMembers,
-                    "completed":body.completed};
-      dbo.collection("Team").insertOne(myobj, function(err, res) {
-          if (err) throw err;
-          console.log("successful");
-          resolve(res);
-          db.close();
+      var myobj = {
+        "teamName": body.teamName,
+        "avatar": body.avatar,
+        "event_id": ObjectId(body.event_id),
+        "teamLeader": ObjectId(body.teamLeader),
+        "teamMembers": myteamMembers,
+        "completed": body.completed
+      };
+      dbo.collection("Team").insertOne(myobj, function (err, res) {
+        if (err) throw err;
+        console.log("successful");
+        resolve(res);
+        db.close();
       });
     });
   });
@@ -71,7 +73,7 @@ exports.deleteTeamByTeamName = function (teamName) {
  *
  * returns List
  **/
-exports.getAllTeams = function () {
+function getAllTeams () {
   return new Promise(function (resolve, reject) {
     MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
       if (err) throw err;
@@ -117,6 +119,8 @@ exports.getAllTeams = function () {
     }];
   });
 }
+
+exports.getAllTeams = getAllTeams;
 
 /**
  * Get number of people by profession
@@ -170,15 +174,26 @@ exports.getAllNumberOfPeople = function () {
       var num = 0;
       dbo.collection("Team").find().toArray(async function (err, result) {
         if (err) throw err;
+        let user = []
         for (let team of result) {
           if (team.teamLeader) {
-            num += 1;
+            if (!user.includes(team.teamLeader.user_id)) {
+              user.push(team.teamLeader.user_id);
+            }
           }
           if (team.teamMembers) {
-            num += team.teamMembers.length;
+            for (let mem of team.teamMembers) {
+              if (!user.includes(mem.user_id)) {
+                user.push(mem.user_id);
+              }
+            }
           }
         }
-        resolve({ total: num });
+        num = user.length
+        let total_user = await User.getAllUsers()
+        let total = total_user.length
+        let res = Math.round(num / total * 100)
+        resolve({ total: res });
         db.close();
       });
     });
@@ -198,15 +213,18 @@ exports.getNumberofCompletedEvent = function (date) {
       var num = 0;
       dbo.collection("Team").find({
         "completed": true
-      }).toArray(async function (result) {
-        console.log(result)
-        let events = await Event.getEventById(result.event_id);
-        for (let event of events) {
-          if (event.openDate.getTime() > date.getTime()) {
+      }).toArray(async function (err, result) {
+        if (err) throw err;
+        for (let event of result) {
+          let eve = (await Event.getEventById(event.event_id))[0];
+          if (eve.openDate.getTime() > date.getTime()) {
             num += 1;
           }
         }
-        resolve({ total: num });
+        let total_teams = await getAllTeams();
+        let total = total_teams.length
+        let res = Math.round(num / total * 100)
+        resolve({ total: res });
         db.close();
       });
     });
@@ -232,17 +250,21 @@ exports.modifyTeam = function (body) {
       }
       if (err) throw err;
       var dbo = db.db("greenhero");
-      var whereStr = {"userName":userName};  // condition
-      var updateStr = {$set: { "teamName" : body.teamName,
-                                "avatar" :body.avatar,
-                                "event_id" : ObjectId(body.event_id),
-                                "teamLeader" : ObjectId(body.teamLeader),
-                                "teamMembers": myteamMembers,
-                                "completed": body.completed}};
-      dbo.collection("Team").updateOne(whereStr, updateStr, function(err, res) {
-          if (err) throw err;
-          console.log("successful");
-          db.close();
+      var whereStr = { "userName": userName };  // condition
+      var updateStr = {
+        $set: {
+          "teamName": body.teamName,
+          "avatar": body.avatar,
+          "event_id": ObjectId(body.event_id),
+          "teamLeader": ObjectId(body.teamLeader),
+          "teamMembers": myteamMembers,
+          "completed": body.completed
+        }
+      };
+      dbo.collection("Team").updateOne(whereStr, updateStr, function (err, res) {
+        if (err) throw err;
+        console.log("successful");
+        db.close();
       });
     });
     resolve();
@@ -258,23 +280,23 @@ exports.modifyTeam = function (body) {
  * turns List Turns
  * no response value expected for this operation
  **/
-exports.updateTeamTurns = function(team_id, turns) {
-  return new Promise(function(resolve, reject) {
-    MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+exports.updateTeamTurns = function (team_id, turns) {
+  return new Promise(function (resolve, reject) {
+    MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
       if (err) throw err;
       var dbo = db.db("greenhero");
       var whereStr = { "_id": new ObjectId(team_id) };  // condition
       var updateStr = {
-        $set: { 
+        $set: {
           "turnOrder": turns
         }
-    };
-      dbo.collection("Team").updateOne(whereStr, updateStr, function(err, res) {
-          if (err) throw err;
-          console.log("successful");
-          db.close();
+      };
+      dbo.collection("Team").updateOne(whereStr, updateStr, function (err, res) {
+        if (err) throw err;
+        console.log("successful");
+        db.close();
       });
-  });
+    });
     resolve();
   });
 }
@@ -286,14 +308,15 @@ exports.getTeamByEventIdAndUserId = function (event_id, user_id) {
     MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
       if (err) throw err;
       var dbo = db.db("greenhero");
-      var whereStr = {$or:[{"event_id":ObjectId(event_id),"teamLeader":ObjectId(user_id)},
-                           {"event_id":ObjectId(event_id),"teamMembers":{$elemMatch:{$eq:ObjectId(user_id)}}}
-                          ]
-                     };
-      dbo.collection("Team"). find(whereStr).toArray(function(err, result) { 
-          if (err) throw err;
-          resolve(result); 
-          db.close();
+      var whereStr = {
+        $or: [{ "event_id": ObjectId(event_id), "teamLeader": ObjectId(user_id) },
+        { "event_id": ObjectId(event_id), "teamMembers": { $elemMatch: { $eq: ObjectId(user_id) } } }
+        ]
+      };
+      dbo.collection("Team").find(whereStr).toArray(function (err, result) {
+        if (err) throw err;
+        resolve(result);
+        db.close();
       });
     });
   });
