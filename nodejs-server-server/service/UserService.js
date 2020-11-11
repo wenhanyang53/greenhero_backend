@@ -217,3 +217,17 @@ exports.modifyUser = function (userName, body) {
   });
 }
 
+exports.getCoinAmountByUserId = function(user_id){
+  return new Promise(function (resolve, reject) {
+    MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
+      if (err) throw err;
+      var dbo = db.db("greenhero");
+      dbo.collection("User").find({ "_id": ObjectId(user_id)},{"_id": 0, "abilityPoints": 1}).toArray(function (err, result) {
+        if (err) throw err;
+        resolve(result);
+        db.close();
+      });
+    });
+  });
+}
+

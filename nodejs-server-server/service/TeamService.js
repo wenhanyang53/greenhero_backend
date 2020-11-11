@@ -206,9 +206,12 @@ exports.getTeamByEventIdAndUserId = function(event_id,user_id) {
       if (err) throw err;
       var dbo = db.db("greenhero");
       var whereStr = {$or:[{"event_id":ObjectId(event_id),"teamLeader":ObjectId(user_id)},
-      {"event_id":ObjectId(event_id),"teamMembers":{$elemMatch:{$eq:ObjectId(user_id)}}}]};
-      dbo.collection("Team"). find().toArray(function(err, result) { 
+                           {"event_id":ObjectId(event_id),"teamMembers":{$elemMatch:{$eq:ObjectId(user_id)}}}
+                          ]
+                     };
+      dbo.collection("Team"). find(whereStr).toArray(function(err, result) { 
           if (err) throw err;
+          console.log(result);
           resolve(result); 
           db.close();
       });
