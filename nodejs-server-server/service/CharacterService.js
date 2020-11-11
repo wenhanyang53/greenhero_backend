@@ -4,6 +4,7 @@ var url = "mongodb://localhost:27017/";
 var ObjectId = require('mongodb').ObjectId;
 var SkillTree = require('../service/SkillTreeService');
 var User = require('../service/UserService');
+var STUtils = require('../utils/skillTreeCalculations');
 
 /**
  * Create a new character
@@ -82,6 +83,39 @@ exports.getCharacterByUserId = function (user_id) {
           if (char.skillTree) {
             char.skillTree = await SkillTree.getSkillTreeById(char.skillTree);
           }
+          if(char.skillTree.nodes) {
+            let healthFlatBonus = 0, healthPercentageBonus = 0;
+            let armorFlatBonus = 0, armorPercentageBonus = 0;
+            let attackFlatBonus = 0, attackPercentageBonus = 0;
+            let healing_factorFlatBonus = 0, healing_factorPercentageBonus = 0;
+
+            for(let node of char.skillTree.nodes) {
+              healthFlatBonus += STUtils.calculateBonusStatFlat('Health', node, 0);
+              healthPercentageBonus += STUtils.calculateBonusStatPercentage('Health', node, 0);
+
+              armorFlatBonus += STUtils.calculateBonusStatFlat('Armor', node, 0);
+              armorPercentageBonus += STUtils.calculateBonusStatPercentage('Armor', node, 0);
+
+              attackFlatBonus += STUtils.calculateBonusStatFlat('Attack', node, 0);
+              attackPercentageBonus += STUtils.calculateBonusStatPercentage('Attack', node, 0);
+
+              healing_factorFlatBonus += STUtils.calculateBonusStatFlat('Healing_Factor', node, 0);
+              healing_factorPercentageBonus += STUtils.calculateBonusStatPercentage('Healing_Factor', node, 0);
+            }
+
+            const totalFlatHealth = char.health + healthFlatBonus;
+            char.health = totalFlatHealth + (totalFlatHealth * healthPercentageBonus);
+
+            const totalFlatArmor = char.armor + armorFlatBonus;
+            char.armor = totalFlatArmor + (totalFlatArmor * armorPercentageBonus);
+            
+            const totalFlatAttack = char.attack + attackFlatBonus;
+            char.attack = totalFlatAttack + (totalFlatAttack * attackPercentageBonus);
+            
+            const totalFlatHealing_factor = char.healing_factor + healing_factorFlatBonus;
+            char.healing_factor = totalFlatHealing_factor + (totalFlatHealing_factor * healing_factorPercentageBonus);
+            
+          }
         }
         resolve(result);
         db.close();
@@ -130,6 +164,39 @@ exports.getCharacterById = function (_id) {
       dbo.collection("Character").findOne(whereStr).then(async function (result) {
           if (result.skillTree) {
             result.skillTree = await SkillTree.getSkillTreeById(result.skillTree);
+          }
+          if(result.skillTree.nodes) {
+            let healthFlatBonus = 0, healthPercentageBonus = 0;
+            let armorFlatBonus = 0, armorPercentageBonus = 0;
+            let attackFlatBonus = 0, attackPercentageBonus = 0;
+            let healing_factorFlatBonus = 0, healing_factorPercentageBonus = 0;
+
+            for(let node of result.skillTree.nodes) {
+              healthFlatBonus += STUtils.calculateBonusStatFlat('Health', node, 0);
+              healthPercentageBonus += STUtils.calculateBonusStatPercentage('Health', node, 0);
+
+              armorFlatBonus += STUtils.calculateBonusStatFlat('Armor', node, 0);
+              armorPercentageBonus += STUtils.calculateBonusStatPercentage('Armor', node, 0);
+
+              attackFlatBonus += STUtils.calculateBonusStatFlat('Attack', node, 0);
+              attackPercentageBonus += STUtils.calculateBonusStatPercentage('Attack', node, 0);
+
+              healing_factorFlatBonus += STUtils.calculateBonusStatFlat('Healing_Factor', node, 0);
+              healing_factorPercentageBonus += STUtils.calculateBonusStatPercentage('Healing_Factor', node, 0);
+            }
+
+            const totalFlatHealth = result.health + healthFlatBonus;
+            result.health = totalFlatHealth + (totalFlatHealth * healthPercentageBonus);
+
+            const totalFlatArmor = result.armor + armorFlatBonus;
+            result.armor = totalFlatArmor + (totalFlatArmor * armorPercentageBonus);
+            
+            const totalFlatAttack = result.attack + attackFlatBonus;
+            result.attack = totalFlatAttack + (totalFlatAttack * attackPercentageBonus);
+            
+            const totalFlatHealing_factor = result.healing_factor + healing_factorFlatBonus;
+            result.healing_factor = totalFlatHealing_factor + (totalFlatHealing_factor * healing_factorPercentageBonus);
+            
           }
         resolve(result);
         db.close();
@@ -180,6 +247,39 @@ exports.getCharacterByUserIdAndCharacterName = function (user_id, characterName)
         if (err) throw err;
         if (result.skillTree) {
           result.skillTree = await SkillTree.getSkillTreeById(result.skillTree);
+        }
+        if(result.skillTree.nodes) {
+          let healthFlatBonus = 0, healthPercentageBonus = 0;
+          let armorFlatBonus = 0, armorPercentageBonus = 0;
+          let attackFlatBonus = 0, attackPercentageBonus = 0;
+          let healing_factorFlatBonus = 0, healing_factorPercentageBonus = 0;
+
+          for(let node of result.skillTree.nodes) {
+            healthFlatBonus += STUtils.calculateBonusStatFlat('Health', node, 0);
+            healthPercentageBonus += STUtils.calculateBonusStatPercentage('Health', node, 0);
+
+            armorFlatBonus += STUtils.calculateBonusStatFlat('Armor', node, 0);
+            armorPercentageBonus += STUtils.calculateBonusStatPercentage('Armor', node, 0);
+
+            attackFlatBonus += STUtils.calculateBonusStatFlat('Attack', node, 0);
+            attackPercentageBonus += STUtils.calculateBonusStatPercentage('Attack', node, 0);
+
+            healing_factorFlatBonus += STUtils.calculateBonusStatFlat('Healing_Factor', node, 0);
+            healing_factorPercentageBonus += STUtils.calculateBonusStatPercentage('Healing_Factor', node, 0);
+          }
+
+          const totalFlatHealth = result.health + healthFlatBonus;
+          result.health = totalFlatHealth + (totalFlatHealth * healthPercentageBonus);
+
+          const totalFlatArmor = result.armor + armorFlatBonus;
+          result.armor = totalFlatArmor + (totalFlatArmor * armorPercentageBonus);
+          
+          const totalFlatAttack = result.attack + attackFlatBonus;
+          result.attack = totalFlatAttack + (totalFlatAttack * attackPercentageBonus);
+          
+          const totalFlatHealing_factor = result.healing_factor + healing_factorFlatBonus;
+          result.healing_factor = totalFlatHealing_factor + (totalFlatHealing_factor * healing_factorPercentageBonus);
+          
         }
         resolve(result);
         db.close();

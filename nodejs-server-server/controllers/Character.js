@@ -27,8 +27,19 @@ module.exports.deleteCharacterByUserIdAndCharacterName = function deleteCharacte
 };
 
 module.exports.getCharacterByUserId = function getCharacterByUserId (req, res, next) {
-  var user_id = req.swagger.params['user_id'].value;
-  Character.getCharacterByUserId(user_id)
+  var char_id = req.swagger.params['char_id'].value;
+  Character.getCharacterByUserId(char_id)
+    .then(function (response) {
+      utils.writeJson(res, response);
+    })
+    .catch(function (response) {
+      utils.writeJson(res, response);
+    });
+};
+
+module.exports.getCharacterById = function getCharacterById (req, res, next) {
+  var user_id = req.swagger.params['char_id'].value;
+  Character.getCharacterById(user_id)
     .then(function (response) {
       utils.writeJson(res, response);
     })
