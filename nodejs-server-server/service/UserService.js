@@ -231,3 +231,44 @@ exports.getCoinAmountByUserId = function(user_id){
   });
 }
 
+exports.addCoinsByUserId= function(user_id,addCoins,oldCoins){
+  return new Promise(function (resolve, reject) {
+    MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
+      if (err) throw err;
+      var dbo = db.db("greenhero");
+      var whereStr = { "_id": ObjectId(user_id)};  // condition
+      var updateStr = {
+        $set: {
+          "abilityPoints": oldCoins+addCoins,
+        }
+      };
+      dbo.collection("User").updateOne(whereStr, updateStr, function (err, res) {
+        if (err) throw err;
+        console.log("successful");
+        db.close();
+      });
+    });
+    resolve();
+  });
+}
+
+exports.substractCoinsByUserId= function(user_id,substractCoins,oldCoins){
+  return new Promise(function (resolve, reject) {
+    MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
+      if (err) throw err;
+      var dbo = db.db("greenhero");
+      var whereStr = { "_id": ObjectId(user_id)};  // condition
+      var updateStr = {
+        $set: {
+          "abilityPoints": oldCoins-substractCoins,
+        }
+      };
+      dbo.collection("User").updateOne(whereStr, updateStr, function (err, res) {
+        if (err) throw err;
+        console.log("successful");
+        db.close();
+      });
+    });
+    resolve();
+  });
+}

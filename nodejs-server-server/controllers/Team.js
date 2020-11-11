@@ -90,3 +90,27 @@ module.exports.getTeamByEventIdAndUserId = function getTeamByEventIdAndUserId(re
     utils.writeJson(res, response);
   });
 };
+
+module.exports.getTeamByEventIdAndTeamName = function getTeamByEventIdAndTeamName(req,res,next){
+  var event_id = req.swagger.params['event_id'].value;
+  var teamName = req.swagger.params['teamName'].value;
+  Team.getTeamByEventIdAndTeamName(event_id,teamName)
+  .then(function (response) {
+    utils.writeJson(res, response);
+  })
+  .catch(function (response) {
+    utils.writeJson(res, response);
+  });
+};
+
+module.exports.modifyTeamById = function modifyTeamById (req, res, next) {
+  var team_id = req.swagger.params['team_id'].value;
+  var body = req.swagger.params['body'].value;
+  Team.modifyTeamById(team_id, body)
+    .then(function (response) {
+      utils.writeJson(res, response);
+    })
+    .catch(function (response) {
+      utils.writeJson(res, response);
+    });
+};
