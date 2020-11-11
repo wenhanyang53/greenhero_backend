@@ -14,6 +14,17 @@ module.exports.getTopEvents = function getTopEvents (req, res, next) {
     });
 };
 
+module.exports.getNumberofEvent = function getNumberofEvent (req, res, next) {
+  var date = req.swagger.params['date'].value;
+  Event.getNumberofEvent(date)
+    .then(function (response) {
+      utils.writeJson(res, response);
+    })
+    .catch(function (response) {
+      utils.writeJson(res, response);
+    });
+};
+
 module.exports.getAllEvents = function getAllEvents (req, res, next) {
   Event.getAllEvents()
     .then(function (response) {

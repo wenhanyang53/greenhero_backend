@@ -380,6 +380,29 @@ paths:
         "404":
           description: "No event found"
       x-swagger-router-controller: "Event"
+  /Event/getNumberofEvent:
+    get:
+      tags:
+      - "Event"
+      summary: "Get number of events"
+      description: "See all the number of events"
+      operationId: "getNumberofEvent"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "date"
+        in: "query"
+        description: "The duration of the event that needs to be counted"
+        required: true
+        type: "string"
+        format: "date"
+      responses:
+        "201":
+          description: "successful operation"
+        "404":
+          description: "No event found"
+      x-swagger-router-controller: "Event"
   /Character:
     post:
       tags:
@@ -864,7 +887,6 @@ paths:
         "404":
           description: "team not found "
       x-swagger-router-controller: "Team"
-  /Team/{teamName}:
     delete:
       tags:
       - "Team"
@@ -876,7 +898,7 @@ paths:
       - "application/json"
       parameters:
       - name: "teamName"
-        in: "path"
+        in: "query"
         description: "The name of the team that needs to be deleted"
         required: true
         type: "string"
@@ -943,6 +965,28 @@ paths:
               $ref: "#/definitions/Team"
         "404":
           description: "No team found"
+      x-swagger-router-controller: "Team"
+  /Team/getAllNumberOfPeople:
+    get:
+      tags:
+      - "Team"
+      summary: "Get number of people"
+      description: "See the number of people formed a team by professional"
+      operationId: "getAllNumberOfPeople"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters: []
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "object"
+            properties:
+              total:
+                type: "number"
+        "404":
+          description: "No result found"
       x-swagger-router-controller: "Team"
   /SkillTree:
     post:

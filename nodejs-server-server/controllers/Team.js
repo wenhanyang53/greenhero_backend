@@ -46,6 +46,16 @@ module.exports.getNumberOfPeople = function getNumberOfPeople (req, res, next) {
     });
 };
 
+module.exports.getAllNumberOfPeople = function getAllNumberOfPeople (req, res, next) {
+  Team.getAllNumberOfPeople()
+    .then(function (response) {
+      utils.writeJson(res, response);
+    })
+    .catch(function (response) {
+      utils.writeJson(res, response);
+    });
+};
+
 module.exports.modifyTeam = function modifyTeam (req, res, next) {
   var body = req.swagger.params['body'].value;
   Team.modifyTeam(body)
