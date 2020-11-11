@@ -357,6 +357,29 @@ paths:
         "404":
           description: "Event not found"
       x-swagger-router-controller: "Event"
+  /Event/getTopEvent:
+    get:
+      tags:
+      - "Event"
+      summary: "Get top events"
+      description: "See all the popular events"
+      operationId: "getTopEvents"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "date"
+        in: "query"
+        description: "The duration of the event that needs to be counted"
+        required: true
+        type: "string"
+        format: "date"
+      responses:
+        "201":
+          description: "successful operation"
+        "404":
+          description: "No event found"
+      x-swagger-router-controller: "Event"
   /Character:
     post:
       tags:

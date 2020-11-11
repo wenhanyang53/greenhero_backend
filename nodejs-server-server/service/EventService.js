@@ -107,6 +107,56 @@ exports.getAllEvents = function () {
   });
 }
 
+/**
+ * Get Top Events
+ * See the available events
+ *
+ **/
+exports.getTopEvents = function (date) {
+  return new Promise(function (resolve, reject) {
+    MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
+      if (err) throw err;
+      var dbo = db.db("greenhero");
+      dbo.collection("Event").find({
+        "openDate": {
+          $gte: date
+        }
+      }).toArray(function (err, result) {
+        if (err) throw err;
+        let events = {};
+        let topEvents = [];
+        for(let event of result) {
+          if (Object.keys(events).some((key) => key === event.eventName)){
+            events[event.eventName] += 1;
+          }
+          else {
+            events[event.eventName] = 1;
+          }
+        }
+        let total = 0;
+        for(let i=0; i<events.length; i++) {
+          if (total<=events[i]){
+            total = events[i];
+            console.log(total);
+          }
+        }
+        console.log(result)
+        // console.log(Object.values(events)[0])
+        for (let i=0; i<events.length-1; i++) {
+          if (Object.values(events)[i]<=Object.values(events)[i+1]) {
+            topEvents.push(Object.keys(events)[i+1])
+          }
+          if (Object.values(events)[i]>=Object.values(events)[i+1]) {
+            topEvents.push(Object.keys(events)[i])
+          }
+        }
+        resolve({res: topEvents});
+        db.close();
+      });
+    });
+  });
+}
+
 
 /**
  * Modify event
