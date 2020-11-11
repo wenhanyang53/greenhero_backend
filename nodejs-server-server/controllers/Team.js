@@ -14,6 +14,18 @@ module.exports.createTeam = function createTeam (req, res, next) {
     });
 };
 
+module.exports.updateTeamTurns = function updateTeamTurns (req, res, next) {
+  var team_id = req.swagger.params['body'].value.team_id;
+  var turns = req.swagger.params['body'].value.turns;
+  Team.updateTeamTurns(team_id, turns)
+    .then(function (response) {
+      utils.writeJson(res, response);
+    })
+    .catch(function (response) {
+      utils.writeJson(res, response);
+    });
+};
+
 module.exports.deleteTeamByTeamName = function deleteTeamByTeamName (req, res, next) {
   var teamName = req.swagger.params['teamName'].value;
   Team.deleteTeamByTeamName(teamName)

@@ -199,6 +199,36 @@ exports.modifyTeam = function(body) {
 }
 
 
+/**
+ * Modify team's turns
+ * To modify a team's turns
+ *
+ * team_id string Team ID
+ * turns List Turns
+ * no response value expected for this operation
+ **/
+exports.updateTeamTurns = function(team_id, turns) {
+  return new Promise(function(resolve, reject) {
+    MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+      if (err) throw err;
+      var dbo = db.db("greenhero");
+      var whereStr = { "_id": new ObjectId(team_id) };  // condition
+      var updateStr = {
+        $set: { 
+          "turnOrder": turns
+        }
+    };
+      dbo.collection("Team").updateOne(whereStr, updateStr, function(err, res) {
+          if (err) throw err;
+          console.log("successful");
+          db.close();
+      });
+  });
+    resolve();
+  });
+}
+
+
 
 exports.getTeamByEventIdAndUserId = function(event_id,user_id) {
   return new Promise(function(resolve, reject) {
@@ -211,7 +241,6 @@ exports.getTeamByEventIdAndUserId = function(event_id,user_id) {
                      };
       dbo.collection("Team"). find(whereStr).toArray(function(err, result) { 
           if (err) throw err;
-          console.log(result);
           resolve(result); 
           db.close();
       });

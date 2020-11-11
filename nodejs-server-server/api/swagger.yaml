@@ -942,6 +942,41 @@ paths:
         "404":
           description: "No team found"
       x-swagger-router-controller: "Team"
+  /Team/updateTeamTurns:
+    put:
+      tags:
+      - "Team"
+      summary: "Modify team turns"
+      description: "To modify a team's turns"
+      operationId: "updateTeamTurns"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Updated turns and team ID"
+        required: true
+        schema:
+          type: "object"
+          required:
+            - team_id
+            - turns
+          properties:
+            team_id:
+              type: "string"
+            turns:
+              type: "array"
+              items: 
+                type: "string"
+      responses:
+        "200":
+          description: "updated successfully"
+        "204":
+          description: "No content "
+        "404":
+          description: "team not found "
+      x-swagger-router-controller: "Team"
   /SkillTree:
     post:
       tags:
