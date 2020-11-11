@@ -378,6 +378,52 @@ paths:
         "404":
           description: "Event not found"
       x-swagger-router-controller: "Event"
+  /Event/getTopEvent:
+    get:
+      tags:
+      - "Event"
+      summary: "Get top events"
+      description: "See all the popular events"
+      operationId: "getTopEvents"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "date"
+        in: "query"
+        description: "The duration of the event that needs to be counted"
+        required: true
+        type: "string"
+        format: "date"
+      responses:
+        "201":
+          description: "successful operation"
+        "404":
+          description: "No event found"
+      x-swagger-router-controller: "Event"
+  /Event/getNumberofEvent:
+    get:
+      tags:
+      - "Event"
+      summary: "Get number of events"
+      description: "See all the number of events"
+      operationId: "getNumberofEvent"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "date"
+        in: "query"
+        description: "The duration of the event that needs to be counted"
+        required: true
+        type: "string"
+        format: "date"
+      responses:
+        "201":
+          description: "successful operation"
+        "404":
+          description: "No event found"
+      x-swagger-router-controller: "Event"
   /Character:
     post:
       tags:
@@ -862,7 +908,6 @@ paths:
         "404":
           description: "team not found "
       x-swagger-router-controller: "Team"
-  /Team/{teamName}:
     delete:
       tags:
       - "Team"
@@ -874,7 +919,7 @@ paths:
       - "application/json"
       parameters:
       - name: "teamName"
-        in: "path"
+        in: "query"
         description: "The name of the team that needs to be deleted"
         required: true
         type: "string"
@@ -976,6 +1021,27 @@ paths:
           description: "No content "
         "404":
           description: "team not found "
+  /Team/getAllNumberOfPeople:
+    get:
+      tags:
+      - "Team"
+      summary: "Get number of people"
+      description: "See the number of people formed a team by professional"
+      operationId: "getAllNumberOfPeople"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters: []
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "object"
+            properties:
+              total:
+                type: "number"
+        "404":
+          description: "No result found"
       x-swagger-router-controller: "Team"
   /SkillTree:
     post:
@@ -2068,6 +2134,95 @@ paths:
         "201":
           description: "successful operation"
       x-swagger-router-controller: "TemperatureDesired"
+  /AcState:
+    get:
+      tags:
+      - "AcState"
+      summary: "Get AcState"
+      description: "See the AcState"
+      operationId: "getAllAcState"
+      produces:
+      - "application/xml"
+      - "application/json"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/AcState"
+        "404":
+          description: "No AcState found"
+      x-swagger-router-controller: "AcState"
+  /AcState/creatAcStateByTimeAndState:
+    post:
+      tags:
+      - "AcState"
+      operationId: "creatAcStateByTimeAndState"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "time"
+        in: "query"
+        description: "The time of the AcState"
+        required: true
+        type: "string"
+        format: "date"
+      - name: "state"
+        in: "query"
+        description: "The state of the AcState"
+        required: true
+        type: "boolean"
+      responses:
+        "201":
+          description: "successful operation"
+      x-swagger-router-controller: "AcState"
+  /AcState/{time}:
+    delete:
+      tags:
+      - "AcState"
+      summary: "Delete AcState by time"
+      operationId: "deleteAcStateByTime"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "time"
+        in: "path"
+        description: "The time of the AcState"
+        required: true
+        type: "string"
+        format: "date"
+      responses:
+        "200":
+          description: "Deleted sucessfully"
+        "404":
+          description: "AcState not found"
+      x-swagger-router-controller: "AcState"
+    get:
+      tags:
+      - "AcState"
+      summary: "get AcState by time"
+      operationId: "getAcStateByTime"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "time"
+        in: "path"
+        description: "The time of the AcState"
+        required: true
+        type: "string"
+        format: "date"
+      responses:
+        "200":
+            description: "OK"
+            schema:
+              $ref: "#/definitions/AcState"
+        "404":
+            description: "No AcState found"
+      x-swagger-router-controller: "AcState"
   /AdminAnnounces:
     get:
       tags:
@@ -2416,6 +2571,8 @@ definitions:
           wrapped: true
         items:
           $ref: "#/definitions/Character"
+      completed:
+        type: "boolean"
     xml:
       name: "Team"
     example:
@@ -2535,6 +2692,22 @@ definitions:
       name: "TemperatureDesired"
     example:
       temperatureDesired: 20
+      _id: "_id"
+      time: "2020-11-11"
+  AcState:
+    type: "object"
+    properties:
+      _id:
+        type: "string"
+      time:
+        type: "string"
+        format: "date"
+      state:
+        type: "boolean"
+    xml:
+      name: "AcState"
+    example:
+      state: false
       _id: "_id"
       time: "2020-11-11"
   AdminAnnounces:

@@ -107,6 +107,70 @@ exports.getAllEvents = function () {
   });
 }
 
+/**
+ * Get Top Events
+ * See the available events
+ *
+ **/
+exports.getTopEvents = function (date) {
+  return new Promise(function (resolve, reject) {
+    MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
+      if (err) throw err;
+      var dbo = db.db("greenhero");
+      dbo.collection("Event").find({
+        "openDate": {
+          $gte: date
+        }
+      }).toArray(function (err, result) {
+        if (err) throw err;
+        let events = {};
+        for(let event of result) {
+          if (Object.keys(events).some((key) => key === event.eventName)){
+            events[event.eventName] += 1;
+          }
+          else {
+            events[event.eventName] = 1;
+          }
+        }
+
+        var highestTotal = 0;
+        var highestCategory;
+        for(let key of Object.keys(events)) {
+          if(events[key] >= highestTotal) {
+            highestTotal = events[key];
+            highestCategory = key;
+          }
+        }
+        resolve({res: highestCategory});
+        db.close();
+      });
+    });
+  });
+}
+
+/**
+ * Get number of Events
+ * See the available events
+ *
+ **/
+exports.getNumberofEvent = function (date) {
+  return new Promise(function (resolve, reject) {
+    MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
+      if (err) throw err;
+      var dbo = db.db("greenhero");
+      dbo.collection("Event").find({
+        "openDate": {
+          $gte: date
+        }
+      }).toArray(function (err, result) {
+        if (err) throw err;
+        let num = result.length;
+        resolve({res: num});
+        db.close();
+      });
+    });
+  });
+}
 
 /**
  * Modify event
