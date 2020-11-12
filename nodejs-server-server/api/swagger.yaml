@@ -1235,7 +1235,7 @@ paths:
       - name: "teamName"
         in: "query"
         description: "The teamName of the team."
-        required: true
+        required: false
         type: "string"
       responses:
         "200":
@@ -2939,14 +2939,21 @@ definitions:
       event_id:
         type: "string"
       teamLeader:
-        $ref: "#/definitions/Character"
+        type: "string"
       teamMembers:
         type: "array"
         xml:
           name: "teamMembers"
           wrapped: true
         items:
-          $ref: "#/definitions/Character"
+          type: "string"
+      turnOrder:
+        type: "array"
+        xml:
+          name: "teamMembers"
+          wrapped: true
+        items:
+          type: "string"
       completed:
         type: "boolean"
     xml:
@@ -2971,7 +2978,7 @@ definitions:
       user_id:
         type: "string"
       character:
-        $ref: "#/definitions/Character"
+        type: "string"
       accepted:
         type: "boolean"
       rejected:

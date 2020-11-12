@@ -115,7 +115,7 @@ module.exports.getTeamByEventIdAndTeamName = function getTeamByEventIdAndTeamNam
 };
 
 module.exports.modifyTeamById = function modifyTeamById (req, res, next) {
-  var team_id = req.swagger.params['team_id'].value;
+  var team_id = req.swagger.params['_id'].value;
   var body = req.swagger.params['body'].value;
   Team.modifyTeamById(team_id, body)
     .then(function (response) {

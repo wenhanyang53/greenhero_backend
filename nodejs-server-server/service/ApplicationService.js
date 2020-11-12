@@ -23,8 +23,13 @@ exports.createApplication = function (body) {
         "rejected": body.rejected
       }, function (err, result) {
         if (err) throw err;
-        resolve(result);
-        db.close();
+
+        dbo.collection("Team").updateOne({_id: new ObjectId(body.team_id)}, {
+          $push: { applications: new ObjectId(result.insertedId) } 
+        }).then((resultUpdate) => {
+          resolve(result);
+          db.close();
+        });
       });
     });
   });
@@ -144,11 +149,13 @@ exports.modifyApplication = function (body) {
         "_id": ObjectId(body._id),
       },
         {
-          "team_id": ObjectId(body.team_id),
-          "user_id": ObjectId(body.user_id),
-          "character": ObjectId(body.character),
-          "accepted": body.accepted,
-          "rejected": body.rejected
+          $set: {
+            "team_id": ObjectId(body.team_id),
+            "user_id": ObjectId(body.user_id),
+            "character": ObjectId(body.character),
+            "accepted": body.accepted,
+            "rejected": body.rejected
+          }
         }, function (err, result) {
           if (err) throw err;
           resolve(result);

@@ -30,7 +30,8 @@ exports.createTeam = function (body) {
         "event_id": ObjectId(body.event_id),
         "teamLeader": ObjectId(body.teamLeader),
         "teamMembers": myteamMembers,
-        "completed": body.completed
+        "completed": body.completed,
+        "applications": body.applications
       };
       dbo.collection("Team").insertOne(myobj, function (err, res) {
         if (err) throw err;
@@ -305,19 +306,43 @@ exports.updateTeamTurns = function (team_id, turns) {
 
 exports.getTeamByEventIdAndUserId = function (event_id, user_id) {
   return new Promise(function (resolve, reject) {
-    MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
+    MongoClient.connect(url, { useNewUrlParser: true }, async function (err, db) {
       if (err) throw err;
       var dbo = db.db("greenhero");
-      var whereStr = {
-        $or: [{ "event_id": ObjectId(event_id), "teamLeader": ObjectId(user_id) },
-        { "event_id": ObjectId(event_id), "teamMembers": { $elemMatch: { $eq: ObjectId(user_id) } } }
-        ]
-      };
-      dbo.collection("Team").find(whereStr).toArray(function (err, result) {
-        if (err) throw err;
-        resolve(result);
-        db.close();
-      });
+      const characters = await Character.getCharacterByUserId(user_id);
+      let team;
+      for(let char of characters) {
+        var whereStr = {
+          $or: [{ "event_id": ObjectId(event_id), "teamLeader": ObjectId(char._id) },
+          { "event_id": ObjectId(event_id), "teamMembers": { $elemMatch: { $eq: ObjectId(char._id) } } }
+          ]
+        };
+        team = await new Promise((mini_resolve, mini_reject) => {
+          dbo.collection("Team").findOne(whereStr).then(function (result) {
+            if (err) throw err;
+            mini_resolve(result);
+            db.close();
+          });
+        });
+        if(team) {
+          break;
+        }
+      }
+      if(team) {
+        team.teamLeader = await Character.getCharacterById(team.teamLeader);
+        if(team.teamMembers) {
+          for(let i = 0; i < team.teamMembers.length; i++) {
+            team.teamMembers[i] = await Character.getCharacterById(team.teamMembers[i]);
+          }
+        }
+        if (team.applications) {
+          for (let i = 0; i < team.applications.length; i++) {
+            const application = team.applications[i];
+            team.applications[i] = await Application.getApplicationById(application);
+          }
+        }
+      }
+      resolve(team); 
     });
   });
 }
@@ -327,9 +352,26 @@ exports.getTeamByEventIdAndTeamName = function (event_id, teamName) {
     MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
       if (err) throw err;
       var dbo = db.db("greenhero");
-      var whereStr = {"event_id":ObjectId(event_id),"teamName":teamName};
-      dbo.collection("Team").find(whereStr).toArray(function(err, result) { 
+      var whereStr = {"event_id":ObjectId(event_id)};
+      if(teamName) {
+        whereStr["teamName"] = teamName;
+      }
+      dbo.collection("Team").find(whereStr).toArray(async function(err, result) { 
           if (err) throw err;
+          for(let team of result) {
+            team.teamLeader = await Character.getCharacterById(team.teamLeader);
+            if(team.teamMembers) {
+              for(let i = 0; i < team.teamMembers.length; i++) {
+                team.teamMembers[i] = await Character.getCharacterById(team.teamMembers[i]);
+              }
+            }
+            if (team.applications) {
+              for (let i = 0; i < team.applications.length; i++) {
+                const application = team.applications[i];
+                team.applications[i] = await Application.getApplicationById(application);
+              }
+            }
+          }
           resolve(result); 
           db.close();
       });
@@ -354,6 +396,7 @@ exports.modifyTeamById = function (_id, body) {
                                 "event_id" : ObjectId(body.event_id),
                                 "teamLeader" : ObjectId(body.teamLeader),
                                 "teamMembers": myteamMembers,
+                                "applications": body.applications,
                                 "completed": body.completed}};
       dbo.collection("Team").updateOne(whereStr, updateStr, function(err, res) {
           if (err) throw err;
