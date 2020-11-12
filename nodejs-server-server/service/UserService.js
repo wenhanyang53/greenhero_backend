@@ -3,6 +3,7 @@ var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/";
 var ObjectId = require('mongodb').ObjectId;
 var PersonalInfo = require('../service/PersonalInfoService');
+var Consumption = require('../service/ConsumptionService');
 
 /**
  * Create User
@@ -135,6 +136,37 @@ exports.getUser = function (userId) {
 }
 
 /**
+ * Get user by user card
+ * 
+ *
+ * userName String The name that needs to be fetched. Use user1 for testing. 
+ * returns User
+ **/
+exports.getUserByCard = function (userCard) {
+  return new Promise(function (resolve, reject) {
+    MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
+      if (err) throw err;
+      var dbo = db.db("greenhero");
+      dbo.collection("User").findOne({
+        "userCard": userCard
+      }).then(async function (result) {
+          if (!result.cardActivate) {
+            result.cardActivate = true
+            await modifyUser(result.userName, result);
+          }
+          else {
+            result.cardActivate = false
+            await modifyUser(result.userName, result);
+          }
+        resolve(result);
+        db.close();
+      });
+    });
+  });
+}
+
+
+/**
  * Get all users
  * 
  * returns List
@@ -151,6 +183,31 @@ exports.getAllUsers = function () {
           }
         }
         resolve(result);
+        db.close();
+      });
+    });
+  });
+}
+
+/**
+ * Get activated users
+ * 
+ * returns List
+ **/
+exports.getActivatedUser = function () {
+  return new Promise(function (resolve, reject) {
+    MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
+      if (err) throw err;
+      let res = {}
+      var dbo = db.db("greenhero");
+      dbo.collection("User").find({
+        "cardActivate": true
+      }).toArray(async function (err, result) {
+        if (err) throw err;
+        for(let us of result) {
+            res = await Consumption.getLastConsumptionByUserId(us._id);
+        }
+        resolve({total: res[0].total});
         db.close();
       });
     });
@@ -188,7 +245,7 @@ exports.loginUser = function (userName, userPassword) {
  * body User Updated user object
  * no response value expected for this operation
  **/
-exports.modifyUser = function (userName, body) {
+function modifyUser (userName, body) {
   return new Promise(function (resolve, reject) {
     MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
       if (err) throw err;
@@ -196,15 +253,16 @@ exports.modifyUser = function (userName, body) {
       var whereStr = { "userName": userName };  // condition
       var updateStr = {
         $set: {
-          "userName": body.UserName,
-          "userPassword": body.Password,
+          "userName": body.userName,
+          "userPassword": body.userPassword,
           "email": body.email,
           "abilityPoints": body.abilityPoints,
           "personalInfo": ObjectId(body.personalInfo),
           "typeOfUser": body.typeOfUser,
           "avatarUrl": body.avatarUrl,
           "consumption": body.consumption,
-          "allowance": body.allowance
+          "userCard": body.userCard,
+          "cardActivate": body.cardActivate
         }
       };
       dbo.collection("User").updateOne(whereStr, updateStr, function (err, res) {
@@ -216,6 +274,7 @@ exports.modifyUser = function (userName, body) {
     resolve();
   });
 }
+exports.modifyUser = modifyUser
 
 exports.getCoinAmountByUserId = function(user_id){
   return new Promise(function (resolve, reject) {
