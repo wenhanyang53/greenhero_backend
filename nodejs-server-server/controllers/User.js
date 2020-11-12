@@ -81,3 +81,30 @@ module.exports.getCoinAmountByUserId = function getCoinAmountByUserId(req,res,ne
     utils.writeJson(res, response);
   });
 };
+
+
+module.exports.addCoinsByUserId = function addCoinsByUserId(req,res,next){
+  var user_id = req.swagger.params['_id'].value;
+  var addCoins = req.swagger.params['addCoins'].value;
+  var oldCoins = req.swagger.params['oldCoins'].value;
+  User.addCoinsByUserId(user_id,addCoins,oldCoins)
+  .then(function (response) {
+    utils.writeJson(res, response);
+  })
+  .catch(function (response) {
+    utils.writeJson(res, response);
+  });
+}
+
+module.exports.substractCoinsByUserId = function substractCoinsByUserId(req,res,next){
+  var user_id = req.swagger.params['_id'].value;
+  var substractCoins = req.swagger.params['substractCoins'].value;
+  var oldCoins = req.swagger.params['oldCoins'].value;
+  User.substractCoinsByUserId(user_id,substractCoins,oldCoins)
+  .then(function (response) {
+    utils.writeJson(res, response);
+  })
+  .catch(function (response) {
+    utils.writeJson(res, response);
+  });
+}

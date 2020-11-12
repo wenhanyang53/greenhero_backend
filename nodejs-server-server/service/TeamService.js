@@ -322,3 +322,45 @@ exports.getTeamByEventIdAndUserId = function (event_id, user_id) {
   });
 }
 
+exports.getTeamByEventIdAndTeamName = function (event_id, teamName) {
+  return new Promise(function (resolve, reject) {
+    MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
+      if (err) throw err;
+      var dbo = db.db("greenhero");
+      var whereStr = {"event_id":ObjectId(event_id),"teamName":teamName};
+      dbo.collection("Team").find(whereStr).toArray(function(err, result) { 
+          if (err) throw err;
+          resolve(result); 
+          db.close();
+      });
+    });
+  });
+}
+
+exports.modifyTeamById = function (_id, body) {
+  return new Promise(function (resolve, reject) {
+    MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
+      var myteamMembers = new Array();
+      if (body.teamMembers != undefined) {
+        for (var i = 0; i < body.teamMembers.length; i++) {
+          myteamMembers.push(ObjectId(body.teamMembers[i]))
+        }
+      }
+      if (err) throw err;
+      var dbo = db.db("greenhero");
+      var whereStr = {"_id":ObjectId(_id)};  // condition
+      var updateStr = {$set: { "teamName" : body.teamName,
+                                "avatar" :body.avatar,
+                                "event_id" : ObjectId(body.event_id),
+                                "teamLeader" : ObjectId(body.teamLeader),
+                                "teamMembers": myteamMembers,
+                                "completed": body.completed}};
+      dbo.collection("Team").updateOne(whereStr, updateStr, function(err, res) {
+          if (err) throw err;
+          console.log("successful");
+          db.close();
+      });
+    });
+    resolve();
+  });
+}
