@@ -1,7 +1,7 @@
 'use strict';
 var MongoClient = require('mongodb').MongoClient;
 var ObjectId = require('mongodb').ObjectID;
-var url = "mongodb://localhost:27017/";
+var url = "mongodb+srv://admin:admin@cluster0.pilql.mongodb.net/greenhero?retryWrites=true&w=majority";
 var User = require('./UserService');
 var PersonalInfo = require('./PersonalInfoService');
 
