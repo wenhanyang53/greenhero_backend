@@ -16,7 +16,7 @@ exports.deleteAcStateByTime = function (time) {
       if (err) throw err;
       var dbo = db.db("greenhero");
       dbo.collection("AcState").deleteOne({
-        "time": time,
+        "time": new Date(time),
       }, function (err, result) {
         if (err) throw err;
         resolve(result);
@@ -88,7 +88,7 @@ exports.creatAcStateByTimeAndState = function(time, state){
       if (err) throw err;
       var dbo = db.db("greenhero");
       dbo.collection("AcState").insertOne({
-        "time": time,
+        "time": new Date(time),
         "state": state,
       }, function (err, result) {
         if (err) throw err;
@@ -105,7 +105,7 @@ exports.createAcState = function (body) {
       if (err) throw err;
       var dbo = db.db("greenhero");
       dbo.collection("AcState").insertOne({
-        "time": body.time,
+        "time": new Date(body.time),
         "state": body.state,
       }, function (err, result) {
         if (err) throw err;

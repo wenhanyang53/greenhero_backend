@@ -15,7 +15,7 @@ exports.createTemperature = function (body) {
       if (err) throw err;
       var dbo = db.db("greenhero");
       dbo.collection("Temperature").insertOne({
-        "time": body.time,
+        "time": new Date(body.time),
         "temperature": body.temperature,
       }, function (err, result) {
         if (err) throw err;
@@ -111,7 +111,7 @@ exports.creatTemperatureByTimeAndTemperature = function(time, temperature){
       if (err) throw err;
       var dbo = db.db("greenhero");
       dbo.collection("Temperature").insertOne({
-        "time": time,
+        "time": new Date(time),
         "temperature": temperature,
       }, function (err, result) {
         if (err) throw err;
