@@ -3,7 +3,7 @@
     "$oid": "5fa83becb8e195e535220ea7"
   },
   "teamName": "2IS Team",
-  "avatar": "",
+  "avatar": "/assets/team-avatar-1.png",
   "event_id": {
     "$oid": "5fa05e6076f63c87fb6a739c"
   },
@@ -21,13 +21,24 @@
       "$oid": "5fa83a6eb8e195e535220ea5"
     }
   ],
+  "applications": [
+    {
+      "$oid": "5fa83e2ab8e195e535220ea9"
+    }
+  ],
+  "turnOrder": [
+    "5fa03ef307b450fd6ae7a570",
+    "5fa04b2f33d8324b724475d4",
+    "5fa83a6eb8e195e535220ea5",
+    "5fa839e5b8e195e535220ea4"
+  ],
   "completed": false
 },{
   "_id": {
     "$oid": "5fa83d72b8e195e535220ea8"
   },
   "teamName": "2IS Team2",
-  "avatar": "",
+  "avatar": "/assets/team-avatar-2.png",
   "event_id": {
     "$oid": "5fa05f5e76f63c87fb6a739d"
   },
@@ -37,10 +48,27 @@
   "teamMembers": [
     {
       "$oid": "5fa04b2f33d8324b724475d4"
-    },
-    {
-      "$oid": "5fa03ef307b450fd6ae7a570"
     }
   ],
-  "completed": true
+  "applications": [],
+  "completed": false
+},{
+  "_id": {
+    "$oid": "5fad567baf9ac909401ca171"
+  },
+  "teamName": "2IS Team3",
+  "avatar": "/assets/team-avatar-3.png",
+  "event_id": {
+    "$oid": "5fad562daf9ac909401ca170"
+  },
+  "teamLeader": {
+    "$oid": "5fa03ef307b450fd6ae7a570"
+  },
+  "teamMembers": [],
+  "applications": [
+    {
+      "$oid": "5fad56bcaf9ac909401ca172"
+    }
+  ],
+  "completed": false
 }]

@@ -1,25 +1,49 @@
 [{
-    "_id": {
-      "$oid": "5fabd373701629e23053874c"
-    },
-    "time": {
-      "$date": "2020-11-07T23:00:00Z"
-    },
-    "temperatureDesired": 20
-  },{
-    "_id": {
-      "$oid": "5fabd3b89cd6f46858ac51db"
-    },
-    "time": {
-      "$date": "2020-11-07T15:00:00Z"
-    },
-    "temperatureDesired": 25
-  },{
-    "_id": {
-      "$oid": "5fabf3484d9ed46670b28eae"
-    },
-    "time": {
-      "$date": "2020-11-07T14:00:00Z"
-    },
-    "temperatureDesired": 50
-  }]
+  "_id": {
+    "$oid": "5fabd373701629e23053874c"
+  },
+  "time": {
+    "$date": "2020-11-07T23:00:00Z"
+  },
+  "temperatureDesired": 20
+},{
+  "_id": {
+    "$oid": "5fabd3b89cd6f46858ac51db"
+  },
+  "time": {
+    "$date": "2020-11-07T15:00:00Z"
+  },
+  "temperatureDesired": 25
+},{
+  "_id": {
+    "$oid": "5fabf3484d9ed46670b28eae"
+  },
+  "time": {
+    "$date": "2020-11-07T14:00:00Z"
+  },
+  "temperatureDesired": 50
+},{
+  "_id": {
+    "$oid": "5fac6962c07c7a6508363c11"
+  },
+  "time": {
+    "$date": "2020-11-11T22:44:50.007Z"
+  },
+  "temperatureDesired": 26
+},{
+  "_id": {
+    "$oid": "5fac6a69c07c7a6508363c12"
+  },
+  "time": {
+    "$date": "2020-11-11T22:49:13.312Z"
+  },
+  "temperatureDesired": 45
+},{
+  "_id": {
+    "$oid": "5fac6a7fc07c7a6508363c13"
+  },
+  "time": {
+    "$date": "2020-11-11T22:49:35.668Z"
+  },
+  "temperatureDesired": -40
+}]

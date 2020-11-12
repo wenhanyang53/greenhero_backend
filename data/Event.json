@@ -10,7 +10,7 @@
   "boss": {
     "$oid": "5fa1678b9af0e02777994f7e"
   },
-  "src": ""
+  "src": "/assets/event-image-2.png"
 },{
   "_id": {
     "$oid": "5fa05f5e76f63c87fb6a739d"
@@ -23,5 +23,31 @@
   "boss": {
     "$oid": "5fa1689f9af0e02777994f7f"
   },
-  "src": ""
+  "src": "/assets/event-image-1.png"
+},{
+  "_id": {
+    "$oid": "5fad55a2af9ac909401ca16f"
+  },
+  "eventName": "Electricity saver 2",
+  "eventDescription": "Kennen, the monster wasting electricity, is about to invade this building. Are you ready? Join a team and fight for our building! It opens at 12:00 on Monday.",
+  "openDate": {
+    "$date": "2020-11-02T19:43:11.393Z"
+  },
+  "boss": {
+    "$oid": "5fa1689f9af0e02777994f7f"
+  },
+  "src": "/assets/event-image-1.png"
+},{
+  "_id": {
+    "$oid": "5fad562daf9ac909401ca170"
+  },
+  "eventName": "Electricity saver 3",
+  "eventDescription": "Kennen, the monster wasting electricity, is about to invade this building. Are you ready? Join a team and fight for our building! It opens at 12:00 on Monday.",
+  "openDate": {
+    "$date": "2020-11-02T19:43:11.393Z"
+  },
+  "boss": {
+    "$oid": "5fa1689f9af0e02777994f7f"
+  },
+  "src": "/assets/event-image-1.png"
 }]

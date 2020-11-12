@@ -103,6 +103,17 @@ module.exports.getTeamByEventIdAndTeamName = function getTeamByEventIdAndTeamNam
   });
 };
 
+module.exports.getNumberofCompletedEvent = function getNumberofCompletedEvent(req,res,next){
+  var date = req.swagger.params['date'].value;
+  Team.getNumberofCompletedEvent(date)
+  .then(function (response) {
+    utils.writeJson(res, response);
+  })
+  .catch(function (response) {
+    utils.writeJson(res, response);
+  });
+};
+
 module.exports.modifyTeamById = function modifyTeamById (req, res, next) {
   var _id = req.swagger.params['_id'].value;
   var body = req.swagger.params['body'].value;

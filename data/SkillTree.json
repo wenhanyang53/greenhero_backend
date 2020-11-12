@@ -5,40 +5,7 @@
   "class": "Mage",
   "nodes": [
     {
-      "$oid": "5fa08fd5e7fe9c62566464b6"
-    },
-    {
-      "$oid": "5fa090ade7fe9c62566464b7"
-    },
-    {
-      "$oid": "5fa090e3e7fe9c62566464b8"
-    },
-    {
-      "$oid": "5fa09321e7fe9c62566464b9"
-    },
-    {
-      "$oid": "5fa09448d506ec2913bd62d9"
-    },
-    {
-      "$oid": "5fa09544d506ec2913bd62da"
-    },
-    {
-      "$oid": "5fa095c6d506ec2913bd62db"
-    },
-    {
       "$oid": "5fa096abd506ec2913bd62dc"
-    },
-    {
-      "$oid": "5fa09700d506ec2913bd62dd"
-    },
-    {
-      "$oid": "5fa0973dd506ec2913bd62de"
-    },
-    {
-      "$oid": "5fa09805d506ec2913bd62df"
-    },
-    {
-      "$oid": "5fa09890d506ec2913bd62e0"
     }
   ]
 }]

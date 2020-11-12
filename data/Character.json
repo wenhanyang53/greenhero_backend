@@ -5,7 +5,7 @@
   "attack": 10,
   "armor": 2,
   "health": 100,
-  "avatar": "",
+  "avatar": "/assets/elf-avatar.png",
   "healing_factor": 8,
   "user_id": {
     "$oid": "5fa177809af0e02777994f80"
@@ -13,7 +13,7 @@
   "skillTree": {
     "$oid": "5fa09a8ed506ec2913bd62e1"
   },
-  "characterName": "Mage",
+  "characterName": "Mage 1",
   "characterDescription": "The Mage wields the elements of Fire, Frost and Arcane to destroy or neutralize his enemies. Dressed in cloth robes, they excel at dealing massive damage from a distance. Health: 100 attack: 10 armor:2 healing_factor:8."
 },{
   "_id": {
@@ -22,14 +22,16 @@
   "attack": 8,
   "armor": 5,
   "health": 100,
-  "avatar": "",
+  "avatar": "/assets/elf-avatar.png",
   "healing_factor": 10,
   "user_id": {
     "$oid": "5fa80eed52c1988d17e45c8f"
   },
   "characterName": "Priest",
   "characterDescription": "The priest has the healing ability, can restore the blood of teammates, and save teammates from death at critical moments. Health:100 attack: 5 armor:5.",
-  "skillTree": null
+  "skillTree": {
+    "$oid": "5fa09a8ed506ec2913bd62e1"
+  }
 },{
   "_id": {
     "$oid": "5fa839e5b8e195e535220ea4"
@@ -37,13 +39,15 @@
   "attack": 10,
   "armor": 2,
   "health": 100,
-  "avatar": "",
+  "avatar": "/assets/elf-avatar.png",
   "healing_factor": 8,
   "user_id": {
     "$oid": "5fa80fb852c1988d17e45c90"
   },
-  "skillTree": null,
-  "characterName": "Mage",
+  "skillTree": {
+    "$oid": "5fa09a8ed506ec2913bd62e1"
+  },
+  "characterName": "Mage 2",
   "characterDescription": "The Mage wields the elements of Fire, Frost and Arcane to destroy or neutralize his enemies. Dressed in cloth robes, they excel at dealing massive damage from a distance. Health: 100 attack: 10 armor: 2 healing_factor:8."
 },{
   "_id": {
@@ -52,12 +56,14 @@
   "attack": 10,
   "armor": 2,
   "health": 100,
-  "avatar": "",
+  "avatar": "/assets/elf-avatar.png",
   "healing_factor": 8,
   "user_id": {
     "$oid": "5fa810ff52c1988d17e45c91"
   },
-  "skillTree": null,
-  "characterName": "Mage",
+  "skillTree": {
+    "$oid": "5fa09a8ed506ec2913bd62e1"
+  },
+  "characterName": "Mage 3",
   "characterDescription": "The Mage wields the elements of Fire, Frost and Arcane to destroy or neutralize his enemies. Dressed in cloth robes, they excel at dealing massive damage from a distance. Health: 100 attack: 10 armor:2 healing_factor:8."
 }]

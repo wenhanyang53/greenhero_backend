@@ -8,7 +8,7 @@
   "goal": 3,
   "reward": 10,
   "image": "",
-  "deleted": false,
+  "deleted": true,
   "type": "daily",
   "user_id": {
     "$oid": "5fa177809af0e02777994f80"

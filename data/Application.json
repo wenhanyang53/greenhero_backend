@@ -13,4 +13,19 @@
   },
   "accepted": true,
   "rejected": false
+},{
+  "_id": {
+    "$oid": "5fad56bcaf9ac909401ca172"
+  },
+  "team_id": {
+    "$oid": "5fad567baf9ac909401ca171"
+  },
+  "user_id": {
+    "$oid": "5fa80eed52c1988d17e45c8f"
+  },
+  "character": {
+    "$oid": "5fa04b2f33d8324b724475d4"
+  },
+  "accepted": false,
+  "rejected": false
 }]

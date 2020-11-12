@@ -8,7 +8,10 @@
   "augmentationType": "percentage",
   "cost": 300,
   "locked": false,
-  "owned": false
+  "owned": false,
+  "x": 350,
+  "y": 40,
+  "sons": []
 },{
   "_id": {
     "$oid": "5fa090ade7fe9c62566464b7"
@@ -19,7 +22,10 @@
   "augmentationType": "percentage",
   "cost": 300,
   "locked": false,
-  "owned": false
+  "owned": false,
+  "x": 350,
+  "y": 120,
+  "sons": []
 },{
   "_id": {
     "$oid": "5fa090e3e7fe9c62566464b8"
@@ -30,7 +36,14 @@
   "augmentationType": "flat",
   "cost": 300,
   "locked": false,
-  "owned": false
+  "owned": false,
+  "sons": [
+    {
+      "$oid": "5fa09448d506ec2913bd62d9"
+    }
+  ],
+  "x": 190,
+  "y": 80
 },{
   "_id": {
     "$oid": "5fa09321e7fe9c62566464b9"
@@ -41,7 +54,14 @@
   "augmentationType": "flat",
   "cost": 300,
   "locked": false,
-  "owned": false
+  "owned": false,
+  "sons": [
+    {
+      "$oid": "5fa09890d506ec2913bd62e0"
+    }
+  ],
+  "x": 190,
+  "y": 140
 },{
   "_id": {
     "$oid": "5fa09448d506ec2913bd62d9"
@@ -52,7 +72,17 @@
   "augmentationType": "flat",
   "cost": 250,
   "locked": false,
-  "owned": false
+  "owned": false,
+  "sons": [
+    {
+      "$oid": "5fa08fd5e7fe9c62566464b6"
+    },
+    {
+      "$oid": "5fa090ade7fe9c62566464b7"
+    }
+  ],
+  "x": 270,
+  "y": 80
 },{
   "_id": {
     "$oid": "5fa09544d506ec2913bd62da"
@@ -62,8 +92,18 @@
   "amount": 10,
   "augmentationType": "flat",
   "cost": 200,
-  "locked": false,
-  "owned": false
+  "locked": true,
+  "owned": true,
+  "sons": [
+    {
+      "$oid": "5fa090e3e7fe9c62566464b8"
+    },
+    {
+      "$oid": "5fa09321e7fe9c62566464b9"
+    }
+  ],
+  "x": 110,
+  "y": 120
 },{
   "_id": {
     "$oid": "5fa095c6d506ec2913bd62db"
@@ -74,7 +114,10 @@
   "augmentationType": "flat",
   "cost": 300,
   "locked": false,
-  "owned": false
+  "owned": false,
+  "x": 270,
+  "y": 280,
+  "sons": []
 },{
   "_id": {
     "$oid": "5fa096abd506ec2913bd62dc"
@@ -84,8 +127,18 @@
   "amount": 10,
   "augmentationType": "flat",
   "cost": 200,
-  "locked": false,
-  "owned": false
+  "locked": true,
+  "owned": true,
+  "sons": [
+    {
+      "$oid": "5fa09544d506ec2913bd62da"
+    },
+    {
+      "$oid": "5fa09700d506ec2913bd62dd"
+    }
+  ],
+  "x": 30,
+  "y": 200
 },{
   "_id": {
     "$oid": "5fa09700d506ec2913bd62dd"
@@ -95,8 +148,15 @@
   "amount": 50,
   "augmentationType": "flat",
   "cost": 300,
-  "locked": false,
-  "owned": false
+  "locked": true,
+  "owned": true,
+  "sons": [
+    {
+      "$oid": "5fa0973dd506ec2913bd62de"
+    }
+  ],
+  "x": 110,
+  "y": 250
 },{
   "_id": {
     "$oid": "5fa0973dd506ec2913bd62de"
@@ -106,19 +166,32 @@
   "amount": 5,
   "augmentationType": "flat",
   "cost": 200,
-  "locked": false,
-  "owned": false
+  "locked": true,
+  "owned": true,
+  "sons": [
+    {
+      "$oid": "5fa09805d506ec2913bd62df"
+    },
+    {
+      "$oid": "5fa095c6d506ec2913bd62db"
+    }
+  ],
+  "x": 190,
+  "y": 250
 },{
   "_id": {
     "$oid": "5fa09805d506ec2913bd62df"
   },
-  "ability": "Health",
+  "ability": "Healing_Factor",
   "type": "Stat",
   "amount": 20,
   "augmentationType": "flat",
   "cost": 200,
   "locked": false,
-  "owned": false
+  "owned": false,
+  "x": 270,
+  "y": 220,
+  "sons": []
 },{
   "_id": {
     "$oid": "5fa09890d506ec2913bd62e0"
@@ -129,5 +202,8 @@
   "augmentationType": "percentage",
   "cost": 200,
   "locked": false,
-  "owned": false
+  "owned": false,
+  "x": 270,
+  "y": 140,
+  "sons": []
 }]

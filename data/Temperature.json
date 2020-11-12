@@ -5,7 +5,7 @@
   "time": {
     "$date": "2020-11-07T23:00:00Z"
   },
-  "temperature": 20
+  "temperature": 22
 },{
   "_id": {
     "$oid": "5fa849d2b8e195e535220eab"
