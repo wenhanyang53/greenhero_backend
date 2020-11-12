@@ -98,3 +98,20 @@ exports.creatAcStateByTimeAndState = function(time, state){
     });
   });
 }
+
+exports.createAcState = function (body) {
+  return new Promise(function (resolve, reject) {
+    MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
+      if (err) throw err;
+      var dbo = db.db("greenhero");
+      dbo.collection("AcState").insertOne({
+        "time": body.time,
+        "state": body.state,
+      }, function (err, result) {
+        if (err) throw err;
+        resolve(result);
+        db.close();
+      });
+    });
+  });
+}
