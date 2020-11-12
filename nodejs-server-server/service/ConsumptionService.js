@@ -160,6 +160,43 @@ exports.getConsumptionByUserIdandDate = function (user_id, date) {
 }
 
 /**
+ * Find consumption by user id and latest date
+ *
+ * user_id String user id of consumption to return
+ * date date date of consumption to return
+ * returns List
+ **/
+exports.getLastConsumptionByUserId = function (user_id) {
+  return new Promise(function (resolve, reject) {
+    MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
+      if (err) throw err;
+      var dbo = db.db("greenhero");
+      dbo.collection("Consumption").find({
+        "user_id": ObjectId(user_id)
+      }).sort({"date": -1}).limit(1).toArray(function (err, result) {
+        if (err) throw err;
+        resolve(result);
+        db.close();
+      });
+    });
+    var examples = {};
+    examples['application/json'] = [{
+      "date": "2000-01-23",
+      "total": 0.80082819046101150206595775671303272247314453125,
+      "user_id": "user_id",
+      "_id": "_id",
+      "category": "category"
+    }, {
+      "date": "2000-01-23",
+      "total": 0.80082819046101150206595775671303272247314453125,
+      "user_id": "user_id",
+      "_id": "_id",
+      "category": "category"
+    }];
+  });
+}
+
+/**
  * Find consumption by user id after a date
  *
  * user_id String user id of consumption to return

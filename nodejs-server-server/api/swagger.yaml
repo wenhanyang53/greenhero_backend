@@ -2076,6 +2076,33 @@ paths:
         "404":
           description: "Consumption not found"
       x-swagger-router-controller: "Consumption"
+  /Consumption/getLastConsumptionByUserId:
+    get:
+      tags:
+      - "Consumption"
+      summary: "Find consumption by user id and last date"
+      operationId: "getLastConsumptionByUserId"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "user_id"
+        in: "query"
+        description: "user id of consumption to return"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Consumption"
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Consumption not found"
+      x-swagger-router-controller: "Consumption"
   /Consumption/getConsumptionForUserAfterDate:
     get:
       tags:

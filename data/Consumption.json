@@ -6,10 +6,10 @@
     "$oid": "5fa177809af0e02777994f80"
   },
   "date": {
-    "$date": "2020-11-07T00:00:00Z"
+    "$date": "2020-01-22T23:00:00Z"
   },
-  "total": 50,
-  "category": "Outlets"
+  "total": 100,
+  "category": "Outlet"
 },{
   "_id": {
     "$oid": "5fa84de43b97a4593c984ed0"

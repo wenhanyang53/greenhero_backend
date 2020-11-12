@@ -64,6 +64,17 @@ module.exports.getConsumptionByUserIdandDate = function getConsumptionByUserIdan
     });
 };
 
+module.exports.getLastConsumptionByUserId = function getLastConsumptionByUserId (req, res, next) {
+  var user_id = req.swagger.params['user_id'].value;
+  Consumption.getLastConsumptionByUserId(user_id)
+    .then(function (response) {
+      utils.writeJson(res, response);
+    })
+    .catch(function (response) {
+      utils.writeJson(res, response);
+    });
+};
+
 module.exports.getConsumptionForUserAfterDate = function getConsumptionForUserAfterDate (req, res, next) {
   var user_id = req.swagger.params['user_id'].value;
   var date = req.swagger.params['date'].value;

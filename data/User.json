@@ -11,7 +11,9 @@
   },
   "typeOfUser": "user",
   "avatarUrl": "",
-  "consumption": ""
+  "consumption": "",
+  "userCard": "5B00AE504CE9",
+  "cardActivate": false
 },{
   "_id": {
     "$oid": "5fa80eed52c1988d17e45c8f"
@@ -25,7 +27,9 @@
   },
   "typeOfUser": "user",
   "avatarUrl": "",
-  "consumption": ""
+  "consumption": "",
+  "userCard": "",
+  "cardActivate": false
 },{
   "_id": {
     "$oid": "5fa80fb852c1988d17e45c90"
@@ -39,7 +43,9 @@
   },
   "typeOfUser": "user",
   "avatarUrl": "",
-  "consumption": ""
+  "consumption": "",
+  "userCard": "",
+  "cardActivate": false
 },{
   "_id": {
     "$oid": "5fa810ff52c1988d17e45c91"
@@ -53,7 +59,9 @@
   },
   "typeOfUser": "user",
   "avatarUrl": "",
-  "consumption": ""
+  "consumption": "",
+  "userCard": "",
+  "cardActivate": false
 },{
   "_id": {
     "$oid": "5fa83b1eb8e195e535220ea6"
@@ -65,5 +73,7 @@
   "personalInfo": null,
   "typeOfUser": "admin",
   "avatarUrl": "",
-  "consumption": ""
+  "consumption": "",
+  "userCard": "",
+  "cardActivate": false
 }]
