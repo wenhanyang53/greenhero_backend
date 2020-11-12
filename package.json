@@ -1,0 +1,24 @@
+{
+  "name": "greenhero_backend",
+  "version": "1.0.0",
+  "description": "Implementation of Mongodb and Swagger",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ethanyang53/greenhero_backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ethanyang53/greenhero_backend/issues"
+  },
+  "homepage": "https://github.com/ethanyang53/greenhero_backend#readme",
+  "dependencies": {
+    "connect": "^3.7.0",
+    "cors": "^2.8.5",
+    "swagger-tools": "^0.10.4"
+  }
+}
