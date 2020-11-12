@@ -253,8 +253,8 @@ function modifyUser (userName, body) {
       var whereStr = { "userName": userName };  // condition
       var updateStr = {
         $set: {
-          "userName": body.UserName,
-          "userPassword": body.Password,
+          "userName": body.userName,
+          "userPassword": body.userPassword,
           "email": body.email,
           "abilityPoints": body.abilityPoints,
           "personalInfo": ObjectId(body.personalInfo),
