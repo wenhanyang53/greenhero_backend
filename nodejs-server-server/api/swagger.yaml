@@ -112,7 +112,6 @@ paths:
         "404":
           description: "User not found "
       x-swagger-router-controller: "User"
-
   /User/substractCoinsByUserId:
     put:
       tags:
@@ -146,8 +145,7 @@ paths:
           description: "No content "
         "404":
           description: "User not found "
-      x-swagger-router-controller: "User"
-  
+      x-swagger-router-controller: "User" 
   /User/{userName}:
     get:
       tags:
@@ -239,6 +237,43 @@ paths:
         description: "The Id of USer"
         required: true
         type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+        "404":
+          description: "User not found"
+      x-swagger-router-controller: "User"
+  /User/getUserByCard:
+    get:
+      tags:
+      - "User"
+      summary: "get user By User card"
+      operationId: "getUserByCard"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "userCard"
+        in: "query"
+        description: "The Id of card"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+        "404":
+          description: "User not found"
+      x-swagger-router-controller: "User"
+  /User/getActivatedUser:
+    get:
+      tags:
+      - "User"
+      summary: "get activated user"
+      operationId: "getActivatedUser"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters: []
       responses:
         "200":
           description: "successful operation"
@@ -2699,6 +2734,10 @@ definitions:
         type: "integer"
       consumption:
         type: "string"
+      userCard:
+        type: "string"
+      cardActivate:
+        type: "boolean"
       allowance:
         $ref: "#/definitions/User_allowance"
     xml:

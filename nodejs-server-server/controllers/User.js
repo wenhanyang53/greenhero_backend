@@ -47,6 +47,27 @@ module.exports.getUser = function getUser (req, res, next) {
     });
 };
 
+module.exports.getUserByCard = function getUserByCard (req, res, next) {
+  var userCard = req.swagger.params['userCard'].value;
+  User.getUserByCard(userCard)
+    .then(function (response) {
+      utils.writeJson(res, response);
+    })
+    .catch(function (response) {
+      utils.writeJson(res, response);
+    });
+};
+
+module.exports.getActivatedUser = function getActivatedUser (req, res, next) {
+  User.getActivatedUser()
+    .then(function (response) {
+      utils.writeJson(res, response);
+    })
+    .catch(function (response) {
+      utils.writeJson(res, response);
+    });
+};
+
 module.exports.loginUser = function loginUser (req, res, next) {
   var userName = req.swagger.params['userName'].value;
   var userPassword = req.swagger.params['userPassword'].value;
