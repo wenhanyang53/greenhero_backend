@@ -17,6 +17,7 @@
     "cors": "^2.8.5",
     "js-yaml": "^3.3.0",
     "mongodb": "^3.6.3",
-    "swagger-tools": "0.10.1"
+    "swagger-tools": "0.10.1",
+    "typedi": "^0.8.0"
   }
 }

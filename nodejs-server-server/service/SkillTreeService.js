@@ -76,7 +76,9 @@ exports.getSkillTreeById = function(_id) {
           if(result.nodes) {
             for(let i = 0; i < result.nodes.length; i++) {
               const node = result.nodes[i];
+              console.log(node);
               result.nodes[i] = await Node.getNodeById(node);
+              console.log(result.nodes[i]);
             }
           }
           resolve(result);

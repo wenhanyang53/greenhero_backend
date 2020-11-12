@@ -80,15 +80,18 @@ exports.getCharacterByUserId = function (user_id) {
       dbo.collection("Character").find(whereStr).toArray(async function (err, result) {
         if (err) throw err;
         for (let char of result) {
+          console.log(char.skillTree);
           if (char.skillTree) {
             char.skillTree = await SkillTree.getSkillTreeById(char.skillTree);
           }
+          console.log(char.skillTree);
           if(char.skillTree && char.skillTree.nodes) {
             let healthFlatBonus = 0, healthPercentageBonus = 0;
             let armorFlatBonus = 0, armorPercentageBonus = 0;
             let attackFlatBonus = 0, attackPercentageBonus = 0;
             let healing_factorFlatBonus = 0, healing_factorPercentageBonus = 0;
-
+            
+            console.log('bef');
             for(let node of char.skillTree.nodes) {
               healthFlatBonus += STUtils.calculateBonusStatFlat('Health', node, 0);
               healthPercentageBonus += STUtils.calculateBonusStatPercentage('Health', node, 0);
@@ -103,9 +106,11 @@ exports.getCharacterByUserId = function (user_id) {
               healing_factorPercentageBonus += STUtils.calculateBonusStatPercentage('Healing_Factor', node, 0);
             }
 
+            console.log('aft');
+            
             const totalFlatHealth = char.health + healthFlatBonus;
             char.health = totalFlatHealth + (totalFlatHealth * healthPercentageBonus);
-
+            
             const totalFlatArmor = char.armor + armorFlatBonus;
             char.armor = totalFlatArmor + (totalFlatArmor * armorPercentageBonus);
             
@@ -115,6 +120,7 @@ exports.getCharacterByUserId = function (user_id) {
             const totalFlatHealing_factor = char.healing_factor + healing_factorFlatBonus;
             char.healing_factor = totalFlatHealing_factor + (totalFlatHealing_factor * healing_factorPercentageBonus);
             
+            console.log(char.skillTree);
           }
         }
         resolve(result);

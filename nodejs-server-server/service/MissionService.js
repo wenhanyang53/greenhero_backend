@@ -288,7 +288,10 @@ exports.modifyMission = function (body) {
           "reward": body.reward,
           "image": body.image,
           "deleted": body.deleted,
-          "type": body.type
+          "type": body.type,
+          "user_id": new ObjectId(body.user_id),
+          "completed": body.completed,
+          "openDate": new Date(body.openDate)
         }
       };
       dbo.collection("Mission").updateOne(whereStr, updateStr, function (err, res) {

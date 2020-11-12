@@ -2981,9 +2981,8 @@ definitions:
         type: "array"
         xml:
           name: "sons"
-          wrapped: true
         items:
-          $ref: "#/definitions/User_allowance"
+          type: "string"
       locked:
         type: "boolean"
       owned:

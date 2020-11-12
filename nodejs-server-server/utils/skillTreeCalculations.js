@@ -2,7 +2,7 @@
 function calculateBonusStatFlat(stat, node, accumulatedFlat) {
     let addition = 0;
     if(node.ability === stat) {
-        if(node.augmentationType === 'flat') {
+        if(node.augmentationType === 'flat' && node.locked === true && node.owned === true) {
             accumulatedFlat += node.amount;
         }
     }
@@ -19,7 +19,7 @@ function calculateBonusStatFlat(stat, node, accumulatedFlat) {
 function calculateBonusStatPercentage(stat, node, accumulatedPercentage) {
     let addition = 0;
     if(node.ability === stat) {
-        if(node.augmentationType === 'percentage') {
+        if(node.augmentationType === 'percentage' && node.locked === true && node.owned === true) {
             accumulatedPercentage += node.amount;
         }
     }

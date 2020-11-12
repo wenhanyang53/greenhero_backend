@@ -89,6 +89,8 @@ exports.modifyNode = function(body) {
                                 "amount": body.amount,
                                 "augmentationType": body.augmentationType,
                                 "cost": body.cost,
+                                "x": body.x,
+                                "y": body.y,
                                 "sons":mysons,
                                 "locked": body.locked,
                                 "owned": body.owned}};
