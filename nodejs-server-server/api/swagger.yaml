@@ -2505,6 +2505,24 @@ paths:
         "404":
           description: "No AcState found"
       x-swagger-router-controller: "AcState"
+    post:
+      tags:
+      - "AcState"
+      operationId: "createAcState"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "To create new AcState"
+        required: true
+        schema:
+          $ref: "#/definitions/AcState"
+      responses:
+        "201":
+          description: "successful operation"
+      x-swagger-router-controller: "AcState"
   /AcState/getLatestAcState:
     get:
       tags:

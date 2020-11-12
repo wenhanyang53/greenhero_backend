@@ -57,3 +57,14 @@ module.exports.creatAcStateByTimeAndState = function creatAcStateByTimeAndState 
     utils.writeJson(res, response);
   });
 };
+
+module.exports.createAcState = function createAcState (req, res, next) {
+  var body = req.swagger.params['body'].value;
+  AcState.createAcState(body)
+    .then(function (response) {
+      utils.writeJson(res, response);
+    })
+    .catch(function (response) {
+      utils.writeJson(res, response);
+    });
+};
