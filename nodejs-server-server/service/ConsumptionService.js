@@ -289,8 +289,8 @@ exports.getUserMonthAllowance = function (date, user_id) {
   return new Promise(async function (resolve, reject) {
     const user = await User.getUser(user_id);
     let allowance = 0;
-    if(user && user.allowance && user.allowance[date.getFullYear()+'_'+date.getMonth()]) {
-      allowance = user.allowance[date.getFullYear()+'_'+date.getMonth()];
+    if(user && user.consumption && user.consumption[date.getFullYear()+'_'+date.getMonth()]) {
+      allowance = user.consumption[date.getFullYear()+'_'+date.getMonth()];
     }
     resolve({total: allowance});
     var examples = {};
@@ -320,8 +320,8 @@ exports.getTotalMonthAllowance = function (date) {
     const users = await User.getAllUsers();
     let allowance = 0;
     for(let user of users) {
-      if(user && user.allowance && user.allowance[date.getFullYear()+'_'+date.getMonth()]) {
-        allowance = user.allowance[date.getFullYear()+'_'+date.getMonth()];
+      if(user && user.consumption && user.consumption[date.getFullYear()+'_'+date.getMonth()]) {
+        allowance = user.consumption[date.getFullYear()+'_'+date.getMonth()];
       }
     }
     resolve({total: allowance});
@@ -352,8 +352,8 @@ exports.getTotalWeekAllowance = function (date) {
     const users = await User.getAllUsers();
     let allowance = 0;
     for(let user of users) {
-      if(user && user.allowance && user.allowance[date.getFullYear()+'_'+date.getMonth()]) {
-        allowance = user.allowance[date.getFullYear()+'_'+date.getMonth()];
+      if(user && user.consumption && user.consumption[date.getFullYear()+'_'+date.getMonth()]) {
+        allowance = user.consumption[date.getFullYear()+'_'+date.getMonth()];
       }
     }
     resolve({total: (allowance / 4)});
