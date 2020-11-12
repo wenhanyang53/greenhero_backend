@@ -58,17 +58,6 @@ module.exports.getNumberOfPeople = function getNumberOfPeople (req, res, next) {
     });
 };
 
-module.exports.getNumberofCompletedEvent = function getNumberofCompletedEvent (req, res, next) {
-  var date = req.swagger.params['date'].value;
-  Team.getNumberofCompletedEvent(date)
-    .then(function (response) {
-      utils.writeJson(res, response);
-    })
-    .catch(function (response) {
-      utils.writeJson(res, response);
-    });
-};
-
 module.exports.getAllNumberOfPeople = function getAllNumberOfPeople (req, res, next) {
   Team.getAllNumberOfPeople()
     .then(function (response) {
@@ -115,9 +104,9 @@ module.exports.getTeamByEventIdAndTeamName = function getTeamByEventIdAndTeamNam
 };
 
 module.exports.modifyTeamById = function modifyTeamById (req, res, next) {
-  var team_id = req.swagger.params['team_id'].value;
+  var _id = req.swagger.params['_id'].value;
   var body = req.swagger.params['body'].value;
-  Team.modifyTeamById(team_id, body)
+  Team.modifyTeamById(_id, body)
     .then(function (response) {
       utils.writeJson(res, response);
     })
