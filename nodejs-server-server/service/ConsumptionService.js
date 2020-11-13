@@ -19,7 +19,7 @@ exports.createConsumption = function (body) {
       var dbo = db.db("greenhero");
       dbo.collection("Consumption").insertOne({
         "user_id": ObjectId(body.user_id),
-        "date": body.date,
+        "date": new Date(body.date),
         "total": body.total,
         "category": body.category
       }, function (err, result) {
