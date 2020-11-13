@@ -321,7 +321,7 @@ exports.getTotalMonthAllowance = function (date) {
     let allowance = 0;
     for(let user of users) {
       if(user && user.consumption && user.consumption[date.getFullYear()+'_'+date.getMonth()]) {
-        allowance = user.consumption[date.getFullYear()+'_'+date.getMonth()];
+        allowance += user.consumption[date.getFullYear()+'_'+date.getMonth()];
       }
     }
     resolve({total: allowance});
@@ -353,7 +353,7 @@ exports.getTotalWeekAllowance = function (date) {
     let allowance = 0;
     for(let user of users) {
       if(user && user.consumption && user.consumption[date.getFullYear()+'_'+date.getMonth()]) {
-        allowance = user.consumption[date.getFullYear()+'_'+date.getMonth()];
+        allowance += user.consumption[date.getFullYear()+'_'+date.getMonth()];
       }
     }
     resolve({total: (allowance / 4)});
